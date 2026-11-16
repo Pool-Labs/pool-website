@@ -1600,10 +1600,25 @@ button:focus-visible,input:focus-visible{outline:3px solid #2448FF;outline-offse
 
 </style>
 <style>
-html,body{margin:0;height:100%;overflow:hidden;background:#A9E4FF}
-.sc.sc{position:fixed;inset:0;width:100%;height:100%;max-width:none;margin:0;border:0;border-radius:0;box-shadow:none;aspect-ratio:auto;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+/* the page scrolls as a normal page (the window scrolls, not a box inside it): iPhone Safari then
+   reports the scroll position every frame, its toolbars can tuck away, and a tap on the status bar
+   goes back to the top */
+html,body{margin:0;background:#A9E4FF;overflow-x:clip}
+.sc.sc{position:relative;width:100%;height:100vh;height:100svh;max-width:none;margin:0;border:0;border-radius:0;box-shadow:none;aspect-ratio:auto;overflow:visible;overflow-x:clip}
 .sc.v-desk{display:none}
 @media (min-width:760px){.sc.v-desk{display:block}.sc.v-phone{display:none}}
+/* the next section starts below the hero card even when the screen is shorter than the design
+   (Safari's toolbars leave about 660 to 750 px of a 390 px wide iPhone): it used to slide over the card */
+.sc.v-phone .epg{top:max(100%,214cqw)}
+.sc.v-desk .epg{top:max(100%,62.5cqw)}
+/* the iPhone wall: the camera sits on the far rim of the curve, so every photo keeps its 3:2 shape
+   while the wall still bends away (a conformal view). Before, the camera sat at the curve's centre,
+   which stretched the side photos up to twice as wide. */
+.v-phone .cyl{top:12cqw;--P:42cqw}
+.v-phone .wcard{width:19cqw;margin:-6.333cqw 0 0 -9.5cqw;transform:perspective(calc(2*var(--P))) translateY(var(--y)) translateZ(var(--P)) rotateY(calc(var(--a) + var(--wob))) translateZ(calc(-1*var(--P)))}
+.v-phone .wc0,.v-phone .wc1,.v-phone .wc2,.v-phone .wc3,.v-phone .wc4{--y:-15.8cqw}
+.v-phone .wc9,.v-phone .wc10,.v-phone .wc11,.v-phone .wc12,.v-phone .wc13{--y:15.8cqw}
+@media (prefers-reduced-motion: reduce){.wcard{animation:none}}
 </style></head><body>
 <div class="sc v-desk m-x4 pal-skyred cen frh xband scr ty0 ed-aurora ed-pool ed-poolfed" aria-hidden="true">
 <div class="nav"><img src="449ca5a00d.webp" alt=""><span class="wm">Pool</span><span class="lk"><span>How it works</span><span>Drippy</span><span>Groups</span><span>FAQ</span></span><span class="cta">Join the waitlist</span><span class="mb"><i></i><i></i></span></div>
@@ -1721,6 +1736,8 @@ html,body{margin:0;height:100%;overflow:hidden;background:#A9E4FF}
     this.sc = sc;
     this.view = sc.classList.contains('v-phone') ? 'p' : 'd';
     this.epg = sc.querySelector('.epg');
+    var oy = getComputedStyle(sc).overflowY;
+    this.doc = oy !== 'auto' && oy !== 'scroll';
     this.mods = [];
     this.lastSt = null; this.vel = 0; this.acc = 0;
     this.ptr = null; this.taps = [];
@@ -1752,6 +1769,15 @@ html,body{margin:0;height:100%;overflow:hidden;background:#A9E4FF}
   Frame.prototype.metrics = function () {
     var sc = this.sc, R = sc.getBoundingClientRect(), z = R.width / (sc.offsetWidth || 1) || 1;
     var E = this.epg.getBoundingClientRect();
+    if (this.doc) {
+      // the frame is the page itself and the window scrolls: measure against the viewport. The layout
+      // viewport's height stays put while iPhone Safari's toolbars slide in and out (innerHeight does not).
+      var de = document.documentElement, V = de.clientHeight || window.innerHeight || 1, st = window.pageYOffset || de.scrollTop || 0;
+      return {
+        z: z, dev: z * Math.min(window.devicePixelRatio || 1, 2), V: V, st: st, sh: de.scrollHeight,
+        top: E.top / z + st, W: this.epg.offsetWidth, H: this.epg.offsetHeight, R: { top: 0, left: 0, width: R.width, height: V }, E: E
+      };
+    }
     return {
       z: z, dev: z * Math.min(window.devicePixelRatio || 1, 2), V: sc.clientHeight, st: sc.scrollTop, sh: sc.scrollHeight,
       top: (E.top - R.top) / z + sc.scrollTop, W: this.epg.offsetWidth, H: this.epg.offsetHeight, R: R, E: E
@@ -1768,12 +1794,17 @@ html,body{margin:0;height:100%;overflow:hidden;background:#A9E4FF}
       if (!this.P || P.key !== this.P.key) { this.P = P; this.mods.forEach(function (x) { x.dirty = true; }); }
       this.palT = now;
     }
-    if (this.lastSt == null) this.lastSt = m.st;
-    var v = (m.st - this.lastSt) / Math.max(dt, 1e-3);
+    if (this.lastSt == null || Math.abs(m.st - this.ys) > m.V * 1.5) { this.lastSt = m.st; this.ys = m.st; this.vel = 0; this.acc = 0; }
     this.lastSt = m.st;
-    var nv = this.vel + (v - this.vel) * Math.min(1, dt * 14);
-    this.acc = (nv - this.vel) / Math.max(dt, 1e-3);
-    this.vel = nv;
+    // a critically damped spring follows the scroll position; the pool feels the spring's acceleration.
+    // iPhone Safari reports the scroll position in uneven steps while a finger or momentum moves it, and a
+    // raw per-frame difference turned those steps into kicks that made the water jitter instead of slosh.
+    var Wn = 15, ns = Math.max(1, Math.ceil(dt / 0.006)), hs = dt / ns, aSum = 0;
+    for (var s = 0; s < ns; s++) {
+      var a = Wn * Wn * (m.st - this.ys) - 2 * Wn * this.vel;
+      this.vel += a * hs; this.ys += this.vel * hs; aSum += a;
+    }
+    this.acc = aSum / ns;
     if (this.ptr && now - this.ptr.t > 160) this.ptr = null;
     for (var i = 0; i < this.mods.length; i++) this.mods[i].tick(dt, m, now);
     this.taps.length = 0;
@@ -2472,15 +2503,16 @@ html,body{margin:0;height:100%;overflow:hidden;background:#A9E4FF}
       var awake = now - active < IDLE, pending = false;
       for (var i = 0; i < frames.length; i++) {
         var fr = frames[i];
-        if (!fr.onscreen || (!io && !fr.visible())) continue;
+        if (!fr.doc && (!fr.onscreen || (!io && !fr.visible()))) continue;
         if (!awake && fr.drawn) continue;
-        try { fr.tick(dt, now); fr.drawn = true; } catch (e) { fr.drawn = true; }
+        try { fr.tick(dt, now); fr.drawn = true; } catch (e) { fr.drawn = true; if (!LFX.err) { LFX.err = (e && (e.stack || e.message)) || String(e); try { console.error('LFX', e); } catch (e2) {} } }
         if (!awake) pending = true;
       }
       if (awake || pending) raf = requestAnimationFrame(loop);
     }
     scan();
     wake();
+    LFX.frames = frames;
     return { stop: function () {
       stopped = true; if (raf) cancelAnimationFrame(raf);
       EV.forEach(function (ev) { doc.removeEventListener(ev, poke, { capture: true }); });
@@ -2488,9 +2520,53 @@ html,body{margin:0;height:100%;overflow:hidden;background:#A9E4FF}
       frames.forEach(function (f) { f.drop(); });
     } };
   }
-  return { start: start };
+  var LFX = { start: start, frames: null, err: null };
+  return LFX;
 })();
 
 
-LFX.start(document);</script>
+LFX.start(document);
+
+/* ?lfxdebug: a small readout of how the liquid runs on this device (frame rate, how often the browser
+   reports a new scroll position, the pool's level and the stream). Off unless the address asks for it. */
+(function () {
+  if (!/[?&]lfxdebug\b/.test(location.search)) return;
+  var box = document.createElement('div');
+  box.id = 'lfxdbg';
+  box.style.cssText = 'position:fixed;left:8px;right:8px;bottom:8px;z-index:99;padding:8px 10px;border-radius:12px;background:rgba(10,16,28,.82);color:#fff;font:600 12px/1.4 ui-monospace,Menlo,monospace;white-space:pre-wrap;pointer-events:none';
+  document.body.appendChild(box);
+  var last = 0, dts = [], moving = 0, changed = 0, lastSt = null, t0 = performance.now(), jumps = 0;
+  function st() { var f = LFX.frames && LFX.frames[0]; return f ? (f.doc ? (window.pageYOffset || 0) : f.sc.scrollTop) : 0; }
+  function loop(now) {
+    if (last) dts.push(now - last);
+    last = now;
+    var s = st();
+    if (lastSt != null) {
+      var f = LFX.frames && LFX.frames[0];
+      var fast = f && Math.abs(f.vel) > 40;
+      if (fast) { moving++; if (s !== lastSt) changed++; else jumps++; }
+    }
+    lastSt = s;
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+  setInterval(function () {
+    var f = LFX.frames && LFX.frames.filter(function (x) { return x.sc.offsetWidth > 0; })[0];
+    var a = dts.slice().sort(function (x, y) { return x - y; }), n = a.length;
+    var avg = n ? a.reduce(function (p, q) { return p + q; }, 0) / n : 0;
+    var pool = null, pour = null;
+    if (f) f.mods.forEach(function (m) { if (m.lv != null && m.N) pool = m; if (m.parts) pour = m; });
+    box.textContent =
+      'mode ' + (f ? (f.doc ? 'page scroll' : 'inner scroll') + ' (' + f.view + ')' : '-') +
+      '  fps ' + (avg ? (1000 / avg).toFixed(0) : '-') + '  dt p95 ' + (n ? a[Math.floor(n * 0.95)].toFixed(1) : '-') + 'ms' +
+      '\nscroll ' + Math.round(st()) + '  vel ' + (f ? Math.round(f.vel) : '-') + '  acc ' + (f ? Math.round(f.acc) : '-') +
+      '  fresh ' + (moving ? Math.round(100 * changed / moving) + '%' : '-') +
+      '\npool ' + (pool ? (pool.lv * 100).toFixed(0) + '% of ' + (pool.target * 100).toFixed(0) + '%' : '-') +
+      '  stream ' + (pour ? (pour.q * 100).toFixed(0) + '% ' + pour.parts.length + ' parcels' : '-') +
+      '  V ' + (f ? f.metrics().V : '-') + '  dpr ' + (window.devicePixelRatio || 1) +
+      (LFX.err ? '\nERROR ' + String(LFX.err).slice(0, 160) : '');
+    dts = []; moving = 0; changed = 0;
+  }, 500);
+})();
+</script>
 </body></html>
