@@ -2535,17 +2535,15 @@ LFX.start(document);
   box.id = 'lfxdbg';
   box.style.cssText = 'position:fixed;left:8px;right:8px;bottom:8px;z-index:99;padding:8px 10px;border-radius:12px;background:rgba(10,16,28,.82);color:#fff;font:600 12px/1.4 ui-monospace,Menlo,monospace;white-space:pre-wrap;pointer-events:none';
   document.body.appendChild(box);
-  var last = 0, dts = [], moving = 0, changed = 0, lastSt = null, t0 = performance.now(), jumps = 0;
+  var last = 0, dts = [], moving = 0, changed = 0, lastSt = null, hist = [];
   function st() { var f = LFX.frames && LFX.frames[0]; return f ? (f.doc ? (window.pageYOffset || 0) : f.sc.scrollTop) : 0; }
   function loop(now) {
     if (last) dts.push(now - last);
     last = now;
     var s = st();
-    if (lastSt != null) {
-      var f = LFX.frames && LFX.frames[0];
-      var fast = f && Math.abs(f.vel) > 40;
-      if (fast) { moving++; if (s !== lastSt) changed++; else jumps++; }
-    }
+    // while the page is moving (it moved over the last ~6 frames), how many frames got a new position
+    hist.push(s); if (hist.length > 7) hist.shift();
+    if (lastSt != null && hist.length === 7 && Math.abs(hist[6] - hist[0]) > 3) { moving++; if (s !== lastSt) changed++; }
     lastSt = s;
     requestAnimationFrame(loop);
   }
