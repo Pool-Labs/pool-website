@@ -1,2 +1,7 @@
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /m2
+Disallow: /before
+Disallow: /r3
+
+Sitemap: https://poolapp.co/sitemap.xml

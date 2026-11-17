@@ -7,4 +7,4 @@ Pages:
 - `/m2`: the M2 design page from the board, as it was live on 16 to 17 Nov.
 - `/before`: the page before the iPhone wall and liquid fixes.
 
-Pre-launch: every page is marked `noindex`, and `robots.txt` blocks search engines.
+Live at https://poolapp.co. Search engines may index the home page; /m2 and /before are kept out of search.
