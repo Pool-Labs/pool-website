@@ -498,6 +498,64 @@ html{scroll-behavior:smooth}
 @media (max-width:759.98px){.join .jin{font-size:16px}}
 .jmsg{min-height:1.45em;margin:12px 0 0;font-size:16px;line-height:1.45;font-weight:600;color:var(--ink)}
 .join .go:disabled{opacity:.7;cursor:progress}
+
+/* Money that moves like your group: a photo stack you swipe like a dating app, beside a list that keeps up (Round 4: U0 + U2). */
+.mv .epc{padding-bottom:calc(5*var(--u))}
+.mvfine{margin:calc(2.4*var(--u)) 0 0;font-size:calc(.95*var(--u));color:color-mix(in srgb,var(--ink) 60%,transparent)}
+.mvw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:calc(5*var(--u));align-items:center;width:100%;max-width:calc(80*var(--u));margin-top:calc(3.4*var(--u));text-align:left}
+.mvs{position:relative;justify-self:center;width:calc(31*var(--u));aspect-ratio:4/5;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+.mvs:active{cursor:grabbing}
+.mvc{position:absolute;inset:0;border-radius:calc(2*var(--u));overflow:hidden;background:var(--wallbg);box-shadow:0 calc(1.2*var(--u)) calc(3*var(--u)) rgba(23,43,71,.25);z-index:var(--z,1);
+  transform:translate3d(calc(var(--x,0)*var(--u)),0,0) rotate(var(--r,0deg)) scale(var(--s,1));transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .4s;will-change:transform}
+.mvc>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
+.mvc.drag{transition:none}
+.mvc.fly{transition:transform .38s ease-in,opacity .38s ease-in;opacity:0}
+.mvc.hint{animation:mvhint 1.3s ease-in-out .2s 1}
+@keyframes mvhint{0%,100%{transform:translate3d(0,0,0) rotate(0)}30%{transform:translate3d(calc(-3*var(--u)),0,0) rotate(-5deg)}60%{transform:translate3d(calc(2*var(--u)),0,0) rotate(3deg)}}
+.mvo{position:absolute;left:calc(1.2*var(--u));bottom:calc(1.2*var(--u));display:flex;flex-direction:column;align-items:flex-start;gap:calc(.6*var(--u));z-index:2}
+.mvo>*{opacity:0;transform:translateY(calc(.8*var(--u)));transition:opacity .45s ease,transform .45s ease}
+.mvc.top .mvo>*{opacity:1;transform:none}
+.mvc.top .mvo>*:nth-child(2){transition-delay:.12s}.mvc.top .mvo>*:nth-child(3){transition-delay:.24s}
+.mvch{display:inline-flex;align-items:center;gap:calc(.55*var(--u));height:calc(2.9*var(--u));padding:0 calc(1*var(--u)) 0 calc(.35*var(--u));border-radius:999px;background:#fff;color:#172B47;font-weight:600;font-size:calc(1*var(--u));white-space:nowrap;box-shadow:0 calc(.5*var(--u)) calc(1.4*var(--u)) rgba(23,43,71,.22)}
+.mvch:not(:has(img)):not(:has(.mvdp)){padding-left:calc(1*var(--u))}
+.mvch img{width:calc(2.2*var(--u));height:calc(2.2*var(--u));border-radius:50%;object-fit:cover}
+.mvch b{margin-left:calc(.5*var(--u));font-family:inherit;font-size:1em;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:0}
+.mvdp{width:calc(1.3*var(--u));height:calc(1.7*var(--u));margin-left:calc(.5*var(--u))}
+.mvdim{opacity:.78}
+.mvok{display:grid;place-items:center;width:calc(1.5*var(--u));height:calc(1.5*var(--u));margin-left:calc(.3*var(--u));border-radius:50%;background:var(--btnbg)}
+.mvok svg{width:72%;height:72%}
+.mvmc{position:relative;display:grid;align-content:space-between;width:calc(13*var(--u));aspect-ratio:1.586;padding:calc(.9*var(--u)) calc(1.1*var(--u));border-radius:calc(1*var(--u));background:var(--popbg);color:#fff;box-shadow:var(--gloss),0 calc(.8*var(--u)) calc(2*var(--u)) rgba(80,0,12,.35);text-align:left;overflow:hidden}
+.mvmc::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 40%)}
+.mvmc i{font-style:normal;font-family:"Titan One",system-ui,sans-serif;font-size:calc(1.35*var(--u));line-height:1}
+.mvmc em{font-style:normal;font-weight:700;font-size:calc(1*var(--u));line-height:1.1}
+.mvmc small{font-size:calc(.8*var(--u));opacity:.85;letter-spacing:.06em}
+.mvmc2{position:absolute;translate:calc(3.4*var(--u)) calc(-3.4*var(--u));rotate:7deg;scale:.92}
+.mvl{list-style:none;margin:0;padding:0}
+.mvl li{border-top:1px solid color-mix(in srgb,var(--ink) 16%,transparent)}
+.mvl li:last-child{border-bottom:1px solid color-mix(in srgb,var(--ink) 16%,transparent)}
+.mvl button{display:flex;align-items:center;justify-content:space-between;gap:calc(1*var(--u));width:100%;padding:calc(1.4*var(--u)) 0;border:0;background:none;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.mvl b{font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(2.2*var(--u));line-height:1.1;opacity:.45;transition:opacity .3s}
+.mvl li.on b{opacity:1}
+.mvpm{position:relative;width:calc(1.2*var(--u));height:calc(1.2*var(--u));flex:none}
+.mvpm::before,.mvpm::after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;background:var(--ink);border-radius:2px;transition:transform .3s}
+.mvpm::after{transform:rotate(90deg)}
+.mvl li.on .mvpm::after{transform:rotate(0)}
+.mvl p{margin:0;overflow:hidden;font-size:calc(1.35*var(--u));line-height:1.45;color:color-mix(in srgb,var(--ink) 80%,transparent);max-height:0;opacity:0;transition:max-height .4s ease,opacity .3s,padding .4s}
+.mvl li.on p{max-height:calc(9*var(--u));opacity:1;padding-bottom:calc(1.4*var(--u))}
+@media (max-width:759.98px){
+  .sc .mvfine{font-size:3.2cqw}
+  .sc .mvw{grid-template-columns:minmax(0,1fr);gap:7cqw;max-width:none;margin-top:6cqw}
+  .sc .mvs{width:74cqw;border-radius:5cqw}
+  .sc .mvc{border-radius:5cqw}
+  .sc .mvo{left:3.4cqw;bottom:3.4cqw;gap:1.8cqw}
+  .sc .mvch{height:8.6cqw;font-size:3.5cqw;padding:0 3cqw 0 1cqw;gap:1.6cqw}
+  .sc .mvch:not(:has(img)):not(:has(.mvdp)){padding-left:3cqw}
+  .sc .mvch img{width:6.6cqw;height:6.6cqw}
+  .sc .mvmc{width:34cqw}.sc .mvmc i{font-size:4.2cqw}.sc .mvmc em{font-size:3.3cqw}.sc .mvmc small{font-size:2.6cqw}
+  .sc .mvl b{font-size:5.6cqw}.sc .mvl button{padding:4cqw 0}.sc .mvpm{width:3.6cqw;height:3.6cqw}
+  .sc .mvl p{font-size:4cqw}.sc .mvl li.on p{max-height:34cqw;padding-bottom:4cqw}
+}
+@media (prefers-reduced-motion:reduce){.mvc,.mvo>*,.mvl p{transition:none}.mvc.hint{animation:none}}
 </style>
 </head>
 <body>
@@ -517,7 +575,7 @@ html{scroll-behavior:smooth}
 
 
 
-<span class="cue" aria-hidden="true">Scroll<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></span><div class="epg"><canvas class="lfx lfx-rib" data-fx="pour" aria-hidden="true"></canvas><section class="eps eps1" id="social" aria-labelledby="h-social"><div class="epc"><h2 class="bh" id="h-social">Money is social now</h2><p class="bs">The best parts of life happen with other people.</p><div class="echips"><span class="echip"><img src="assets/6738eff053.webp" alt="">Friday dinners</span><span class="echip"><img src="assets/4d55660b2c.webp" alt="">Road trip</span><span class="echip"><img src="assets/7f87d6fa43.webp" alt="">Dorm 3C</span><span class="echip"><img src="assets/5060878c07.webp" alt="">Game night</span></div></div></section><section class="eps eps2" id="how" aria-labelledby="h-how"><div class="epc"><canvas class="lfx lfx-pool" data-fx="pool" aria-hidden="true"></canvas><h2 class="bh" id="h-how">How a pool works</h2><ol class="esteps"><li><b>Start a pool for your group</b><span>Name it, add your people, say what it’s for.</span></li><li><b>Everyone chips in</b><span>The pool fills up before anyone spends a dollar.</span></li><li><b>Spend it together</b><span>Tap your group’s virtual card. Everyone sees&nbsp;it.</span></li></ol></div></section><section class="eps eps3" id="join" aria-labelledby="h-join"><div class="epc"><h2 class="bh" id="h-join">Get Pool first.</h2><p class="bs">Join the waitlist and we’ll tell you when Pool&nbsp;opens.</p><form class="join" id="waitlist" novalidate data-endpoint="https://app.loops.so/api/newsletter-form/cmwl3l3fe00og0jyopp1idia0"><label class="vh" for="wl-email">Your email</label><input id="wl-email" class="jin" type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@email.com" required><button class="go" type="submit">Join the waitlist</button></form><p class="jmsg" id="wl-msg" role="status" aria-live="polite"></p></div></section></div>
+<span class="cue" aria-hidden="true">Scroll<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></span><div class="epg"><canvas class="lfx lfx-rib" data-fx="pour" aria-hidden="true"></canvas><section class="eps eps1" id="social" aria-labelledby="h-social"><div class="epc"><h2 class="bh" id="h-social">Money is social now</h2><p class="bs">The best parts of life happen with other people.</p><div class="echips"><span class="echip"><img src="assets/6738eff053.webp" alt="">Friday dinners</span><span class="echip"><img src="assets/4d55660b2c.webp" alt="">Road trip</span><span class="echip"><img src="assets/7f87d6fa43.webp" alt="">Dorm 3C</span><span class="echip"><img src="assets/5060878c07.webp" alt="">Game night</span></div></div></section><section class="eps eps2" id="how" aria-labelledby="h-how"><div class="epc"><canvas class="lfx lfx-pool" data-fx="pool" aria-hidden="true"></canvas><h2 class="bh" id="h-how">How a pool works</h2><ol class="esteps"><li><b>Start a pool for your group</b><span>Name it, add your people, say what it’s for.</span></li><li><b>Everyone chips in</b><span>The pool fills up before anyone spends a dollar.</span></li><li><b>Spend it together</b><span>Tap your group’s virtual card. Everyone sees&nbsp;it.</span></li></ol></div></section><section class="eps eps3 mv" id="features" aria-labelledby="h-feat"><div class="epc"><h2 class="bh" id="h-feat">Money that moves like your group</h2><div class="mvw" data-mv><div class="mvs" aria-hidden="true"><div class="mvc" data-k="0"><img src="assets/f3f823a08e.webp" alt="" loading="lazy" style="object-position:50% 50%"><div class="mvo"><span class="mvmc mvmc2"><i>Pool</i><em>Ski trip</em><small>•• 7302</small></span><span class="mvmc"><i>Pool</i><em>Friday dinners</em><small>•• 4821</small></span></div></div><div class="mvc" data-k="1"><img src="assets/5eeadeca8b.webp" alt="" loading="lazy" style="object-position:62% 50%"><div class="mvo"><span class="mvch"><img src="assets/6738eff053.webp" alt="">Maya can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch"><img src="assets/7f87d6fa43.webp" alt="">Rin can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch mvdim"><img src="assets/5060878c07.webp" alt="">Liv, view only</span></div></div><div class="mvc" data-k="2"><img src="assets/1b0b6bba10.webp" alt="" loading="lazy" style="object-position:50% 40%"><div class="mvo"><span class="mvch"><img src="assets/4d55660b2c.webp" alt="">Leo chipped in<b>+$22</b></span><span class="mvch"><img src="assets/75dfbc8993.webp" alt="">Pizza, Maya<b>−$42.80</b></span></div></div><div class="mvc" data-k="3"><img src="assets/e5e2cc8502.webp" alt="" loading="lazy" style="object-position:45% 50%"><div class="mvo"><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>6-week streak<b>+25</b></span><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>Pool droplets<b>2,960</b></span><span class="mvch">Custom card unlocked<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span></div></div></div><ul class="mvl"><li class="on"><button type="button" data-i="0" aria-pressed="true"><b>One card per pool</b><span class="mvpm" aria-hidden="true"></span></button><p>Every pool gets its own virtual card.</p></li><li><button type="button" data-i="1" aria-pressed="false"><b>Pick who can tap</b><span class="mvpm" aria-hidden="true"></span></button><p>The host decides who can spend, and can change it anytime.</p></li><li><button type="button" data-i="2" aria-pressed="false"><b>See every dollar</b><span class="mvpm" aria-hidden="true"></span></button><p>Every chip-in and every spend shows up for everyone.</p></li><li><button type="button" data-i="3" aria-pressed="false"><b>Droplets for your pool</b><span class="mvpm" aria-hidden="true"></span></button><p>Keep your streak, stack droplets and unlock a custom card that’s lowkey iconic. Plus discounts, waived fees and exclusive merch.</p></li></ul></div><p class="mvfine">Example groups and amounts.</p></div></section><section class="eps eps3" id="join" aria-labelledby="h-join"><div class="epc"><h2 class="bh" id="h-join">Get Pool first.</h2><p class="bs">Join the waitlist and we’ll tell you when Pool&nbsp;opens.</p><form class="join" id="waitlist" novalidate data-endpoint="https://app.loops.so/api/newsletter-form/cmwl3l3fe00og0jyopp1idia0"><label class="vh" for="wl-email">Your email</label><input id="wl-email" class="jin" type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@email.com" required><button class="go" type="submit">Join the waitlist</button></form><p class="jmsg" id="wl-msg" role="status" aria-live="polite"></p></div></section></div>
 
 </div>
 <script>
@@ -1493,6 +1551,81 @@ var LFX = (function () {
       else done('That didn’t go through. Check the address and try again.', false);
     }, function () { done('That didn’t go through. Check your connection and try again.', false); });
   });
+})();
+
+// Money that moves like your group: swipe the photo stack like a dating app; the list keeps up, and tapping a line brings its photo to the top.
+(function () {
+  var box = document.querySelector('[data-mv]');
+  if (!box) return;
+  var stack = box.querySelector('.mvs'), cards = [].slice.call(box.querySelectorAll('.mvc'));
+  var rows = [].slice.call(box.querySelectorAll('.mvl li')), btns = rows.map(function (li) { return li.querySelector('button'); });
+  var order = cards.map(function (c, i) { return i; });
+  var POSE = [[0, 0, 1], [2.2, 5, .95], [-2.2, -5, .9], [1.2, 9, .86]]; // x (in --u), rotation, scale
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var manual = false, timer = null, busy = false, seen = false;
+
+  function lay() {
+    order.forEach(function (ci, pos) {
+      var c = cards[ci], p = POSE[pos];
+      c.style.setProperty('--x', p[0]); c.style.setProperty('--r', p[1] + 'deg'); c.style.setProperty('--s', p[2]); c.style.setProperty('--z', 10 - pos);
+      c.classList.toggle('top', pos === 0);
+    });
+    var top = order[0];
+    rows.forEach(function (li, j) { li.classList.toggle('on', j === top); btns[j].setAttribute('aria-pressed', j === top ? 'true' : 'false'); });
+  }
+  function stop() { manual = true; clearInterval(timer); }
+  function next(dir) {
+    if (busy) return; busy = true;
+    var c = cards[order[0]];
+    c.classList.remove('drag');
+    c.style.transform = 'translate3d(' + (dir * 130) + '%,' + (-4) + '%,0) rotate(' + (dir * 22) + 'deg)';
+    c.classList.add('fly');
+    setTimeout(function () {
+      order.push(order.shift());
+      c.style.transition = 'none'; c.classList.remove('fly'); c.style.transform = '';
+      lay(); void c.offsetWidth; c.style.transition = ''; busy = false;
+    }, reduce ? 0 : 380);
+  }
+  function bring(k) { if (busy || order[0] === k) return; while (order[0] !== k) order.push(order.shift()); lay(); }
+
+  btns.forEach(function (b, j) { b.addEventListener('click', function () { stop(); bring(j); }); });
+
+  // drag: the top card follows the finger, then flies off or snaps back
+  var x0 = 0, y0 = 0, dx = 0, id = null, moved = false;
+  stack.addEventListener('pointerdown', function (e) {
+    if (busy || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    id = e.pointerId; x0 = e.clientX; y0 = e.clientY; dx = 0; moved = false;
+  });
+  stack.addEventListener('pointermove', function (e) {
+    if (e.pointerId !== id) return;
+    dx = e.clientX - x0; var dy = e.clientY - y0;
+    if (!moved) {
+      if (Math.abs(dy) > 10 && Math.abs(dy) > Math.abs(dx)) { id = null; return; } // a vertical scroll, not a swipe
+      if (Math.abs(dx) < 6) return;
+      moved = true; stop(); try { stack.setPointerCapture(id); } catch (err) {}
+      cards[order[0]].classList.add('drag');
+    }
+    cards[order[0]].style.transform = 'translate3d(' + dx + 'px,' + (dy * .15) + 'px,0) rotate(' + (dx * .06) + 'deg)';
+  });
+  function end(e) {
+    if (e.pointerId !== id) return;
+    var c = cards[order[0]]; id = null;
+    if (!moved) { stop(); next(1); return; }
+    if (Math.abs(dx) > stack.offsetWidth * .22) next(dx > 0 ? 1 : -1);
+    else { c.classList.remove('drag'); c.style.transform = ''; }
+  }
+  stack.addEventListener('pointerup', end);
+  stack.addEventListener('pointercancel', function (e) { if (e.pointerId === id) { id = null; var c = cards[order[0]]; c.classList.remove('drag'); c.style.transform = ''; } });
+
+  lay();
+  function visible(v) {
+    clearInterval(timer);
+    if (!v) return;
+    if (!seen && !reduce) { seen = true; var c = cards[order[0]]; c.classList.add('hint'); setTimeout(function () { c.classList.remove('hint'); }, 1700); }
+    if (!manual && !reduce) timer = setInterval(function () { next(-1); }, 5200);
+  }
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { visible(es[0].isIntersecting); }, { threshold: .35 }).observe(box);
+  else visible(true);
 })();
 
 /* ?lfxdebug: a small readout of how the liquid runs on this device (frame rate, how often the browser
