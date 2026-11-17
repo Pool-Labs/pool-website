@@ -536,6 +536,8 @@ html{scroll-behavior:smooth}
 .mvl button{display:flex;align-items:center;justify-content:space-between;gap:calc(1*var(--u));width:100%;padding:calc(1.4*var(--u)) 0;border:0;background:none;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
 .mvl b{font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(2.2*var(--u));line-height:1.1;opacity:.45;transition:opacity .3s}
 .mvl li.on b{opacity:1}
+.mvl button:focus{outline:none}
+.mvl button:focus-visible{outline:2px solid var(--ink);outline-offset:4px;border-radius:12px}
 .mvpm{position:relative;width:calc(1.2*var(--u));height:calc(1.2*var(--u));flex:none}
 .mvpm::before,.mvpm::after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;background:var(--ink);border-radius:2px;transition:transform .3s}
 .mvpm::after{transform:rotate(90deg)}
@@ -1586,7 +1588,7 @@ var LFX = (function () {
       lay(); void c.offsetWidth; c.style.transition = ''; busy = false;
     }, reduce ? 0 : 380);
   }
-  function bring(k) { if (busy || order[0] === k) return; while (order[0] !== k) order.push(order.shift()); lay(); }
+  function bring(k) { if (busy) { setTimeout(function () { bring(k); }, 120); return; } if (order[0] === k) { lay(); return; } while (order[0] !== k) order.push(order.shift()); lay(); }
 
   btns.forEach(function (b, j) { b.addEventListener('click', function () { stop(); bring(j); }); });
 
