@@ -2567,4 +2567,77 @@ LFX.start(document);
   }, 500);
 })();
 </script>
+<script>// Debug only (?film): scrolls the phone page to the pool by script, snapshots the liquid canvases every 150 ms,
+// records the engine's timing, then shows a contact sheet so a real-device screenshot shows the motion.
+(function () {
+  if (!/[?&]lfxfilm/.test(location.search)) return;
+  var q = new URLSearchParams(location.search), DUR = +(q.get('dur') || 2000), HOLD = +(q.get('hold') || 2500), STEP = 150;
+  function vis() { return [].slice.call(document.querySelectorAll('.sc')).filter(function (e) { return getComputedStyle(e).display !== 'none'; })[0]; }
+  setTimeout(function () {
+    var sc = vis(); document.documentElement.style.scrollBehavior = 'auto'; var epg = sc.querySelector('.epg'), panel = sc.querySelector('.eps2 .epc');
+    var R0 = sc.getBoundingClientRect(), P0 = panel.getBoundingClientRect();
+    var from = window.pageYOffset, to = from + P0.top - 120, ez = q.get('ease') || 'io';
+    var cvs = [].slice.call(epg.querySelectorAll('canvas.lfx'));
+    var log = [], shots = [], t0 = performance.now(), lastShot = -1e9, fr = null;
+    var L = window.LFX; if (L && L.frames) fr = L.frames.filter(function (f) { return f.sc === sc; })[0];
+    if (fr) { var ot = fr.tick; fr.tick = function (dt, now) { var a = performance.now(); ot.call(this, dt, now); this.__ms = performance.now() - a; }; }
+    var EW = epg.offsetWidth, top0 = P0.top - R0.top + sc.scrollTop - (R0.top - R0.top); // panel top in sc content coords
+    var E0 = epg.getBoundingClientRect(), ptopE = P0.top - E0.top; // panel top in epg coords
+    var cropY = ptopE - 300, cropH = Math.min(panel.offsetHeight, 560) + 300;
+    var DPR = window.devicePixelRatio || 1;
+    function snap(t) {
+      var E = epg.getBoundingClientRect(), c = document.createElement('canvas'), s = 0.5;
+      c.width = Math.round(EW * s * DPR); c.height = Math.round(cropH * s * DPR);
+      var x = c.getContext('2d'); x.fillStyle = '#A9E4FF'; x.fillRect(0, 0, c.width, c.height);
+      x.setTransform(s * DPR, 0, 0, s * DPR, 0, 0);
+      cvs.forEach(function (cv) {
+        var r = cv.getBoundingClientRect();
+        x.drawImage(cv, r.left - E.left, r.top - E.top - cropY, r.width, r.height);
+      });
+      x.setTransform(1, 0, 0, 1, 0, 0);
+      x.fillStyle = '#000'; x.font = (11 * DPR) + 'px sans-serif'; x.fillText((t / 1000).toFixed(2) + 's', 4 * DPR, 12 * DPR);
+      shots.push(c);
+    }
+    function ease(u) { return u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2; }
+    var prevNow = 0;
+    function loop(now) {
+      var t = now - t0, u = Math.min(1, t / DUR);
+      window.scrollTo(0, from + (to - from) * (ez === 'out' ? 1 - Math.pow(1 - u, 3) : ease(u)));
+      var pool = null, pour = null;
+      if (fr) fr.mods.forEach(function (m) { if (m.constructor.name === 'Pool' || m.lv != null) pool = m; else if (m.parts) pour = m; });
+      log.push({ t: t, dt: prevNow ? now - prevNow : 0, st: window.pageYOffset, lv: pool ? pool.lv : 0, tg: pool ? pool.target : 0, q: pour ? pour.q : 0, n: pour ? pour.parts.length : 0, ms: fr ? fr.__ms || 0 : 0 });
+      prevNow = now;
+      if (t - lastShot >= STEP) { lastShot = t; snap(t); }
+      if (t < DUR + HOLD) requestAnimationFrame(loop); else show();
+    }
+    requestAnimationFrame(loop);
+    function show() {
+      var W = window.innerWidth, cols = 6, tw = W / cols, th = tw * cropH / EW;
+      var rows = Math.ceil(shots.length / cols), ov = document.createElement('div');
+      ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:#fff;overflow:auto;font:11px/1.3 -apple-system,sans-serif;color:#000';
+      var sh = document.createElement('canvas'); sh.width = Math.round(W * DPR); sh.height = Math.round(rows * th * DPR);
+      sh.style.width = W + 'px'; sh.style.height = rows * th + 'px'; sh.style.display = 'block';
+      var x = sh.getContext('2d');
+      shots.forEach(function (c, i) { x.drawImage(c, (i % cols) * tw * DPR, Math.floor(i / cols) * th * DPR, tw * DPR - 2, th * DPR - 2); });
+      ov.appendChild(sh);
+      // timing summary
+      var d = log.map(function (r) { return r.dt; }).filter(function (v) { return v > 0; }).sort(function (a, b) { return a - b; });
+      var p = function (k) { return d.length ? d[Math.min(d.length - 1, Math.floor(d.length * k))].toFixed(1) : '-'; };
+      var ms = log.map(function (r) { return r.ms; }).sort(function (a, b) { return a - b; });
+      var stDup = 0; for (var i = 1; i < log.length; i++) if (log[i].t < DUR && log[i].st === log[i - 1].st) stDup++;
+      var info = document.createElement('div'); info.style.padding = '6px';
+      info.textContent = 'frames ' + log.length + ' · dt ms p50 ' + p(.5) + ' p90 ' + p(.9) + ' max ' + p(.999) + ' · tick ms p50 ' + (ms[ms.length >> 1] || 0).toFixed(1) + ' max ' + (ms[ms.length - 1] || 0).toFixed(1) + ' · same-scroll frames ' + stDup + ' · final lv ' + (log.length ? log[log.length - 1].lv.toFixed(2) : '-') + ' tg ' + (log.length ? log[log.length - 1].tg.toFixed(2) : '-') + ' · dpr ' + DPR + ' · ' + innerWidth + 'x' + innerHeight;
+      ov.appendChild(info);
+      // plots: level and target (blue/grey), valve q (red), dt (black)
+      var pc = document.createElement('canvas'), PH = 120; pc.width = W * DPR; pc.height = PH * DPR; pc.style.width = W + 'px'; pc.style.height = PH + 'px';
+      var y = pc.getContext('2d'), T = DUR + HOLD; y.scale(DPR, DPR);
+      function plot(f, col, mx) { y.beginPath(); log.forEach(function (r, i) { var X = r.t / T * W, Y = PH - 4 - Math.min(1, f(r) / mx) * (PH - 8); i ? y.lineTo(X, Y) : y.moveTo(X, Y); }); y.strokeStyle = col; y.lineWidth = 1.2; y.stroke(); }
+      plot(function (r) { return r.tg; }, '#bbb', 1); plot(function (r) { return r.lv; }, '#1565c0', 1); plot(function (r) { return r.q; }, '#d32f2f', 1); plot(function (r) { return r.dt; }, '#000', 50);
+      ov.appendChild(pc);
+      document.body.appendChild(ov);
+      window.__film = { log: log };
+    }
+  }, +(q.get('wait') || 1500));
+})();
+</script>
 </body></html>
