@@ -1,6 +1,6 @@
 {
   "cleanUrls": true,
   "headers": [
-    { "source": "/(m2|before)(.*)", "headers": [ { "key": "X-Robots-Tag", "value": "noindex, nofollow" } ] }
+    { "source": "/(m2|before|r3)(.*)", "headers": [ { "key": "X-Robots-Tag", "value": "noindex, nofollow" } ] }
   ]
 }
