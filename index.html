@@ -671,6 +671,7 @@ var LFX = (function () {
   };
   Frame.prototype.find = function (C) { for (var i = 0; i < this.mods.length; i++) if (this.mods[i] instanceof C) return this.mods[i]; return null; };
   Frame.prototype.busy = function () {
+    if (!this.sc.offsetWidth) return false; // a hidden copy (the other view's markup) never keeps the page awake
     for (var i = 0; i < this.mods.length; i++) if (this.mods[i].busy && this.mods[i].busy()) return true;
     return false;
   };
