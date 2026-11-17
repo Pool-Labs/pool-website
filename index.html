@@ -1810,6 +1810,11 @@ html,body{margin:0;background:#A9E4FF;overflow-x:clip}
     this.taps.length = 0;
   };
   Frame.prototype.find = function (C) { for (var i = 0; i < this.mods.length; i++) if (this.mods[i] instanceof C) return this.mods[i]; return null; };
+  Frame.prototype.busy = function () {
+    if (!this.sc.offsetWidth) return false; // a hidden copy (the other view's markup) never keeps the page awake
+    for (var i = 0; i < this.mods.length; i++) if (this.mods[i].busy && this.mods[i].busy()) return true;
+    return false;
+  };
   Frame.prototype.drop = function () {
     this.sc.removeEventListener('pointermove', this.onMove);
     this.sc.removeEventListener('pointerdown', this.onDown);
@@ -2038,6 +2043,13 @@ html,body{margin:0;background:#A9E4FF;overflow-x:clip}
     this.mask();
     this.draw(m);
   };
+  // still moving: waves not yet flat, drops in the air, bubbles rising, or the level still rising to its mark
+  Pool.prototype.busy = function () {
+    if (this.drops.length || this.bubs.length) return true;
+    if (this.fed && this.target - this.lv > 0.002) return true;
+    for (var i = 0; i < this.N; i++) if (Math.abs(this.h[i]) > 0.25 || Math.abs(this.v[i]) > 4) return true;
+    return false;
+  };
   Pool.prototype.kick = function () { for (var i = 0; i < 3; i++) this.push(this.rand() * this.W, -90 - this.rand() * 60, 2); };
   // The surface is a row of columns that carry waves (the wave equation, walls at both ends). The waves only move
   // water about: after every step the columns' heights and speeds average to zero, so a dent under the stream is
@@ -2211,6 +2223,7 @@ html,body{margin:0;background:#A9E4FF;overflow-x:clip}
     this.dtE = 1 / 150;
     this.rate = 0.55;
   }
+  Pour.prototype.busy = function () { return this.q > 0.025 || this.parts.length > 0 || this.inflight > 0.001; };
   Pour.prototype.nozzle = function (m) {
     var sx = m.W / (this.ph ? 290 : 988), sy = m.H / (this.ph ? 822 : 828);
     return this.ph ? { x: 304 * sx, y: 96 * sy, vx: -125 * sx, vy: 0 } : { x: 1012 * sx, y: 22 * sy, vx: -285 * sx, vy: 30 * sy };
@@ -2522,11 +2535,12 @@ html,body{margin:0;background:#A9E4FF;overflow-x:clip}
       var dt = last ? Math.min(0.05, (now - last) / 1000) : 1 / 60;
       last = now;
       if (now - scanT > 1200) { scanT = now; scan(); }
-      var awake = now - active < IDLE, pending = false;
+      var quiet = now - active, awake = quiet < IDLE, pending = false;
       for (var i = 0; i < frames.length; i++) {
         var fr = frames[i];
         if (!fr.doc && (!fr.onscreen || (!io && !fr.visible()))) continue;
-        if (!awake && fr.drawn) continue;
+        var live = awake || (quiet < IDLE * 4 && fr.busy());
+        if (!live && fr.drawn) continue;
         try { fr.tick(dt, now); fr.drawn = true; } catch (e) { fr.drawn = true; if (!LFX.err) { LFX.err = (e && (e.stack || e.message)) || String(e); try { console.error('LFX', e); } catch (e2) {} } }
         if (!awake) pending = true;
       }
