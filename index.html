@@ -492,6 +492,7 @@ html{scroll-behavior:smooth}
 /* iPhone Safari zooms into any field under 16 px when it is tapped */
 @media (max-width:759.98px){.join .jin{font-size:16px}}
 .jmsg{min-height:1.45em;margin:12px 0 0;font-size:16px;line-height:1.45;font-weight:600;color:var(--ink)}
+.join .go:disabled{opacity:.7;cursor:progress}
 </style>
 </head>
 <body>
@@ -511,7 +512,7 @@ html{scroll-behavior:smooth}
 
 
 
-<span class="cue" aria-hidden="true">Scroll<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></span><div class="epg"><canvas class="lfx lfx-rib" data-fx="pour" aria-hidden="true"></canvas><section class="eps eps1" id="social" aria-labelledby="h-social"><div class="epc"><h2 class="bh" id="h-social">Money is social now</h2><p class="bs">The best parts of life happen with other people.</p><div class="echips"><span class="echip"><img src="assets/6738eff053.webp" alt="">Friday dinners</span><span class="echip"><img src="assets/4d55660b2c.webp" alt="">Road trip</span><span class="echip"><img src="assets/7f87d6fa43.webp" alt="">Dorm 3C</span><span class="echip"><img src="assets/5060878c07.webp" alt="">Game night</span></div></div></section><section class="eps eps2" id="how" aria-labelledby="h-how"><div class="epc"><canvas class="lfx lfx-pool" data-fx="pool" aria-hidden="true"></canvas><h2 class="bh" id="h-how">How a pool works</h2><ol class="esteps"><li><b>Start a pool for your group</b><span>Name it, add your people, say what it’s for.</span></li><li><b>Everyone chips in</b><span>The pool fills up before anyone spends a dollar.</span></li><li><b>Spend it together</b><span>Tap your group’s virtual card. Everyone sees&nbsp;it.</span></li></ol></div></section><section class="eps eps3" id="join" aria-labelledby="h-join"><div class="epc"><h2 class="bh" id="h-join">Get Pool first.</h2><p class="bs">Join the waitlist and we’ll tell you when Pool&nbsp;opens.</p><form class="join" id="waitlist" novalidate><label class="vh" for="wl-email">Your email</label><input id="wl-email" class="jin" type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@email.com" required><button class="go" type="submit">Join the waitlist</button></form><p class="jmsg" id="wl-msg" role="status" aria-live="polite"></p></div></section></div>
+<span class="cue" aria-hidden="true">Scroll<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></span><div class="epg"><canvas class="lfx lfx-rib" data-fx="pour" aria-hidden="true"></canvas><section class="eps eps1" id="social" aria-labelledby="h-social"><div class="epc"><h2 class="bh" id="h-social">Money is social now</h2><p class="bs">The best parts of life happen with other people.</p><div class="echips"><span class="echip"><img src="assets/6738eff053.webp" alt="">Friday dinners</span><span class="echip"><img src="assets/4d55660b2c.webp" alt="">Road trip</span><span class="echip"><img src="assets/7f87d6fa43.webp" alt="">Dorm 3C</span><span class="echip"><img src="assets/5060878c07.webp" alt="">Game night</span></div></div></section><section class="eps eps2" id="how" aria-labelledby="h-how"><div class="epc"><canvas class="lfx lfx-pool" data-fx="pool" aria-hidden="true"></canvas><h2 class="bh" id="h-how">How a pool works</h2><ol class="esteps"><li><b>Start a pool for your group</b><span>Name it, add your people, say what it’s for.</span></li><li><b>Everyone chips in</b><span>The pool fills up before anyone spends a dollar.</span></li><li><b>Spend it together</b><span>Tap your group’s virtual card. Everyone sees&nbsp;it.</span></li></ol></div></section><section class="eps eps3" id="join" aria-labelledby="h-join"><div class="epc"><h2 class="bh" id="h-join">Get Pool first.</h2><p class="bs">Join the waitlist and we’ll tell you when Pool&nbsp;opens.</p><form class="join" id="waitlist" novalidate data-endpoint="https://app.loops.so/api/newsletter-form/cmwl3l3fe00og0jyopp1idia0"><label class="vh" for="wl-email">Your email</label><input id="wl-email" class="jin" type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@email.com" required><button class="go" type="submit">Join the waitlist</button></form><p class="jmsg" id="wl-msg" role="status" aria-live="polite"></p></div></section></div>
 
 </div>
 <script>
@@ -1450,18 +1451,42 @@ var LFX = (function () {
     document.addEventListener('pointerdown', function (e) { if (!menu.hidden && !e.target.closest('.nav')) closeMenu(false); });
   }
 
-  // the waitlist: checks the address; the list itself is not connected yet, and the message says so
+  // the waitlist: checks the address, then sends it to the Loops form endpoint named in the form's data-endpoint
+  // (Loops > Forms > Settings). With no endpoint set, nothing is saved, and the message says so honestly.
   var form = document.getElementById('waitlist'), msg = document.getElementById('wl-msg');
   if (form && msg) form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var v = (form.email.value || '').trim();
+    var v = (form.email.value || '').trim(), url = form.getAttribute('data-endpoint') || '', btn = form.querySelector('button');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) {
       msg.textContent = 'Enter an email address, like you@email.com.';
       form.email.focus();
       return;
     }
-    msg.textContent = 'Thanks! This preview doesn’t save sign-ups yet; the real list opens before launch.';
-    form.reset();
+    if (!url) {
+      msg.textContent = 'Thanks! This preview doesn’t save sign-ups yet; the real list opens before launch.';
+      form.reset();
+      return;
+    }
+    if (form.getAttribute('aria-busy') === 'true') return;
+    form.setAttribute('aria-busy', 'true'); if (btn) btn.disabled = true;
+    msg.textContent = 'Adding you…';
+    var done = function (text, ok) {
+      msg.textContent = text; form.removeAttribute('aria-busy'); if (btn) btn.disabled = false;
+      if (ok) form.reset();
+    };
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: 'email=' + encodeURIComponent(v) + '&source=' + encodeURIComponent('Website waitlist')
+    }).then(function (r) {
+      if (r.status === 429) { done('Too many sign-ups from here just now. Try again in a minute.', false); return null; }
+      return r.json().catch(function () { return { success: r.ok }; });
+    }).then(function (j) {
+      if (!j) return;
+      if (j.success) done('You’re on the list. We’ll email you when Pool opens.', true);
+      else if (/already/i.test(j.message || '')) done('You’re already on the list. We’ll email you when Pool opens.', true);
+      else done('That didn’t go through. Check the address and try again.', false);
+    }, function () { done('That didn’t go through. Check your connection and try again.', false); });
   });
 })();
 
