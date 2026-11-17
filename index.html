@@ -1945,23 +1945,28 @@ html,body{margin:0;background:#A9E4FF;overflow-x:clip}
     this.drops = []; this.bubs = []; this.lv = (fill || fed) ? 0 : 1; this.acc = 0; this.seen = false; this.target = this.lv;
     var low = f.sc.classList.contains('ed-lowwave');
     this.amax = f.view === 'p' ? (low ? 9 : 15) : (low ? 18 : 24);
-    this.c = f.view === 'p' ? 210 : 290;
+    // wave speed, damping and viscosity: a slosh across the phone's pool takes about 1.5 s and dies away in about
+    // 3 s, like a real tank of that size seen from that close; the wide desktop pool is slower in proportion
+    this.c = f.view === 'p' ? 470 : 520;
+    this.damp = f.view === 'p' ? 0.9 : 0.8; this.k0 = 0.6; this.vis = f.view === 'p' ? 4 : 5;
     this.cut = -1; this.kids = null;
     this.rnd = 1234567 + (f.view === 'p' ? 7 : 3);
   }
   Pool.prototype.rand = function () { this.rnd = (this.rnd * 1103515245 + 12345) & 0x7fffffff; return this.rnd / 0x7fffffff; };
   Pool.prototype.col = function (x) { return clamp(Math.floor(x / this.dx), 0, this.N - 1); };
+  // a push near a wall is reflected by it, as water is, instead of part of it vanishing past the edge
   Pool.prototype.push = function (x, amt, wid) {
-    var j = x / this.dx - 0.5, w = wid || 2.2;
-    for (var i = Math.max(0, Math.floor(j - w * 2)); i <= Math.min(this.N - 1, Math.ceil(j + w * 2)); i++) {
-      var d = (i - j) / w; this.v[i] += amt * Math.exp(-d * d);
+    var j = x / this.dx - 0.5, w = wid || 2.2, N = this.N;
+    for (var i = Math.floor(j - w * 2); i <= Math.ceil(j + w * 2); i++) {
+      var d = (i - j) / w, k = i < 0 ? -i - 1 : (i > N - 1 ? 2 * N - 1 - i : i);
+      if (k >= 0 && k < N) this.v[k] += amt * Math.exp(-d * d);
     }
   };
   Pool.prototype.surfY = function (x) {
     var j = clamp(x / this.dx - 0.5, 0, this.N - 1), a = Math.floor(j), b = Math.min(this.N - 1, a + 1), t = j - a;
     return this.rest - this.disp(this.h[a] * (1 - t) + this.h[b] * t);
   };
-  Pool.prototype.disp = function (h) { return this.amax * Math.tanh(h / this.amax); };
+  Pool.prototype.disp = function (h) { var A = this.amax * 1.7; return A * Math.tanh(h / A); };
   Pool.prototype.tick = function (dt, m, now) {
     var cv = this.cv, f = this.f, w = cv.offsetWidth, hh = cv.offsetHeight;
     if (fit(cv, w, hh, m.dev)) this.dirty = true;
@@ -1994,7 +1999,8 @@ html,body{margin:0;background:#A9E4FF;overflow-x:clip}
     if (!RM) {
       // the page's motion sloshes the pool; a fast scroll also makes it choppy
       var N = this.N, i;
-      var sl = clamp(-f.acc * 0.0075, -1400, 1400) * dt;
+      // (stronger than before because the faster waves need a firmer push to show the same slosh)
+      var sl = clamp(-f.acc * (f.view === 'p' ? 0.024 : 0.0135), -2400, 2400) * dt;
       for (i = 0; i < N; i++) this.v[i] += sl * Math.cos(Math.PI * (i + 0.5) / N) * 0.9 + sl * 0.18;
       var ox = (cr.left - m.E.left) / m.z, oy = (cr.top - m.E.top) / m.z;
       // the ribbon's tip going into the liquid makes a splash; pulling it back out makes a smaller one
@@ -2033,15 +2039,23 @@ html,body{margin:0;background:#A9E4FF;overflow-x:clip}
     this.draw(m);
   };
   Pool.prototype.kick = function () { for (var i = 0; i < 3; i++) this.push(this.rand() * this.W, -90 - this.rand() * 60, 2); };
+  // The surface is a row of columns that carry waves (the wave equation, walls at both ends). The waves only move
+  // water about: after every step the columns' heights and speeds average to zero, so a dent under the stream is
+  // paid for by the water around it and spreads out as ripples, instead of becoming a step that never levels out.
+  // The level itself (how full the pool is) is held separately.
   Pool.prototype.step = function (dt) {
-    var N = this.N, h = this.h, v = this.v, A = this.c * this.c / (this.dx * this.dx), n = Math.ceil(dt / (1 / 240)), d = dt / n, VIS = 7;
+    var N = this.N, h = this.h, v = this.v, A = this.c * this.c / (this.dx * this.dx), n = Math.ceil(dt / (1 / 240)), d = dt / n;
+    var VIS = this.vis, K = this.k0, D = this.damp;
     for (var s = 0; s < n; s++) {
       for (var i = 0; i < N; i++) {
         var l = h[i > 0 ? i - 1 : 0], r = h[i < N - 1 ? i + 1 : N - 1];
         var vl = v[i > 0 ? i - 1 : 0], vr = v[i < N - 1 ? i + 1 : N - 1];
-        v[i] += (A * (l + r - 2 * h[i]) - 4 * h[i] - 1.1 * v[i] + VIS * (vl + vr - 2 * v[i])) * d;
+        v[i] += (A * (l + r - 2 * h[i]) - K * h[i] - D * v[i] + VIS * (vl + vr - 2 * v[i])) * d;
       }
-      for (i = 0; i < N; i++) h[i] += v[i] * d;
+      var mh = 0, mv = 0;
+      for (i = 0; i < N; i++) { h[i] += v[i] * d; mh += h[i]; mv += v[i]; }
+      mh /= N; mv /= N;
+      for (i = 0; i < N; i++) { h[i] -= mh; v[i] -= mv; }
     }
   };
   Pool.prototype.splash = function (dt) {
@@ -2074,7 +2088,15 @@ html,body{margin:0;background:#A9E4FF;overflow-x:clip}
   // a parcel of the stream arriving: its momentum pushes the surface down, some of it splashes, some air goes under
   Pool.prototype.impact = function (x, p, q) {
     var ph = this.f.view === 'p', w = p.w;
-    this.push(x, -Math.min(260, w * Math.max(0, p.vy) * (ph ? 0.0055 : 0.0042)), Math.max(1.4, w / this.dx * 1.1));
+    // the jet never lands on exactly the same spot: a little wobble across its width keeps the ripples coming
+    var xi = x + (this.rand() - 0.5) * Math.max(w, this.dx) * 1.6, wid = Math.max(1.2, w / this.dx * 0.9);
+    var amt = Math.min(200, w * Math.max(0, p.vy) * (ph ? 0.0058 : 0.0044)) * (0.6 + this.rand() * 0.8);
+    this.push(xi, -amt, wid);
+    // most of the jet's push goes down into the pool, not into the surface: the water it shoves aside lifts a
+    // rim on either side, so the landing makes ripples and a small dimple rather than tilting the whole pool
+    // (the rims hold exactly as much as the dent, so the landing never tilts the pool as a whole)
+    this.push(xi - wid * this.dx * 2.2, amt * 0.5 / 1.3, wid * 1.3);
+    this.push(xi + wid * this.dx * 2.2, amt * 0.5 / 1.3, wid * 1.3);
     if (this.fed) this.lv = Math.min(1, this.lv + p.vol);
     if (this.drops.length < 30 && this.rand() < q * 0.09) {
       this.drops.push({ x: x + (this.rand() - 0.5) * w, y: this.surfY(x) - 2, vx: (this.rand() - 0.5) * 200 + p.vx * 0.25, vy: -(80 + this.rand() * 170) * (0.5 + q * 0.6), r: (ph ? 1.4 : 2) + this.rand() * (ph ? 1.2 : 1.8) });
