@@ -687,28 +687,52 @@ html{scroll-behavior:smooth}
 .fq-a>div{overflow:hidden}
 .fq-a p{margin:0 0 calc(1.2*var(--t));max-width:calc(52*var(--t));font-size:calc(1.12*var(--t));line-height:1.5;color:color-mix(in srgb,var(--ink) 78%,transparent)}
 .fq button:focus{outline:none}.fq button:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:8px}
-/* F6: depth layers. Only transforms and opacity animate (see faq.js). */
-.dl{position:relative;width:min(100%,calc(62*var(--t)));padding-top:calc(1.8*var(--t));text-align:left;overflow:hidden;border-radius:0 0 calc(2.4*var(--t)) calc(2.4*var(--t))}
-.dl-b{position:relative;background:linear-gradient(180deg,color-mix(in srgb,var(--c) 82%,#fff),var(--c) 55%);color:var(--ink)}
-.dl-b.dk{color:#fff}
-.dl-w{position:absolute;left:0;bottom:calc(100% - 1px);width:200%;height:calc(1.6*var(--t));transform-origin:50% 100%;animation:dlw calc(9s + var(--d)*1.3s) linear infinite;animation-delay:calc(var(--d)*-2.3s);pointer-events:none}
-.dl-b:nth-child(even) .dl-w{animation-direction:reverse}
-.dl-w path{fill:color-mix(in srgb,var(--c) 82%,#fff)}
-@keyframes dlw{to{transform:translateX(-50%)}}
-.dl-b h3{margin:0;font:inherit}
-.dl-h{display:grid;grid-template-columns:calc(6.2*var(--t)) 1fr auto;align-items:center;gap:calc(1.2*var(--t));width:100%;padding:calc(1.15*var(--t)) calc(2*var(--t));background:none;border:0;font:inherit;color:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.dl-mk{justify-self:start;padding:calc(.3*var(--t)) calc(.55*var(--t));border-radius:calc(.45*var(--t));background:rgba(255,255,255,.92);color:#172B47;font-family:"Titan One",system-ui,sans-serif;font-size:calc(.8*var(--t));line-height:1.1;white-space:nowrap;box-shadow:inset 0 0 0 1px rgba(23,43,71,.14),0 1px 0 rgba(23,43,71,.12)}
-.dl-q{font-weight:700;font-size:calc(1.25*var(--t))}
-.dl-h i{position:relative;width:calc(1.4*var(--t));height:calc(1.4*var(--t));min-width:14px;min-height:14px}
-.dl-h i::before,.dl-h i::after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;border-radius:2px;background:currentColor;transition:transform .3s}
-.dl-h i::after{transform:rotate(90deg)}
-.dl-b.open .dl-h i::after{transform:rotate(0)}
-.dl-a{display:none;padding:0 calc(2*var(--t)) calc(1.5*var(--t)) calc(9.4*var(--t))}
-.dl-b.open .dl-a{display:block}
-.dl-a p{margin:0;max-width:calc(48*var(--t));font-size:calc(1.12*var(--t));line-height:1.5;opacity:.9}
-.dl-r{position:absolute;width:calc(14*var(--t));height:calc(14*var(--t));margin:calc(-7*var(--t)) 0 0 calc(-7*var(--t));border-radius:50%;border:2px solid rgba(255,255,255,.85);pointer-events:none;opacity:0}
-.dl-bb{position:absolute;bottom:calc(.6*var(--t));border-radius:50%;border:1.5px solid rgba(255,255,255,.85);background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.7) 0 18%,rgba(255,255,255,.12) 22%);pointer-events:none;opacity:0}
-.dl-h:focus{outline:none}.dl-h:focus-visible{outline:2px solid currentColor;outline-offset:-4px;border-radius:10px}
+/* F7: stories */
+.st{--stw:calc(30*var(--t));display:flex;flex-direction:column;align-items:center;gap:calc(2*var(--t));width:100%}
+.st-rings{display:flex;justify-content:center;gap:calc(1.4*var(--t));max-width:100%;overflow-x:auto;scrollbar-width:none;padding:calc(.4*var(--t)) calc(.4*var(--t)) 0}
+.st-rings::-webkit-scrollbar{display:none}
+.st-ring{flex:none;display:flex;flex-direction:column;align-items:center;gap:calc(.5*var(--t));padding:0;border:0;background:none;color:var(--ink);font:inherit;cursor:pointer}
+.st-dot{display:grid;place-items:center;width:calc(5*var(--t));height:calc(5*var(--t));min-width:52px;min-height:52px;border-radius:50%;font-size:calc(2*var(--t));background:var(--sb);box-shadow:0 0 0 3px #A9E4FF,0 0 0 6px var(--ring,#E01B33);transition:transform .2s,box-shadow .2s}
+.st-dot img{width:78%;height:auto}
+.st-ring{--ring:conic-gradient(#E01B33,#FF5DB8,#FFD43B,#E01B33)}
+.st-ring .st-dot{box-shadow:0 0 0 3px #A9E4FF;position:relative}
+.st-ring .st-dot::before{content:"";position:absolute;inset:-6px;z-index:-1;border-radius:50%;background:conic-gradient(from 200deg,#E01B33,#FF5DB8,#FFC23B,#E01B33)}
+.st-ring.seen .st-dot::before{background:#9DB3C4}
+.st-ring[aria-selected="true"] .st-dot{transform:scale(1.1)}
+.st-lb{font-size:calc(.85*var(--t));font-weight:600}
+.st-card{position:relative;width:var(--stw);aspect-ratio:3/4.1;border-radius:calc(2.2*var(--t));overflow:hidden;isolation:isolate;box-shadow:0 calc(2*var(--t)) calc(5*var(--t)) calc(-2*var(--t)) rgba(23,43,71,.45);user-select:none;-webkit-user-select:none;touch-action:pan-y;cursor:pointer}
+.st-card:focus{outline:none}.st-card:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
+.st-bars{position:absolute;left:calc(1*var(--t));right:calc(1*var(--t));top:calc(1*var(--t));z-index:3;display:flex;gap:4px}
+.st-bars i{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.4);overflow:hidden}
+.st-bars b{display:block;height:100%;background:#fff;transform:scaleX(0);transform-origin:0 50%}
+.st-bars i.done b{transform:scaleX(1)}
+.st-bars i.now b{animation:stp 6.5s linear forwards;animation-play-state:paused}
+.st-card.run .st-bars i.now b{animation-play-state:running}
+@keyframes stp{to{transform:scaleX(1)}}
+.st-hd{position:absolute;left:calc(1*var(--t));right:calc(1*var(--t));top:calc(1.8*var(--t));z-index:3;display:flex;align-items:center;gap:calc(.5*var(--t));color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.25)}
+.st-hd img{width:calc(2.2*var(--t));height:auto;min-width:26px}
+.st-hd b{font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(1.1*var(--t))}
+.st-pp{margin-left:auto;display:grid;place-items:center;width:calc(2.6*var(--t));height:calc(2.6*var(--t));min-width:44px;min-height:44px;border:0;border-radius:50%;background:rgba(0,0,0,.18);cursor:pointer}
+.st-pp span{width:10px;height:12px;border-left:3px solid #fff;border-right:3px solid #fff}
+.st-pp.off span{width:0;height:0;border:0;border-left:11px solid #fff;border-top:7px solid transparent;border-bottom:7px solid transparent;margin-left:3px}
+.st-s{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;justify-content:flex-end;gap:calc(1*var(--t));padding:calc(2*var(--t)) calc(2*var(--t)) calc(2.4*var(--t));background:var(--sb);color:var(--sc,#fff);opacity:0;transition:opacity .35s ease}
+.st-s.on{opacity:1;z-index:2}
+.st-s h3{margin:0;font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(2.9*var(--t));line-height:1.02;letter-spacing:-.01em;transform:translateY(12px);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.st-s p{margin:0;font-size:calc(1.3*var(--t));line-height:1.45;opacity:.92;transform:translateY(16px);transition:transform .5s .05s cubic-bezier(.2,.8,.2,1)}
+.st-s.on h3,.st-s.on p{transform:none}
+.st-dr{position:absolute;right:-8%;top:16%;width:58%;height:auto;transform:rotate(-8deg);pointer-events:none}
+.st-cta{align-self:flex-start;margin-top:calc(.6*var(--t));padding:calc(.8*var(--t)) calc(1.4*var(--t));border-radius:999px;background:var(--btnbg);box-shadow:var(--gloss);color:#fff;font-weight:700;text-decoration:none;position:relative;z-index:4}
+.st-tap{position:absolute;top:0;bottom:0;z-index:2}.st-prev{left:0;width:35%}.st-next{right:0;width:65%}
+.st-nav{display:flex;gap:calc(1*var(--t))}
+.st-b{width:calc(3*var(--t));height:calc(3*var(--t));min-width:44px;min-height:44px;border:0;border-radius:50%;background:#fff;color:var(--ink);font-size:calc(1.6*var(--t));line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(23,43,71,.15)}
+.st-sky{--sb:linear-gradient(165deg,#C9F1FF,#5EC3FA);--sc:#172B47}
+.st-red{--sb:radial-gradient(120% 90% at 20% 10%,#FF6A6A,#E01B33 45%,#9C0C22)}
+.st-navy{--sb:linear-gradient(170deg,#2A3D93,#1F2E77 55%,#141E55)}
+.st-lime{--sb:linear-gradient(150deg,#ECFF7A,#BDF23C 55%,#86CF1A);--sc:#172B47}
+.st-pink{--sb:linear-gradient(160deg,#FF8AC9,#FF4FAE)}
+.st-pearl{--sb:conic-gradient(from 200deg at 70% 30%,#fff,#F1E6FF,#DFF3FF,#FFEEE2,#E6FFF2,#fff);--sc:#172B47}
+.st-ink{--sb:linear-gradient(170deg,#24406A,#172B47)}
+.st-sky .st-hd,.st-lime .st-hd{color:#172B47}
 /* footer */
 .ft{padding:calc(6*var(--u)) calc(6*var(--u)) calc(4*var(--u));text-align:center;color:var(--ink)}
 .ft-in{display:flex;flex-direction:column;align-items:center;gap:calc(1.1*var(--u));max-width:calc(60*var(--u));margin:0 auto}
@@ -728,7 +752,7 @@ html{scroll-behavior:smooth}
 @media (max-width:759.98px){
  .fq{--t:3.4cqw}
  .fq-l{padding:0 4cqw}
- .dl-h{grid-template-columns:18.5cqw 1fr auto;padding:4cqw 4.5cqw;gap:2.4cqw}.dl-mk{font-size:2.7cqw}.dl-a{padding:0 4.5cqw 5cqw}
+ .st{--stw:84cqw}.st-rings{justify-content:flex-start;width:90cqw;max-width:90cqw;gap:3.6cqw}.st-dot{width:14cqw;height:14cqw;font-size:6cqw}.st-lb{font-size:3cqw}.st-card{aspect-ratio:3/4.3}.st-s h3{font-size:8.6cqw}.st-s p{font-size:4.2cqw}.st-hd b{font-size:4cqw}.st-hd img{width:7cqw}.st-nav{display:none}
  .ft{padding:12cqw 6cqw 10cqw}
  .ft-in{gap:3cqw;max-width:none}
  .ft-lg img{width:11cqw}.ft-lg b{font-size:6.4cqw}
@@ -736,7 +760,7 @@ html{scroll-behavior:smooth}
  .ft-nv{gap:2cqw 5cqw}.ft-nv a{font-size:3.7cqw}
  .ft-lgl{font-size:3cqw;max-width:none}
 }
-@media (prefers-reduced-motion:reduce){.fq-a{transition:none}.dl-w{animation:none}}
+@media (prefers-reduced-motion:reduce){.fq-a,.st-s,.st-s h3,.st-s p{transition:none}}
 </style>
 </head>
 <body>
@@ -1969,7 +1993,7 @@ var LFX = (function () {
   box.innerHTML = `<div class="gr" role="list" aria-label="Example groups">${[G.slice(0, 6), G.slice(6)].map((row, r) => `<div class="gr-t${r ? ' rev' : ''}">${[...row, ...row].map((g, i) => `<div class="gr-i" role="listitem"${i >= row.length ? ' aria-hidden="true"' : ` aria-label="${label(g)}"`}>${tile(g)}</div>`).join('')}</div>`).join('')}</div>`;
 })();
 
-/* Questions, answered: 8 short answers. Round 8 layouts: F0 frosted list, F6 depth layers.
+/* Questions, answered: 8 short answers. Round 8 layouts: F0 frosted list, F7 stories.
    ?r8 shows a switcher on the test page. */
 (function () {
   const sec = document.getElementById('faq'); if (!sec) return;
@@ -1989,47 +2013,59 @@ var LFX = (function () {
     box.querySelectorAll('.fq-i').forEach(x => { x.classList.remove('open'); x.querySelector('button').setAttribute('aria-expanded', 'false'); });
     if (on) { it.classList.add('open'); b.setAttribute('aria-expanded', 'true'); }
   }));
-  /* F6: depth layers. Each question is a band of pool water, light at the surface and deeper toward the deep end, with a pool's
-     depth marker on the left. Tapping one: a ripple spreads from your finger, the band swells open while the bands below get pushed
-     down and settle with a little overshoot (FLIP, so only transforms animate), the wave under it sloshes and bubbles rise through.
-     Every colour is the band's own background, so nothing can blank out. */
-  const C = ['#C9F1FF', '#A4E3FF', '#7DD2FD', '#4FB6F2', '#2A93DE', '#1D6FBF', '#172B47'];
-  const D = ['1 ft', '2 ft', '3 ft', '4 ft', '5 ft', '6 ft', 'Deep end'];
+  /* F7: stories. The FAQ as an Instagram-style story: a row of story rings (one per question) and one story card with progress
+     bars, bold type and a colour per slide. Tap the right side for the next one, the left for the last, hold to pause; it moves on by
+     itself while it's on screen, with a pause button (taste-skill: anything still moving gets one). Only opacity and transforms animate. */
+  const S7 = [
+    ['💧', 'Pool', 'sky'], ['🔐', 'Money', 'red'], ['', 'Drippy', 'navy'], ['🏦', 'Bank', 'lime'],
+    ['✨', 'Droplets', 'pink'], ['💳', 'Card', 'pearl'], ['🚀', 'Start', 'ink']
+  ];
   let fstop = () => {};
-  const depth = () => `<div class="dl">${Q.map((q, i) => `<div class="dl-b${i > 3 ? ' dk' : ''}" style="--c:${C[i]};--d:${i}"><svg class="dl-w" viewBox="0 0 400 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0 12 Q50 3 100 12 T200 12 T300 12 T400 12 V24 H0Z" fill="${C[i]}"/></svg><h3><button type="button" class="dl-h" aria-expanded="false" aria-controls="dl-a${i}" id="dl-q${i}"><span class="dl-mk">${D[i]}</span><span class="dl-q">${q[0]}</span><i aria-hidden="true"></i></button></h3><div class="dl-a" id="dl-a${i}" role="region" aria-labelledby="dl-q${i}"><p>${q[1]}</p></div></div>`).join('')}</div>`;
-  const wireDepth = () => {
-    const bs = [...box.querySelectorAll('.dl-b')], rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const fx = (el, k, o) => { if (el.animate) { const a = el.animate(k, o); return a; } };
-    bs.forEach((b, i) => b.querySelector('.dl-h').addEventListener('click', e => {
-      const on = !b.classList.contains('open'), first = bs.map(x => x.getBoundingClientRect().top);
-      bs.forEach(x => { x.classList.remove('open'); x.querySelector('.dl-h').setAttribute('aria-expanded', 'false'); });
-      if (on) { b.classList.add('open'); b.querySelector('.dl-h').setAttribute('aria-expanded', 'true'); }
-      if (rm || !b.animate) return;
-      bs.forEach((x, j) => { const d = first[j] - x.getBoundingClientRect().top; if (Math.abs(d) > .5) fx(x, [{ transform: `translateY(${d}px)` }, { transform: 'translateY(0)' }], { duration: 680, easing: 'cubic-bezier(.3,1.45,.5,1)' }); });
-      const nx = bs[i + 1];
-      if (nx) fx(nx.querySelector('.dl-w'), [{ scale: '1 1' }, { scale: '1 2.6' }, { scale: '1 .55' }, { scale: '1 1.35' }, { scale: '1 1' }], { duration: 1000, easing: 'ease-out' });
-      fx(b.querySelector('.dl-w'), [{ scale: '1 1' }, { scale: '1 1.8' }, { scale: '1 .8' }, { scale: '1 1' }], { duration: 800, easing: 'ease-out' });
-      const r = b.getBoundingClientRect(), x = (e.clientX || r.left + r.width / 2) - r.left, y = (e.clientY || r.top + 28) - r.top;
-      [0, 1].forEach(k => { const s = document.createElement('span'); s.className = 'dl-r'; s.style.left = x + 'px'; s.style.top = y + 'px'; b.appendChild(s);
-        const a = fx(s, [{ transform: 'scale(.08,.03)', opacity: .9 }, { transform: 'scale(1,.34)', opacity: 0 }], { duration: 900, delay: k * 170, easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'backwards' }); a.onfinish = () => s.remove(); });
-      if (!on) return;
-      fx(b.querySelector('.dl-a p'), [{ opacity: 0, transform: 'translateY(.6em)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 420, delay: 140, easing: 'ease-out', fill: 'backwards' });
-      const h = b.offsetHeight - 18;
-      for (let k = 0; k < 7; k++) { const s = document.createElement('span'), z = 5 + Math.random() * 7, dx = 4 + Math.random() * 8; s.className = 'dl-bb'; s.style.left = (8 + Math.random() * 84) + '%'; s.style.width = s.style.height = z + 'px'; b.appendChild(s);
-        const a = fx(s, [{ transform: 'translate(0,0)', opacity: 0 }, { transform: `translate(${dx}px,${-h * .3}px)`, opacity: .9, offset: .25 }, { transform: `translate(${-dx}px,${-h * .65}px)`, opacity: .8, offset: .6 }, { transform: `translate(${dx * .5}px,${-h}px)`, opacity: 0 }], { duration: 1500 + Math.random() * 900, delay: 220 + k * 170, easing: 'ease-in', fill: 'backwards' }); a.onfinish = () => s.remove(); }
-    }));
+  const stories = () => `<div class="st"><div class="st-rings" role="tablist" aria-label="Questions">${S7.map((r, i) => `<button type="button" class="st-ring st-${r[2]}" role="tab" aria-selected="${!i}" aria-controls="st-s${i}" data-i="${i}"><span class="st-dot">${r[0] || '<img src="assets/drippy-av.webp" alt="" width="96" height="95">'}</span><span class="st-lb">${r[1]}</span></button>`).join('')}</div>` +
+    `<div class="st-card" tabindex="0" aria-roledescription="story" aria-label="Questions, answered. Tap the right side for the next question."><div class="st-bars" aria-hidden="true">${Q.map(() => '<i><b></b></i>').join('')}</div>` +
+    `<div class="st-hd"><img src="assets/449ca5a00d.webp" alt="" width="64" height="64"><b>Pool</b><button type="button" class="st-pp" aria-label="Pause"><span></span></button></div>` +
+    Q.map((q, i) => `<div class="st-s st-${S7[i][2]}" id="st-s${i}" role="tabpanel" aria-hidden="${!!i}"><h3>${q[0]}</h3><p>${q[1]}</p>${i === 2 ? '<img class="st-dr" src="assets/drippy-smug.webp" alt="" loading="lazy">' : ''}${i === Q.length - 1 ? '<a class="st-cta" href="#join">Join the waitlist</a>' : ''}</div>`).join('') +
+    `<span class="st-tap st-prev" aria-hidden="true"></span><span class="st-tap st-next" aria-hidden="true"></span></div>` +
+    `<div class="st-nav"><button type="button" class="st-b st-bp" aria-label="Previous question">‹</button><button type="button" class="st-b st-bn" aria-label="Next question">›</button></div></div>`;
+  const wireStories = () => {
+    const root = box.querySelector('.st'), card = root.querySelector('.st-card'), rings = [...root.querySelectorAll('.st-ring')], slides = [...root.querySelectorAll('.st-s')], bars = [...root.querySelectorAll('.st-bars i')], pp = root.querySelector('.st-pp');
+    const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let at = 0, paused = rm, vis = false, held = false, downAt = 0;
+    const playState = () => { const run = !paused && vis && !held; card.classList.toggle('run', run); };
+    const go = n => {
+      if (n < 0 || n >= Q.length) { if (n >= Q.length) { paused = true; pp.classList.add('off'); pp.setAttribute('aria-label', 'Play'); playState(); } return; }
+      at = n;
+      slides.forEach((s, i) => { s.classList.toggle('on', i === n); s.setAttribute('aria-hidden', String(i !== n)); });
+      rings.forEach((r, i) => { r.setAttribute('aria-selected', String(i === n)); if (i < n) r.classList.add('seen'); });
+      bars.forEach((b, i) => { b.className = i < n ? 'done' : i === n ? 'now' : ''; const f = b.firstChild; f.style.animation = 'none'; void f.offsetWidth; f.style.animation = ''; });
+      playState();
+    };
+    bars.forEach((b, i) => b.firstChild.addEventListener('animationend', () => { if (i === at) { rings[at].classList.add('seen'); go(at + 1); } }));
+    rings.forEach(r => r.addEventListener('click', () => go(+r.dataset.i)));
+    root.querySelector('.st-bp').addEventListener('click', () => go(at - 1));
+    root.querySelector('.st-bn').addEventListener('click', () => go(at + 1));
+    pp.addEventListener('click', e => { e.stopPropagation(); paused = !paused; if (!paused && at === Q.length - 1 && bars[at].classList.contains('done')) go(0); pp.classList.toggle('off', paused); pp.setAttribute('aria-label', paused ? 'Play' : 'Pause'); playState(); });
+    card.addEventListener('pointerdown', e => { if (e.target.closest('a,button')) return; downAt = performance.now(); held = true; playState(); });
+    card.addEventListener('pointerup', e => { if (e.target.closest('a,button')) return; held = false; const quick = performance.now() - downAt < 260; if (quick) { const r = card.getBoundingClientRect(); go(e.clientX - r.left < r.width * .35 ? at - 1 : at + 1); } else playState(); });
+    card.addEventListener('pointercancel', () => { held = false; playState(); });
+    card.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(at + 1); if (e.key === 'ArrowLeft') go(at - 1); });
+    const io = new IntersectionObserver(en => { vis = en[0].isIntersecting; playState(); }, { threshold: .4 }); io.observe(card);
+    if (rm) pp.classList.add('off');
+    go(0);
+    fstop = () => io.disconnect();
   };
   const R = {
     0() { box.innerHTML = acc(); wireAcc(); },
-    6() { box.innerHTML = depth(); wireDepth(); }
+    7() { box.innerHTML = stories(); wireStories(); }
   };
+
 
   const set = l => { fstop(); fstop = () => {}; sec.dataset.lay = l; R[l](); };
   const ql = /[?&]faq=(\d)/.exec(location.search);
   set(ql ? +ql[1] : +(sec.dataset.lay || 0));
   if (/[?&]r8\b/.test(location.search)) {
     const bar = document.createElement('div'); bar.className = 'drsw';
-    bar.innerHTML = [[0, 'F0 Frosted list'], [6, 'F6 Depth layers']].map(([i, n]) => `<button type="button" data-l="${i}">${n}</button>`).join('');
+    bar.innerHTML = [[0, 'F0 Frosted list'], [7, 'F7 Stories']].map(([i, n]) => `<button type="button" data-l="${i}">${n}</button>`).join('');
     document.body.appendChild(bar);
     const mark = () => bar.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.l === sec.dataset.lay));
     bar.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; set(+b.dataset.l); mark(); sec.scrollIntoView({ block: 'start' }); });
