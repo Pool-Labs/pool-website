@@ -716,6 +716,13 @@ html{scroll-behavior:smooth}
 .grp[data-lay="4"] .grx{margin-top:calc(2*var(--t))}
 .fp2 .gp{display:block;width:calc(11.5*var(--t));box-shadow:0 0 0 calc(.35*var(--t)) rgba(255,255,255,.94),0 calc(2.6*var(--t)) calc(3.2*var(--t)) calc(-1*var(--t)) rgba(0,0,0,.6)}
 .fp2 .fl-c.on{transform:translate(-50%,-50%) scale(1.3)}
+/* G5: G0's rails in a shorter box */
+.grp[data-lay="5"] .epc{padding-top:calc(5*var(--u));padding-bottom:calc(4*var(--u))}
+.grp[data-lay="5"] .grx{margin-top:calc(2*var(--t))}
+.gr.gr-s{gap:calc(1.2*var(--t));padding:calc(.6*var(--t)) 0}
+.gr-s .gr-t{gap:calc(1.2*var(--t));padding-right:calc(1.2*var(--t))}
+.gr-s .gp{width:calc(14.6*var(--t));aspect-ratio:4/3;border-radius:calc(1.2*var(--t))}
+.gr-s .gp-t{font-size:calc(.9*var(--t))}.gr-s .gp-a{font-size:calc(.8*var(--t))}
 /* test-page switcher */
 .drsw{position:fixed;z-index:50;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;gap:4px;padding:4px;background:rgba(23,43,71,.94);border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.3);max-width:calc(100vw - 20px);overflow-x:auto}
 .drsw button{font:600 13px/1 Figtree,system-ui,sans-serif;color:#fff;background:none;border:0;border-radius:999px;padding:9px 12px;white-space:nowrap;cursor:pointer}
@@ -727,6 +734,7 @@ html{scroll-behavior:smooth}
  .gr .pc{--cw:58cqw}.gr .pc.v{--cw:36cqw}.gr .pc.gc-s{--cw:42cqw}
  .gp{width:44cqw}
  .wl7{--st:calc(84cqw*.13);width:84cqw;height:calc(var(--st)*(var(--n) - 1) + 84cqw*.63 + 4cqw)}.wl7 .pc{--cw:84cqw}.wl7-c{border-radius:4.6cqw}.wl7-c.on{transform:translateY(calc(var(--k)*var(--st) + 4cqw))}
+ .grp[data-lay="5"] .epc{padding-top:11cqw;padding-bottom:9cqw}.gr-s .gp{width:42cqw}.gr-s .gp-t{font-size:3.3cqw}.gr-s .gp-t small{display:none}.gr-s .gp-a{font-size:3cqw}
  .fl.fp2{height:68cqw}.fp2 .gp{width:27cqw}.fp2 .gp-t small{display:none}.fp2 .gp-t b{font-size:1.1em}.fp2 .fl-c:nth-child(n+7){display:none}
  .grp[data-lay="4"] .epc{padding-bottom:9cqw}
  .fl{height:130cqw}.fl .pc{--cw:46cqw}.fl .pc.v{--cw:29cqw}.fl .pc.gc-s{--cw:33cqw}
@@ -1989,6 +1997,8 @@ var LFX = (function () {
       const cs = [...box.querySelectorAll('.fl-c')];
       cs.forEach(c => c.addEventListener('click', () => { const on = !c.classList.contains('on'); cs.forEach(x => x.classList.remove('on')); c.classList.toggle('on', on); box.querySelector('.fl').classList.toggle('pick', on); }));
     },
+    /* G5: G0 in a shorter box: the same two rails, with smaller landscape photos */
+    5() { R[0](); box.querySelector('.gr').classList.add('gr-s'); },
     /* G4: G0's photos floating like G3: overlapping at different depths, some popping past the panel's edges */
     4() {
       const L = [G[0], G[1], G[4], G[5], G[2], G[7], G[8], G[10]],
@@ -2004,7 +2014,7 @@ var LFX = (function () {
   set(ql ? +ql[1] : +(sec.dataset.lay || 0));
   if (/[?&]r7\b/.test(location.search)) {
     const bar = document.createElement('div'); bar.className = 'drsw';
-    bar.innerHTML = ['G0 Photo rails', 'G1 Card rails', 'G2 Wallet', 'G3 Floating', 'G4 Floating photos'].map((n, i) => `<button type="button" data-l="${i}">${n}</button>`).join('');
+    bar.innerHTML = ['G0 Photo rails', 'G1 Card rails', 'G2 Wallet', 'G3 Floating', 'G4 Floating photos', 'G5 Short rails'].map((n, i) => `<button type="button" data-l="${i}">${n}</button>`).join('');
     document.body.appendChild(bar);
     const mark = () => bar.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.l === sec.dataset.lay));
     bar.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; set(+b.dataset.l); mark(); sec.scrollIntoView({ block: 'start' }); });
