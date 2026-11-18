@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pool · Drippy in 3D</title><meta name="robots" content="noindex">
+<style>
+@font-face{font-family:"Titan One";src:url(assets/0806f7323b.woff2)}
+@font-face{font-family:"Fraunces";src:url(assets/bea03247c7.woff2);font-weight:100 900}
+@font-face{font-family:"Figtree";font-weight:400;src:url(assets/8dba739711.woff2)}
+@font-face{font-family:"Figtree";font-weight:600;src:url(assets/e7eff0a09c.woff2)}
+@font-face{font-family:"Figtree";font-weight:700;src:url(assets/23072885ab.woff2)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#A9E4FF;color:#172B47;font:400 17px/1.45 Figtree,system-ui,sans-serif}
+main{max-width:1120px;margin:0 auto;padding:28px 20px 80px}
+.tag{font:700 13px/1 Figtree;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+h1{font:400 clamp(44px,7vw,84px)/.95 "Titan One";margin:10px 0 8px;letter-spacing:-.01em}
+h2{font:600 clamp(28px,4vw,40px)/1.05 Fraunces,serif;margin:56px 0 6px}
+p.sub{margin:0 0 18px;max-width:60ch}
+.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:center}
+.stage{position:relative;aspect-ratio:1;display:grid;place-items:center}
+.stage .lf{position:absolute;inset:6%;width:88%;height:auto;opacity:0;transition:opacity .12s}
+.stage .lf.on{opacity:1}
+.bob{position:absolute;inset:0;animation:bob 4.2s ease-in-out infinite}
+.shadow{position:absolute;left:24%;right:18%;bottom:3%;height:5%;border-radius:50%;background:radial-gradient(closest-side,rgba(23,43,71,.28),transparent);animation:sh 4.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-2.2%) rotate(-1.2deg)}}@keyframes sh{50%{transform:scaleX(.9);opacity:.75}}
+.cmp{background:rgba(255,255,255,.45);border-radius:22px;padding:16px;text-align:center}
+.cmp img{width:100%;height:auto;max-width:300px}.cmp b{display:block;font-weight:700}.cmp span{font-size:15px;opacity:.75}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+figure{margin:0;background:rgba(255,255,255,.42);border-radius:22px;padding:14px 14px 16px;display:flex;flex-direction:column;gap:10px}
+figure img{width:100%;height:auto;aspect-ratio:1;object-fit:contain}
+figcaption b{display:block;font-weight:700}figcaption span{font-size:15px;opacity:.78}
+.turn{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.opt{cursor:pointer;outline:3px solid transparent;transition:outline-color .15s,transform .15s}
+.opt.pick{outline-color:#172B47;transform:translateY(-3px)}
+.ask{margin-top:56px;background:#172B47;color:#fff;border-radius:24px;padding:22px 22px 24px}
+.ask h2{margin:0 0 10px;color:#fff}.ask ol{margin:0;padding-left:22px}.ask li{margin:6px 0}
+.fine{font-size:14px;opacity:.7;margin-top:14px}
+@media (max-width:759.98px){
+ main{padding:20px 16px 64px}.hero{grid-template-columns:1fr}
+ .grid{grid-template-columns:repeat(2,1fr);gap:10px}.turn{grid-template-columns:repeat(3,1fr);gap:8px}
+ figure{padding:10px 10px 12px;border-radius:18px}figcaption span{font-size:13.5px}
+ .turn figcaption{display:none}
+}
+@media (prefers-reduced-motion:reduce){.bob,.shadow{animation:none}}
+</style></head><body><main>
+<div class="tag">Pool · Round 5 · Drippy</div>
+<h1>Drippy, in real 3D</h1>
+<p class="sub">Built in Blender from your mockup, so he can turn, blink and change faces on the site instead of being a flat picture. Same shape, same smug face, same stripe.</p>
+<section class="hero"><div class="stage"><div class="shadow"></div><div class="bob"><img class="lf on" src="assets/drippy/e_smug.webp" width="720" height="715" alt="" decoding="async"><img class="lf" src="assets/drippy/e_blink.webp" width="720" height="715" alt="" decoding="async"><img class="lf" src="assets/drippy/e_look.webp" width="720" height="715" alt="" decoding="async"><img class="lf" src="assets/drippy/e_paid.webp" width="720" height="715" alt="" decoding="async"><img class="lf" src="assets/drippy/e_happy.webp" width="720" height="715" alt="" decoding="async"><img class="lf" src="assets/drippy/e_alert.webp" width="720" height="715" alt="" decoding="async"></div></div>
+<div class="cmp"><img class="" src="assets/drippy/mock.webp" width="520" height="520" alt="Your Drippy mockup" decoding="async"><b>Your mockup</b><span>What the 3D build is matched to.</span></div></section>
+<h2>His moods</h2><p class="sub">One face per state from your animation files. Only the face changes, so he swaps moods without a jump.</p>
+<div class="grid"><figure class="mood"><img class="" src="assets/drippy/e_smug.webp" width="720" height="715" alt="Drippy, waiting face" decoding="async"><figcaption><b>Waiting</b><span>His resting face: unbothered, watching the pool.</span></figcaption></figure><figure class="mood"><img class="" src="assets/drippy/e_look.webp" width="720" height="715" alt="Drippy, reminder face" decoding="async"><figcaption><b>Reminder</b><span>Side-eye at you. Someone hasn’t chipped in yet.</span></figcaption></figure><figure class="mood"><img class="" src="assets/drippy/e_alert.webp" width="720" height="715" alt="Drippy, needs attention face" decoding="async"><figcaption><b>Needs attention</b><span>Wide eyes. A plan needs your yes.</span></figcaption></figure><figure class="mood"><img class="" src="assets/drippy/e_happy.webp" width="720" height="715" alt="Drippy, plan booked face" decoding="async"><figcaption><b>Plan booked</b><span>Eyes shut, full smile. It’s happening.</span></figcaption></figure><figure class="mood"><img class="" src="assets/drippy/e_paid.webp" width="720" height="715" alt="Drippy, marked paid face" decoding="async"><figcaption><b>Marked paid</b><span>Pleased with himself. Done and dusted.</span></figcaption></figure><figure class="mood"><img class="" src="assets/drippy/e_blink.webp" width="720" height="715" alt="Drippy, blink face" decoding="async"><figcaption><b>Blink</b><span>Mid-blink, for the idle loop.</span></figcaption></figure></div>
+<h2>Turning</h2><p class="sub">A gentle turn each way. On the site he would follow the cursor or tilt with your phone, about this much.</p>
+<div class="turn"><img class="" src="assets/drippy/turn_l.webp" width="707" height="720" alt="Drippy turned left" decoding="async"><img class="" src="assets/drippy/e_smug.webp" width="720" height="715" alt="Drippy facing front" decoding="async"><img class="" src="assets/drippy/turn_r.webp" width="715" height="720" alt="Drippy turned right" decoding="async"></div>
+<h2>Stripe colour</h2><p class="sub">The site is sky with glossy red buttons. Tap the one you like.</p>
+<div class="grid"><figure class="opt" data-id="D0"><img class="" src="assets/drippy/e_smug.webp" width="720" height="715" alt="Drippy with a hot pink stripe" decoding="async"><figcaption><b>D0 · Hot pink</b><span>Your mockup. Loud on sky, the most Gen Z.</span></figcaption></figure><figure class="opt" data-id="D1"><img class="" src="assets/drippy/s_red.webp" width="720" height="715" alt="Drippy with a glossy red stripe" decoding="async"><figcaption><b>D1 · Glossy red</b><span>Matches the site’s red buttons. Feels like one brand.</span></figcaption></figure><figure class="opt" data-id="D2"><img class="" src="assets/drippy/s_lime.webp" width="720" height="715" alt="Drippy with a lime stripe" decoding="async"><figcaption><b>D2 · Lime</b><span>Bright and fresh. Pops hardest on navy.</span></figcaption></figure><figure class="opt" data-id="D3"><img class="" src="assets/drippy/s_sky.webp" width="720" height="715" alt="Drippy with a sky stripe" decoding="async"><figcaption><b>D3 · Sky</b><span>Quietest. Blends into the page.</span></figcaption></figure></div>
+<div class="ask"><h2>Your call</h2><ol>
+<li>Does this feel like your Drippy? Anything off in the shape or face?</li>
+<li>Which stripe: D0, D1, D2 or D3?</li>
+<li>Good to put him in the “Meet Drippy” section like this?</li></ol>
+<p class="fine">Private test page, not linked from the site.</p></div>
+</main><script>
+(function(){var f=[].slice.call(document.querySelectorAll('.stage .lf'));if(!f.length)return;
+var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;if(rm)return;
+var seq=[[0,2200],[1,120],[0,1600],[2,1700],[0,900],[3,1300],[0,1800],[1,120],[0,700],[4,1600],[0,1500],[5,1200]],i=0;
+function show(k){f.forEach(function(e,j){e.classList.toggle('on',j===k)})}
+function step(){var s=seq[i%seq.length];show(s[0]);i++;setTimeout(step,s[1])}step();
+document.querySelectorAll('.opt').forEach(function(o){o.addEventListener('click',function(){document.querySelectorAll('.opt').forEach(function(x){x.classList.toggle('pick',x===o)})})});})();
+</script></body></html>
