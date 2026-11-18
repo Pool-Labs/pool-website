@@ -687,44 +687,47 @@ html{scroll-behavior:smooth}
 .fq-a>div{overflow:hidden}
 .fq-a p{margin:0 0 calc(1.2*var(--t));max-width:calc(52*var(--t));font-size:calc(1.12*var(--t));line-height:1.5;color:color-mix(in srgb,var(--ink) 78%,transparent)}
 .fq button:focus{outline:none}.fq button:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:8px}
-/* F7: stories */
-.st{--stw:calc(30*var(--t));display:flex;flex-direction:column;align-items:center;gap:calc(2*var(--t));width:100%}
-.st-rings{display:flex;justify-content:center;gap:calc(1.4*var(--t));max-width:100%;overflow-x:auto;scrollbar-width:none;padding:calc(.4*var(--t)) calc(.4*var(--t)) 0}
+/* F8: stories you drive yourself */
+.st{display:flex;flex-direction:column;align-items:center;gap:calc(1.8*var(--t));width:100%}
+.st-rings{display:flex;justify-content:center;gap:calc(1.4*var(--t));max-width:100%;overflow-x:auto;scrollbar-width:none;padding:calc(.6*var(--t)) calc(.6*var(--t)) calc(.2*var(--t))}
 .st-rings::-webkit-scrollbar{display:none}
-.st-ring{flex:none;display:flex;flex-direction:column;align-items:center;gap:calc(.5*var(--t));padding:0;border:0;background:none;color:var(--ink);font:inherit;cursor:pointer}
-.st-dot{display:grid;place-items:center;width:calc(5*var(--t));height:calc(5*var(--t));min-width:52px;min-height:52px;border-radius:50%;font-size:calc(2*var(--t));background:var(--sb);box-shadow:0 0 0 3px #A9E4FF}
-.st-dot img{width:78%;height:auto}
-.st-ring{--ring:conic-gradient(#E01B33,#FF5DB8,#FFD43B,#E01B33)}
-.st-ring .st-dot{box-shadow:0 0 0 3px #A9E4FF;position:relative}
-.st-ring .st-dot::before{content:"";position:absolute;inset:-6px;z-index:-1;border-radius:50%;background:conic-gradient(from 200deg,#E01B33,#FF5DB8,#FFC23B,#E01B33)}
+.st-ring{flex:none;display:flex;flex-direction:column;align-items:center;gap:calc(.5*var(--t));padding:0;border:0;background:none;color:var(--ink);font:inherit;cursor:pointer;transition:transform .2s}
+.st-ring[aria-selected="true"]{transform:translateY(-2px)}
+.st-dot{position:relative;display:grid;place-items:center;width:calc(4.6*var(--t));height:calc(4.6*var(--t));min-width:50px;min-height:50px;border-radius:50%;font-size:calc(1.9*var(--t));background:var(--sb);box-shadow:0 0 0 3px #A9E4FF}
+.st-dot::before{content:"";position:absolute;inset:-6px;z-index:-1;border-radius:50%;background:conic-gradient(from 200deg,#E01B33,#FF5DB8,#FFC23B,#E01B33)}
 .st-ring.seen .st-dot::before{background:#9DB3C4}
-.st-ring{transition:transform .2s}.st-ring[aria-selected="true"]{transform:scale(1.08)}
+.st-ring[aria-selected="true"] .st-dot::before{background:#172B47}
+.st-dot img{width:78%;height:auto}
 .st-lb{font-size:calc(.85*var(--t));font-weight:600}
-.st-card{position:relative;width:var(--stw);aspect-ratio:3/4.1;border-radius:calc(2.2*var(--t));overflow:hidden;isolation:isolate;box-shadow:0 calc(2*var(--t)) calc(5*var(--t)) calc(-2*var(--t)) rgba(23,43,71,.45);user-select:none;-webkit-user-select:none;touch-action:pan-y;cursor:pointer}
-.st-card:focus{outline:none}.st-card:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
-.st-bars{position:absolute;left:calc(1*var(--t));right:calc(1*var(--t));top:calc(1*var(--t));z-index:3;display:flex;gap:4px}
-.st-bars i{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.4);overflow:hidden}
-.st-bars b{display:block;height:100%;background:#fff;transform:scaleX(0);transform-origin:0 50%}
+.st-ring[aria-selected="true"] .st-lb{font-weight:800}
+.st-ring:focus{outline:none}.st-ring:focus-visible .st-dot{outline:2px solid var(--ink);outline-offset:8px}
+.st-card{position:relative;width:min(100%,calc(46*var(--t)));padding:calc(1.2*var(--t)) calc(2.2*var(--t)) calc(1.8*var(--t));border-radius:calc(2.2*var(--t));background:var(--sb);color:var(--sc,#fff);text-align:left;overflow:hidden;touch-action:pan-y;transition:background .4s;box-shadow:0 calc(1.6*var(--t)) calc(4*var(--t)) calc(-1.8*var(--t)) rgba(23,43,71,.45)}
+.st-bars{display:flex;gap:4px}
+.st-bars i{flex:1;height:3px;border-radius:3px;background:color-mix(in srgb,currentColor 28%,transparent);overflow:hidden}
+.st-bars b{display:block;height:100%;background:currentColor;transform:scaleX(0);transform-origin:0 50%;transition:transform .35s ease}
 .st-bars i.done b{transform:scaleX(1)}
-.st-bars i.now b{animation:stp 6.5s linear forwards;animation-play-state:paused}
-.st-card.run .st-bars i.now b{animation-play-state:running}
-@keyframes stp{to{transform:scaleX(1)}}
-.st-hd{position:absolute;left:calc(1*var(--t));right:calc(1*var(--t));top:calc(1.8*var(--t));z-index:3;display:flex;align-items:center;gap:calc(.5*var(--t));color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.25)}
-.st-hd img{width:calc(2.2*var(--t));height:auto;min-width:26px}
-.st-hd b{font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(1.1*var(--t))}
-.st-pp{margin-left:auto;display:grid;place-items:center;width:calc(2.6*var(--t));height:calc(2.6*var(--t));min-width:44px;min-height:44px;border:0;border-radius:50%;background:rgba(0,0,0,.18);cursor:pointer}
-.st-pp span{width:10px;height:12px;border-left:3px solid #fff;border-right:3px solid #fff}
-.st-pp.off span{width:0;height:0;border:0;border-left:11px solid #fff;border-top:7px solid transparent;border-bottom:7px solid transparent;margin-left:3px}
-.st-s{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;justify-content:flex-end;gap:calc(1*var(--t));padding:calc(2*var(--t)) calc(2*var(--t)) calc(2.4*var(--t));background:var(--sb);color:var(--sc,#fff);opacity:0;transition:opacity .35s ease}
-.st-s.on{opacity:1;z-index:2}
-.st-s h3{margin:0;font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(2.9*var(--t));line-height:1.02;letter-spacing:-.01em;transform:translateY(12px);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
-.st-s p{margin:0;font-size:calc(1.3*var(--t));line-height:1.45;opacity:.92;transform:translateY(16px);transition:transform .5s .05s cubic-bezier(.2,.8,.2,1)}
-.st-s.on h3,.st-s.on p{transform:none}
-.st-dr{position:absolute;right:-8%;top:16%;width:58%;height:auto;transform:rotate(-8deg);pointer-events:none}
-.st-cta{align-self:flex-start;margin-top:calc(.6*var(--t));padding:calc(.8*var(--t)) calc(1.4*var(--t));border-radius:999px;background:var(--btnbg);box-shadow:var(--gloss);color:#fff;font-weight:700;text-decoration:none;position:relative;z-index:4}
-.st-tap{position:absolute;top:0;bottom:0;z-index:2}.st-prev{left:0;width:35%}.st-next{right:0;width:65%}
-.st-nav{display:flex;gap:calc(1*var(--t))}
-.st-b{width:calc(3*var(--t));height:calc(3*var(--t));min-width:44px;min-height:44px;border:0;border-radius:50%;background:#fff;color:var(--ink);font-size:calc(1.6*var(--t));line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(23,43,71,.15)}
+.st-hd{display:flex;align-items:center;gap:calc(.5*var(--t));margin-top:calc(1*var(--t))}
+.st-hd img{width:calc(2.1*var(--t));min-width:26px;height:auto}
+.st-hd b{font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(1.05*var(--t))}
+.st-n{margin-left:auto;font-size:calc(.95*var(--t));font-weight:600;opacity:.75;font-variant-numeric:tabular-nums}
+.st-stack{display:grid;margin-top:calc(1.6*var(--t));transition:transform .25s ease}
+.st-s{grid-area:1/1;visibility:hidden;opacity:0}
+.st-s.on{visibility:visible;opacity:1}
+.st-s.in-r{animation:stin .42s cubic-bezier(.2,.8,.2,1)}.st-s.in-l{animation:stin .42s cubic-bezier(.2,.8,.2,1) reverse;animation-direction:normal;animation-name:stinl}
+@keyframes stin{from{opacity:0;transform:translateX(36px)}}
+@keyframes stinl{from{opacity:0;transform:translateX(-36px)}}
+.st-s h3{margin:0;max-width:calc(30*var(--t));font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(2.6*var(--t));line-height:1.04;letter-spacing:-.01em}
+.st-s p{margin:calc(1*var(--t)) 0 0;max-width:calc(36*var(--t));font-size:calc(1.22*var(--t));line-height:1.5;opacity:.92}
+.st-dr{float:right;width:30%;height:auto;margin:calc(-1*var(--t)) calc(-1*var(--t)) calc(.4*var(--t)) calc(1*var(--t));transform:rotate(-6deg)}
+.st-cta{display:inline-block;margin-top:calc(1.4*var(--t));padding:calc(.8*var(--t)) calc(1.5*var(--t));border-radius:999px;background:var(--btnbg);box-shadow:var(--gloss);color:#fff;font-weight:700;text-decoration:none}
+.st-ft{display:flex;align-items:center;justify-content:space-between;gap:calc(1*var(--t));margin-top:calc(1.8*var(--t))}
+.st-bk,.st-nx{min-height:44px;border:0;cursor:pointer;font:inherit;font-weight:700}
+.st-bk{width:44px;border-radius:50%;background:color-mix(in srgb,currentColor 14%,transparent);color:inherit;font-size:22px;line-height:1}
+.st-bk:disabled{opacity:.3;cursor:default}
+.st-nx{margin-left:auto;padding:0 calc(1.4*var(--t));border-radius:999px;background:#fff;color:#172B47;box-shadow:0 2px 10px rgba(23,43,71,.18)}
+.st-nx span{font-size:1.2em}
+.st-nx[hidden]{display:none}
+.st-bk:focus,.st-nx:focus{outline:none}.st-bk:focus-visible,.st-nx:focus-visible{outline:2px solid currentColor;outline-offset:3px}
 .st-sky{--sb:linear-gradient(165deg,#C9F1FF,#5EC3FA);--sc:#172B47}
 .st-red{--sb:radial-gradient(120% 90% at 20% 10%,#FF6A6A,#E01B33 45%,#9C0C22)}
 .st-navy{--sb:linear-gradient(170deg,#2A3D93,#1F2E77 55%,#141E55)}
@@ -732,7 +735,7 @@ html{scroll-behavior:smooth}
 .st-pink{--sb:linear-gradient(160deg,#FF8AC9,#FF4FAE)}
 .st-pearl{--sb:conic-gradient(from 200deg at 70% 30%,#fff,#F1E6FF,#DFF3FF,#FFEEE2,#E6FFF2,#fff);--sc:#172B47}
 .st-ink{--sb:linear-gradient(170deg,#24406A,#172B47)}
-.st-sky .st-hd,.st-lime .st-hd{color:#172B47}
+.st-card.st-sky .st-nx,.st-card.st-lime .st-nx,.st-card.st-pearl .st-nx{background:#172B47;color:#fff}
 /* footer */
 .ft{padding:calc(6*var(--u)) calc(6*var(--u)) calc(4*var(--u));text-align:center;color:var(--ink)}
 .ft-in{display:flex;flex-direction:column;align-items:center;gap:calc(1.1*var(--u));max-width:calc(60*var(--u));margin:0 auto}
@@ -752,7 +755,7 @@ html{scroll-behavior:smooth}
 @media (max-width:759.98px){
  .fq{--t:3.4cqw}
  .fq-l{padding:0 4cqw}
- .st{--stw:84cqw}.st-rings{justify-content:flex-start;width:90cqw;max-width:90cqw;gap:3.6cqw}.st-dot{width:14cqw;height:14cqw;font-size:6cqw}.st-lb{font-size:3cqw}.st-card{aspect-ratio:3/4.3}.st-s h3{font-size:8.6cqw}.st-s p{font-size:4.2cqw}.st-hd b{font-size:4cqw}.st-hd img{width:7cqw}.st-nav{display:none}
+ .st-rings{justify-content:flex-start;width:90cqw;max-width:90cqw;gap:3.6cqw}.st-dot{width:13.5cqw;height:13.5cqw;font-size:5.6cqw}.st-lb{font-size:3cqw}.st-card{width:100%;padding:4cqw 5cqw 5cqw;border-radius:6cqw}.st-s h3{font-size:8cqw}.st-s p{font-size:4.2cqw}.st-hd b{font-size:4cqw}.st-hd img{width:7cqw}.st-n{font-size:3.4cqw}
  .ft{padding:12cqw 6cqw 10cqw}
  .ft-in{gap:3cqw;max-width:none}
  .ft-lg img{width:11cqw}.ft-lg b{font-size:6.4cqw}
@@ -760,7 +763,7 @@ html{scroll-behavior:smooth}
  .ft-nv{gap:2cqw 5cqw}.ft-nv a{font-size:3.7cqw}
  .ft-lgl{font-size:3cqw;max-width:none}
 }
-@media (prefers-reduced-motion:reduce){.fq-a,.st-s,.st-s h3,.st-s p{transition:none}}
+@media (prefers-reduced-motion:reduce){.fq-a,.st-card,.st-bars b,.st-stack{transition:none}.st-s.in-r,.st-s.in-l{animation:none}}
 </style>
 </head>
 <body>
@@ -780,7 +783,7 @@ html{scroll-behavior:smooth}
 
 
 
-<span class="cue" aria-hidden="true">Scroll<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></span><div class="epg"><canvas class="lfx lfx-rib" data-fx="pour" aria-hidden="true"></canvas><section class="eps eps1" id="social" aria-labelledby="h-social"><div class="epc"><h2 class="bh" id="h-social">Money is social now</h2><p class="bs">The best parts of life happen with other people.</p><div class="echips"><span class="echip"><img src="assets/6738eff053.webp" alt="">Friday dinners</span><span class="echip"><img src="assets/4d55660b2c.webp" alt="">Road trip</span><span class="echip"><img src="assets/7f87d6fa43.webp" alt="">Dorm 3C</span><span class="echip"><img src="assets/5060878c07.webp" alt="">Game night</span></div></div></section><section class="eps eps2" id="how" aria-labelledby="h-how"><div class="epc"><canvas class="lfx lfx-pool" data-fx="pool" aria-hidden="true"></canvas><h2 class="bh" id="h-how">How a pool works</h2><ol class="esteps"><li><b>Start a pool for your group</b><span>Name it, add your people, say what it’s for.</span></li><li><b>Everyone chips in</b><span>The pool fills up before anyone spends a dollar.</span></li><li><b>Spend it together</b><span>Tap your group’s virtual card. Everyone sees&nbsp;it.</span></li></ol></div></section><section class="eps eps3 mv" id="features" aria-labelledby="h-feat"><div class="epc"><h2 class="bh" id="h-feat">Money that moves like your group</h2><div class="mvw" data-mv><div class="mvs" aria-hidden="true"><div class="mvc" data-k="0"><img src="assets/f3f823a08e.webp" alt="" loading="lazy" style="object-position:50% 50%"><div class="mvo"><span class="mvmc mvmc2"><i>Pool</i><em>Ski trip</em><small>•• 7302</small></span><span class="mvmc"><i>Pool</i><em>Friday dinners</em><small>•• 4821</small></span></div></div><div class="mvc" data-k="1"><img src="assets/5eeadeca8b.webp" alt="" loading="lazy" style="object-position:62% 50%"><div class="mvo"><span class="mvch"><img src="assets/6738eff053.webp" alt="">Maya can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch"><img src="assets/7f87d6fa43.webp" alt="">Rin can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch mvdim"><img src="assets/5060878c07.webp" alt="">Liv, view only</span></div></div><div class="mvc" data-k="2"><img src="assets/1b0b6bba10.webp" alt="" loading="lazy" style="object-position:50% 40%"><div class="mvo"><span class="mvch"><img src="assets/4d55660b2c.webp" alt="">Leo chipped in<b>+$22</b></span><span class="mvch"><img src="assets/75dfbc8993.webp" alt="">Pizza, Maya<b>−$42.80</b></span></div></div><div class="mvc" data-k="3"><img src="assets/e5e2cc8502.webp" alt="" loading="lazy" style="object-position:45% 50%"><div class="mvo"><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>6-week streak<b>+25</b></span><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>Pool droplets<b>2,960</b></span><span class="mvch">Custom card unlocked<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span></div></div></div><ul class="mvl"><li class="on"><button type="button" data-i="0" aria-pressed="true"><b>One card per pool</b><span class="mvpm" aria-hidden="true"></span></button><p>Every pool gets its own virtual card.</p></li><li><button type="button" data-i="1" aria-pressed="false"><b>Pick who can tap</b><span class="mvpm" aria-hidden="true"></span></button><p>The host decides who can spend, and can change it anytime.</p></li><li><button type="button" data-i="2" aria-pressed="false"><b>See every dollar</b><span class="mvpm" aria-hidden="true"></span></button><p>Every chip-in and every spend shows up for everyone.</p></li><li><button type="button" data-i="3" aria-pressed="false"><b>Droplets for your pool</b><span class="mvpm" aria-hidden="true"></span></button><p>Keep your streak, stack droplets and unlock a custom card that’s lowkey iconic. Plus discounts, waived fees and exclusive merch.</p></li></ul></div><p class="mvfine">Example groups and amounts.</p></div></section><section class="eps eps1 dr" id="drippy" aria-labelledby="h-dr"><div class="epc"><div class="drt"><h2 class="bh" id="h-dr">Meet Drippy</h2><p class="drl">Drippy is part of your pool, and lowkey the most useful one in the group. Ask for whatever: it does the research, drops the best picks and pays when you say bet.</p></div><div class="drx"><div class="drm" aria-hidden="true"><div class="drb"><img data-m="smug" class="on" src="assets/drippy-smug.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="blink" src="assets/drippy-blink.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="look" src="assets/drippy-look.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="alert" src="assets/drippy-alert.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="happy" src="assets/drippy-happy.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="paid" src="assets/drippy-paid.webp" alt="" width="640" height="636" loading="lazy" decoding="async"></div></div><div class="dchat"><div class="drlog" role="log" aria-live="polite" aria-label="Chat with Drippy" tabindex="0"></div><form class="drin" novalidate><input type="text" placeholder="Ask Drippy anything" aria-label="Ask Drippy anything" autocomplete="off" enterkeyhint="send" maxlength="140"><button type="submit" aria-label="Send"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5"/></svg></button></form></div></div><p class="drfine">A preview of Drippy. Places, prices and amounts are examples.</p></div></section><section class="eps eps2 grp" id="groups" aria-labelledby="h-grp"><div class="epc"><div class="grt"><h2 class="bh" id="h-grp">A pool for every group you’re in</h2><p class="grl">It takes more than 200 hours together before you can call someone a close friend. Give your roommates, your team, your family, your partner and the coworkers you eat with a pool each, for as long as you’re together.</p></div><div class="grx" data-groups></div><p class="grfine">Example groups and amounts.</p></div></section><section class="eps eps3" id="join" aria-labelledby="h-join"><div class="epc"><h2 class="bh" id="h-join">Get Pool first.</h2><p class="bs">Join the waitlist and we’ll tell you when Pool&nbsp;opens.</p><form class="join" id="waitlist" novalidate data-endpoint="https://app.loops.so/api/newsletter-form/cmwl3l3fe00og0jyopp1idia0"><label class="vh" for="wl-email">Your email</label><input id="wl-email" class="jin" type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@email.com" required><button class="go" type="submit">Join the waitlist</button></form><p class="jmsg" id="wl-msg" role="status" aria-live="polite"></p></div></section><section class="eps eps1 fq" id="faq" aria-labelledby="h-faq" data-lay="0"><div class="epc"><div class="fqw"><div class="fqt"><h2 class="bh" id="h-faq">Questions, answered</h2></div><div class="fqx" data-faq></div></div></div></section><footer class="ft"><div class="ft-in"><a class="ft-lg" href="#top" aria-label="Pool, back to top"><img src="assets/449ca5a00d.webp" alt="" width="64" height="64"><b>Pool</b></a><p class="ft-tg">Life’s better pooled.</p><p class="ft-ln">The social layer of money. One pool and one virtual card for every group you spend with.</p><nav class="ft-nv" aria-label="Footer"><a href="#how">How it works</a><a href="#drippy">Drippy</a><a href="#groups">Groups</a><a href="#faq">FAQ</a><a href="#join">Join the waitlist</a></nav><p class="ft-lgl">Pool isn’t live yet. Names, groups, places and amounts on this page are examples. The Pool card is virtual. Droplets have no cash value. Pool doesn’t lend money and never charges interest. © 2026 Pool.</p></div></footer></div>
+<span class="cue" aria-hidden="true">Scroll<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></span><div class="epg"><canvas class="lfx lfx-rib" data-fx="pour" aria-hidden="true"></canvas><section class="eps eps1" id="social" aria-labelledby="h-social"><div class="epc"><h2 class="bh" id="h-social">Money is social now</h2><p class="bs">The best parts of life happen with other people.</p><div class="echips"><span class="echip"><img src="assets/6738eff053.webp" alt="">Friday dinners</span><span class="echip"><img src="assets/4d55660b2c.webp" alt="">Road trip</span><span class="echip"><img src="assets/7f87d6fa43.webp" alt="">Dorm 3C</span><span class="echip"><img src="assets/5060878c07.webp" alt="">Game night</span></div></div></section><section class="eps eps2" id="how" aria-labelledby="h-how"><div class="epc"><canvas class="lfx lfx-pool" data-fx="pool" aria-hidden="true"></canvas><h2 class="bh" id="h-how">How a pool works</h2><ol class="esteps"><li><b>Start a pool for your group</b><span>Name it, add your people, say what it’s for.</span></li><li><b>Everyone chips in</b><span>The pool fills up before anyone spends a dollar.</span></li><li><b>Spend it together</b><span>Tap your group’s virtual card. Everyone sees&nbsp;it.</span></li></ol></div></section><section class="eps eps3 mv" id="features" aria-labelledby="h-feat"><div class="epc"><h2 class="bh" id="h-feat">Money that moves like your group</h2><div class="mvw" data-mv><div class="mvs" aria-hidden="true"><div class="mvc" data-k="0"><img src="assets/f3f823a08e.webp" alt="" loading="lazy" style="object-position:50% 50%"><div class="mvo"><span class="mvmc mvmc2"><i>Pool</i><em>Ski trip</em><small>•• 7302</small></span><span class="mvmc"><i>Pool</i><em>Friday dinners</em><small>•• 4821</small></span></div></div><div class="mvc" data-k="1"><img src="assets/5eeadeca8b.webp" alt="" loading="lazy" style="object-position:62% 50%"><div class="mvo"><span class="mvch"><img src="assets/6738eff053.webp" alt="">Maya can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch"><img src="assets/7f87d6fa43.webp" alt="">Rin can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch mvdim"><img src="assets/5060878c07.webp" alt="">Liv, view only</span></div></div><div class="mvc" data-k="2"><img src="assets/1b0b6bba10.webp" alt="" loading="lazy" style="object-position:50% 40%"><div class="mvo"><span class="mvch"><img src="assets/4d55660b2c.webp" alt="">Leo chipped in<b>+$22</b></span><span class="mvch"><img src="assets/75dfbc8993.webp" alt="">Pizza, Maya<b>−$42.80</b></span></div></div><div class="mvc" data-k="3"><img src="assets/e5e2cc8502.webp" alt="" loading="lazy" style="object-position:45% 50%"><div class="mvo"><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>6-week streak<b>+25</b></span><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>Pool droplets<b>2,960</b></span><span class="mvch">Custom card unlocked<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span></div></div></div><ul class="mvl"><li class="on"><button type="button" data-i="0" aria-pressed="true"><b>One card per pool</b><span class="mvpm" aria-hidden="true"></span></button><p>Every pool gets its own virtual card.</p></li><li><button type="button" data-i="1" aria-pressed="false"><b>Pick who can tap</b><span class="mvpm" aria-hidden="true"></span></button><p>The host decides who can spend, and can change it anytime.</p></li><li><button type="button" data-i="2" aria-pressed="false"><b>See every dollar</b><span class="mvpm" aria-hidden="true"></span></button><p>Every chip-in and every spend shows up for everyone.</p></li><li><button type="button" data-i="3" aria-pressed="false"><b>Droplets for your pool</b><span class="mvpm" aria-hidden="true"></span></button><p>Keep your streak, stack droplets and unlock a custom card that’s lowkey iconic. Plus discounts, waived fees and exclusive merch.</p></li></ul></div><p class="mvfine">Example groups and amounts.</p></div></section><section class="eps eps1 dr" id="drippy" aria-labelledby="h-dr"><div class="epc"><div class="drt"><h2 class="bh" id="h-dr">Meet Drippy</h2><p class="drl">Drippy is part of your pool, and lowkey the most useful one in the group. Ask for whatever: it does the research, drops the best picks and pays when you say bet.</p></div><div class="drx"><div class="drm" aria-hidden="true"><div class="drb"><img data-m="smug" class="on" src="assets/drippy-smug.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="blink" src="assets/drippy-blink.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="look" src="assets/drippy-look.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="alert" src="assets/drippy-alert.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="happy" src="assets/drippy-happy.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="paid" src="assets/drippy-paid.webp" alt="" width="640" height="636" loading="lazy" decoding="async"></div></div><div class="dchat"><div class="drlog" role="log" aria-live="polite" aria-label="Chat with Drippy" tabindex="0"></div><form class="drin" novalidate><input type="text" placeholder="Ask Drippy anything" aria-label="Ask Drippy anything" autocomplete="off" enterkeyhint="send" maxlength="140"><button type="submit" aria-label="Send"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5"/></svg></button></form></div></div><p class="drfine">A preview of Drippy. Places, prices and amounts are examples.</p></div></section><section class="eps eps2 grp" id="groups" aria-labelledby="h-grp"><div class="epc"><div class="grt"><h2 class="bh" id="h-grp">A pool for every group you’re in</h2><p class="grl">It takes more than 200 hours together before you can call someone a close friend. Give your roommates, your team, your family, your partner and the coworkers you eat with a pool each, for as long as you’re together.</p></div><div class="grx" data-groups></div><p class="grfine">Example groups and amounts.</p></div></section><section class="eps eps3" id="join" aria-labelledby="h-join"><div class="epc"><h2 class="bh" id="h-join">Get Pool first.</h2><p class="bs">Join the waitlist and we’ll tell you when Pool&nbsp;opens.</p><form class="join" id="waitlist" novalidate data-endpoint="https://app.loops.so/api/newsletter-form/cmwl3l3fe00og0jyopp1idia0"><label class="vh" for="wl-email">Your email</label><input id="wl-email" class="jin" type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@email.com" required><button class="go" type="submit">Join the waitlist</button></form><p class="jmsg" id="wl-msg" role="status" aria-live="polite"></p></div></section><section class="eps eps1 fq" id="faq" aria-labelledby="h-faq" data-lay="0"><div class="epc"><div class="fqw"><div class="fqt"><h2 class="bh" id="h-faq">Questions, answered</h2></div><div class="fqx" data-faq></div></div></div></section><footer class="ft"><div class="ft-in"><a class="ft-lg" href="#top" aria-label="Pool, back to top"><img src="assets/449ca5a00d.webp" alt="" width="64" height="64"><b>Pool</b></a><p class="ft-tg">Life’s better pooled.</p><p class="ft-ln">The social layer of money. One pool and one virtual card for every group you spend with.</p><nav class="ft-nv" aria-label="Footer"><a href="#how">How it works</a><a href="#drippy">Drippy</a><a href="#groups">Groups</a><a href="#faq">FAQ</a><a href="#join">Join the waitlist</a></nav><p class="ft-lgl">Pool is coming soon. Names, groups, places and amounts on this page are examples. The Pool card is virtual. Droplets have no cash value. Pool doesn’t lend money and never charges interest. © 2026 Pool.</p></div></footer></div>
 
 </div>
 <script>
@@ -1993,7 +1996,7 @@ var LFX = (function () {
   box.innerHTML = `<div class="gr" role="list" aria-label="Example groups">${[G.slice(0, 6), G.slice(6)].map((row, r) => `<div class="gr-t${r ? ' rev' : ''}">${[...row, ...row].map((g, i) => `<div class="gr-i" role="listitem"${i >= row.length ? ' aria-hidden="true"' : ` aria-label="${label(g)}"`}>${tile(g)}</div>`).join('')}</div>`).join('')}</div>`;
 })();
 
-/* Questions, answered: 8 short answers. Round 8 layouts: F0 frosted list, F7 stories.
+/* Questions, answered: 8 short answers. Round 8 layouts: F0 frosted list, F8 stories.
    ?r8 shows a switcher on the test page. */
 (function () {
   const sec = document.getElementById('faq'); if (!sec) return;
@@ -2005,7 +2008,7 @@ var LFX = (function () {
     ['Where will our money be kept?', 'Pool isn’t a bank. Pools will be held at a partner bank, which we’ll name before anyone puts money in.'],
     ['What are droplets?', 'What your pool collects for chipping in on time and doing things together. Trade them for perks like discounts, waived fees and merch. They have no cash value.'],
     ['Is there a physical card?', 'Not at launch. Every pool gets its own virtual card.'],
-    ['When can we start?', 'Pool isn’t live yet. Join the waitlist with your friends and you’ll get in together.']
+    ['When can we start?', 'Pool is coming very soon. Join the waitlist with your friends and you’ll get in together.']
   ];
   const acc = () => `<div class="fq-l">${Q.map((q, i) => `<div class="fq-i${i ? '' : ' open'}"><h3><button type="button" aria-expanded="${!i}" aria-controls="fq-a${i}" id="fq-q${i}">${q[0]}<i aria-hidden="true"></i></button></h3><div class="fq-a" id="fq-a${i}" role="region" aria-labelledby="fq-q${i}"><div><p>${q[1]}</p></div></div></div>`).join('')}</div>`;
   const wireAcc = () => box.querySelectorAll('.fq-i button').forEach(b => b.addEventListener('click', () => {
@@ -2013,51 +2016,55 @@ var LFX = (function () {
     box.querySelectorAll('.fq-i').forEach(x => { x.classList.remove('open'); x.querySelector('button').setAttribute('aria-expanded', 'false'); });
     if (on) { it.classList.add('open'); b.setAttribute('aria-expanded', 'true'); }
   }));
-  /* F7: stories. The FAQ as an Instagram-style story: a row of story rings (one per question) and one story card with progress
-     bars, bold type and a colour per slide. Tap the right side for the next one, the left for the last, hold to pause; it moves on by
-     itself while it's on screen, with a pause button (taste-skill: anything still moving gets one). Only opacity and transforms animate. */
+  /* F8: stories you drive yourself. Story rings up top (one per question, they go grey once seen), one story card below with the
+     question in big type, the answer, progress bars, "2 of 7" and a clear Next button. Swipe the card, tap Next or Back, or tap a ring.
+     Nothing advances on its own. The new story slides in from the side you're going. Only transforms and opacity animate. */
   const S7 = [
     ['💧', 'Pool', 'sky'], ['🔐', 'Money', 'red'], ['', 'Drippy', 'navy'], ['🏦', 'Bank', 'lime'],
     ['✨', 'Droplets', 'pink'], ['💳', 'Card', 'pearl'], ['🚀', 'Start', 'ink']
   ];
   let fstop = () => {};
-  const stories = () => `<div class="st"><div class="st-rings" role="tablist" aria-label="Questions">${S7.map((r, i) => `<button type="button" class="st-ring st-${r[2]}" role="tab" aria-selected="${!i}" aria-controls="st-s${i}" data-i="${i}"><span class="st-dot">${r[0] || '<img src="assets/drippy-av.webp" alt="" width="96" height="95">'}</span><span class="st-lb">${r[1]}</span></button>`).join('')}</div>` +
-    `<div class="st-card" tabindex="0" aria-roledescription="story" aria-label="Questions, answered. Tap the right side for the next question."><div class="st-bars" aria-hidden="true">${Q.map(() => '<i><b></b></i>').join('')}</div>` +
-    `<div class="st-hd"><img src="assets/449ca5a00d.webp" alt="" width="64" height="64"><b>Pool</b><button type="button" class="st-pp" aria-label="Pause"><span></span></button></div>` +
-    Q.map((q, i) => `<div class="st-s st-${S7[i][2]}" id="st-s${i}" role="tabpanel" aria-hidden="${!!i}"><h3>${q[0]}</h3><p>${q[1]}</p>${i === 2 ? '<img class="st-dr" src="assets/drippy-smug.webp" alt="" loading="lazy">' : ''}${i === Q.length - 1 ? '<a class="st-cta" href="#join">Join the waitlist</a>' : ''}</div>`).join('') +
-    `<span class="st-tap st-prev" aria-hidden="true"></span><span class="st-tap st-next" aria-hidden="true"></span></div>` +
-    `<div class="st-nav"><button type="button" class="st-b st-bp" aria-label="Previous question">‹</button><button type="button" class="st-b st-bn" aria-label="Next question">›</button></div></div>`;
+  const N7 = Q.length;
+  const stories = () => `<div class="st"><div class="st-rings" role="tablist" aria-label="Questions">${S7.map((r, i) => `<button type="button" class="st-ring" role="tab" aria-selected="${!i}" aria-controls="st-s${i}" aria-label="${Q[i][0]}" data-i="${i}"><span class="st-dot st-${r[2]}">${r[0] || '<img src="assets/drippy-av.webp" alt="" width="96" height="95">'}</span><span class="st-lb">${r[1]}</span></button>`).join('')}</div>` +
+    `<div class="st-card st-${S7[0][2]}" aria-roledescription="carousel" aria-label="Questions, answered"><div class="st-bars" aria-hidden="true">${Q.map(() => '<i><b></b></i>').join('')}</div>` +
+    `<div class="st-hd"><img src="assets/449ca5a00d.webp" alt="" width="64" height="64"><b>Pool</b><span class="st-n" aria-live="polite">1 of ${N7}</span></div>` +
+    `<div class="st-stack">${Q.map((q, i) => `<div class="st-s" id="st-s${i}" role="tabpanel" aria-roledescription="slide" aria-hidden="${!!i}">${i === 2 ? '<img class="st-dr" src="assets/drippy-smug.webp" alt="" loading="lazy">' : ''}<h3>${q[0]}</h3><p>${q[1]}</p>${i === N7 - 1 ? '<a class="st-cta" href="#join">Join the waitlist</a>' : ''}</div>`).join('')}</div>` +
+    `<div class="st-ft"><button type="button" class="st-bk" aria-label="Previous question">‹</button><button type="button" class="st-nx">Next question <span aria-hidden="true">›</span></button></div></div></div>`;
   const wireStories = () => {
-    const root = box.querySelector('.st'), card = root.querySelector('.st-card'), rings = [...root.querySelectorAll('.st-ring')], slides = [...root.querySelectorAll('.st-s')], bars = [...root.querySelectorAll('.st-bars i')], pp = root.querySelector('.st-pp');
+    const root = box.querySelector('.st'), card = root.querySelector('.st-card'), rings = [...root.querySelectorAll('.st-ring')], slides = [...root.querySelectorAll('.st-s')], bars = [...root.querySelectorAll('.st-bars i')];
+    const n = root.querySelector('.st-n'), bk = root.querySelector('.st-bk'), nx = root.querySelector('.st-nx'), stack = root.querySelector('.st-stack');
     const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let at = 0, paused = rm, vis = false, held = false, downAt = 0;
-    const playState = () => { const run = !paused && vis && !held; card.classList.toggle('run', run); };
-    const go = n => {
-      if (n < 0 || n >= Q.length) { if (n >= Q.length) { paused = true; pp.classList.add('off'); pp.setAttribute('aria-label', 'Play'); playState(); } return; }
-      at = n;
-      slides.forEach((s, i) => { s.classList.toggle('on', i === n); s.setAttribute('aria-hidden', String(i !== n)); });
-      rings.forEach((r, i) => { r.setAttribute('aria-selected', String(i === n)); if (i < n) r.classList.add('seen'); });
-      bars.forEach((b, i) => { b.className = i < n ? 'done' : i === n ? 'now' : ''; const f = b.firstChild; f.style.animation = 'none'; void f.offsetWidth; f.style.animation = ''; });
-      playState();
+    let at = 0;
+    const go = (k, dir) => {
+      if (k < 0 || k >= N7 || k === at && dir) return;
+      const d = dir || (k > at ? 1 : -1); at = k;
+      card.className = `st-card st-${S7[k][2]}`;
+      slides.forEach((s, i) => { s.classList.remove('on', 'in-r', 'in-l'); s.setAttribute('aria-hidden', String(i !== k)); });
+      const s = slides[k]; s.classList.add('on'); if (!rm) { void s.offsetWidth; s.classList.add(d > 0 ? 'in-r' : 'in-l'); }
+      rings.forEach((r, i) => { r.setAttribute('aria-selected', String(i === k)); if (i === k) r.classList.add('seen'); });
+      bars.forEach((b, i) => b.classList.toggle('done', i <= k));
+      n.textContent = `${k + 1} of ${N7}`; bk.disabled = k === 0; nx.hidden = k === N7 - 1;
+      const ring = rings[k], row = ring.parentElement; row.scrollTo({ left: ring.offsetLeft - row.clientWidth / 2 + ring.clientWidth / 2, behavior: rm ? 'auto' : 'smooth' });
     };
-    bars.forEach((b, i) => b.firstChild.addEventListener('animationend', () => { if (i === at) { rings[at].classList.add('seen'); go(at + 1); } }));
     rings.forEach(r => r.addEventListener('click', () => go(+r.dataset.i)));
-    root.querySelector('.st-bp').addEventListener('click', () => go(at - 1));
-    root.querySelector('.st-bn').addEventListener('click', () => go(at + 1));
-    pp.addEventListener('click', e => { e.stopPropagation(); paused = !paused; if (!paused && at === Q.length - 1 && bars[at].classList.contains('done')) go(0); pp.classList.toggle('off', paused); pp.setAttribute('aria-label', paused ? 'Play' : 'Pause'); playState(); });
-    card.addEventListener('pointerdown', e => { if (e.target.closest('a,button')) return; downAt = performance.now(); held = true; playState(); });
-    card.addEventListener('pointerup', e => { if (e.target.closest('a,button')) return; held = false; const quick = performance.now() - downAt < 260; if (quick) { const r = card.getBoundingClientRect(); go(e.clientX - r.left < r.width * .35 ? at - 1 : at + 1); } else playState(); });
-    card.addEventListener('pointercancel', () => { held = false; playState(); });
-    card.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(at + 1); if (e.key === 'ArrowLeft') go(at - 1); });
-    const io = new IntersectionObserver(en => { vis = en[0].isIntersecting; playState(); }, { threshold: .4 }); io.observe(card);
-    if (rm) pp.classList.add('off');
-    go(0);
+    bk.addEventListener('click', () => go(at - 1, -1)); nx.addEventListener('click', () => go(at + 1, 1));
+    card.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(at + 1, 1); if (e.key === 'ArrowLeft') go(at - 1, -1); });
+    let x0 = null, y0 = 0, dx = 0, lock = null;
+    card.addEventListener('pointerdown', e => { if (e.target.closest('a,button')) return; x0 = e.clientX; y0 = e.clientY; dx = 0; lock = null; });
+    card.addEventListener('pointermove', e => { if (x0 === null) return; dx = e.clientX - x0; const dy = e.clientY - y0; if (lock === null && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) lock = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y'; if (lock === 'x') { const edge = (at === 0 && dx > 0) || (at === N7 - 1 && dx < 0); stack.style.transform = `translateX(${dx * (edge ? .2 : .55)}px)`; } });
+    const end = () => { if (x0 === null) return; stack.style.transform = ''; if (lock === 'x' && Math.abs(dx) > 50) go(at + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1); x0 = null; };
+    card.addEventListener('pointerup', end); card.addEventListener('pointercancel', end); card.addEventListener('pointerleave', end);
+    /* the first time it comes into view, the card nudges sideways once so people see it swipes */
+    const io = new IntersectionObserver((en, o) => { if (en[0].isIntersecting) { o.disconnect(); if (!rm && card.animate) card.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-16px)' }, { transform: 'translateX(0)' }], { duration: 700, delay: 500, easing: 'ease-in-out' }); } }, { threshold: .5 });
+    io.observe(card);
+    rings[0].classList.add('seen'); go(0, 1);
     fstop = () => io.disconnect();
   };
   const R = {
     0() { box.innerHTML = acc(); wireAcc(); },
-    7() { box.innerHTML = stories(); wireStories(); }
+    8() { box.innerHTML = stories(); wireStories(); }
   };
+
 
 
   const set = l => { fstop(); fstop = () => {}; sec.dataset.lay = l; R[l](); };
@@ -2065,7 +2072,7 @@ var LFX = (function () {
   set(ql ? +ql[1] : +(sec.dataset.lay || 0));
   if (/[?&]r8\b/.test(location.search)) {
     const bar = document.createElement('div'); bar.className = 'drsw';
-    bar.innerHTML = [[0, 'F0 Frosted list'], [7, 'F7 Stories']].map(([i, n]) => `<button type="button" data-l="${i}">${n}</button>`).join('');
+    bar.innerHTML = [[0, 'F0 Frosted list'], [8, 'F8 Stories']].map(([i, n]) => `<button type="button" data-l="${i}">${n}</button>`).join('');
     document.body.appendChild(bar);
     const mark = () => bar.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.l === sec.dataset.lay));
     bar.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; set(+b.dataset.l); mark(); sec.scrollIntoView({ block: 'start' }); });
