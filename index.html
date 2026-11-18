@@ -687,33 +687,39 @@ html{scroll-behavior:smooth}
 .fq-a>div{overflow:hidden}
 .fq-a p{margin:0 0 calc(1.2*var(--t));max-width:calc(52*var(--t));font-size:calc(1.12*var(--t));line-height:1.5;color:color-mix(in srgb,var(--ink) 78%,transparent)}
 .fq button:focus{outline:none}.fq button:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:8px}
-/* F1: side by side */
-.fq[data-lay="1"] .fqw{display:grid;grid-template-columns:calc(26*var(--t)) 1fr;gap:calc(5*var(--t));align-items:start;text-align:left}
-.fq[data-lay="1"] .fqt{align-items:flex-start;position:sticky;top:calc(6*var(--t))}
-.fq[data-lay="1"] .fqx{margin-top:0}
-.fq[data-lay="1"] .fq-l{width:100%;padding:0;background:none;border:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;border-top:1px solid rgba(23,43,71,.12);border-radius:0}
-.fq[data-lay="1"] .fq-i:first-child{border-top:0}
-/* F2: question chips */
-.fq-c{display:flex;flex-wrap:wrap;justify-content:center;gap:calc(.6*var(--t));max-width:calc(64*var(--t))}
-.fq-c button{font:inherit;font-weight:600;font-size:calc(1*var(--t));color:var(--ink);background:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.9);border-radius:999px;padding:calc(.6*var(--t)) calc(1.1*var(--t));cursor:pointer;transition:background .2s,color .2s}
-.fq-c button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
-.fq-ans{width:min(100%,calc(52*var(--t)));margin-top:calc(2*var(--t));padding:calc(1.6*var(--t)) calc(2*var(--t));text-align:left;background:rgba(255,255,255,.6);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.85);border-radius:calc(2*var(--t))}
-.fq-ans b{display:block;margin-bottom:calc(.4*var(--t));font-size:calc(1.25*var(--t))}
-.fq-ans p{margin:0;font-size:calc(1.15*var(--t));line-height:1.5;color:color-mix(in srgb,var(--ink) 80%,transparent)}
-.fq-ans.in{animation:fqin .3s ease}
-@keyframes fqin{from{opacity:0;transform:translateY(calc(.6*var(--t)))}}
-/* F3: flip cards */
-.fq-f{display:grid;grid-template-columns:repeat(4,1fr);gap:calc(1.4*var(--t));width:calc(72*var(--t));max-width:100%}
-.fq-fc{position:relative;aspect-ratio:1/1.05;padding:0;border:0;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer;perspective:900px}
-.fq-fr,.fq-bk{position:absolute;inset:0;display:flex;flex-direction:column;padding:calc(1.4*var(--t));border-radius:calc(1.8*var(--t));-webkit-backface-visibility:hidden;backface-visibility:hidden;transition:transform .55s cubic-bezier(.2,.8,.2,1);box-shadow:0 calc(1*var(--t)) calc(2.4*var(--t)) calc(-1*var(--t)) rgba(23,43,71,.3)}
-.fq-fr{justify-content:space-between;background:#fff}
-.fq-fc:nth-child(4n+2) .fq-fr{background:#FFE3F3}.fq-fc:nth-child(4n+3) .fq-fr{background:#EFFFC8}.fq-fc:nth-child(4n+4) .fq-fr{background:#CDEFFF}
-.fq-fr b{font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(1.55*var(--t));line-height:1.1}
-.fq-fr small{font-size:calc(.9*var(--t));opacity:.55}
-.fq-bk{gap:calc(.6*var(--t));background:var(--ink);color:#fff;font-size:calc(1.02*var(--t));line-height:1.45;transform:rotateY(180deg)}
-.fq-bk b{font-size:calc(.95*var(--t));opacity:.65}
-.fq-fc[aria-pressed="true"] .fq-fr{transform:rotateY(-180deg)}
-.fq-fc[aria-pressed="true"] .fq-bk{transform:rotateY(0)}
+/* F4, F5: layers of water */
+.lys{position:relative;width:min(100%,calc(62*var(--t)));margin-top:calc(1.6*var(--t));text-align:left}
+.ly{position:relative;background:var(--c);color:var(--ink)}
+.ly.dk{color:#fff}
+.ly:last-child{border-radius:0 0 calc(2.4*var(--t)) calc(2.4*var(--t))}
+.ly-w{position:absolute;left:0;bottom:100%;width:200%;height:calc(1.6*var(--t));margin-bottom:-1px;transform-origin:50% 100%;animation:lyw calc(7s + var(--d)*1.3s) linear infinite;animation-delay:calc(var(--d)*-2.1s);pointer-events:none}
+.ly:nth-child(even) .ly-w{animation-direction:reverse}
+.lys{overflow:hidden;overflow:clip;padding-top:calc(1.6*var(--t));margin-top:0}
+@keyframes lyw{to{transform:translateX(-50%)}}
+.ly.slosh .ly-w{animation:lyw calc(7s + var(--d)*1.3s) linear infinite,lysl .9s ease-out}
+@keyframes lysl{0%{scale:1 1}25%{scale:1 2.6}55%{scale:1 .6}80%{scale:1 1.4}100%{scale:1 1}}
+.ly h3{position:relative;z-index:1;margin:0;font:inherit}
+.ly button{display:flex;justify-content:space-between;align-items:center;gap:calc(1*var(--t));width:100%;padding:calc(1.15*var(--t)) calc(2*var(--t));background:none;border:0;font:inherit;font-weight:700;font-size:calc(1.25*var(--t));color:inherit;text-align:left;cursor:pointer}
+.ly button i{position:relative;flex:none;width:calc(1.4*var(--t));height:calc(1.4*var(--t));min-width:14px;min-height:14px}
+.ly button i::before,.ly button i::after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;border-radius:2px;background:currentColor;transition:transform .3s}
+.ly button i::after{transform:rotate(90deg)}
+.ly.open button i::after{transform:rotate(0)}
+.ly-a{position:relative;z-index:1;display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.3,.7,.3,1)}
+.ly.open .ly-a{grid-template-rows:1fr}
+.ly-a>div{overflow:hidden}
+.ly-a p{margin:0;padding:0 calc(2*var(--t)) calc(1.4*var(--t));max-width:calc(54*var(--t));font-size:calc(1.12*var(--t));line-height:1.5;opacity:.85}
+.ly-b{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.ly-b i{position:absolute;bottom:-1.2em;left:calc(12% + var(--k,0)*16%);width:.7em;height:.7em;border-radius:50%;border:1.5px solid rgba(255,255,255,.75);opacity:0}
+.ly-b i:nth-child(2){--k:1;width:.45em;height:.45em}.ly-b i:nth-child(3){--k:2.6}.ly-b i:nth-child(4){--k:3.7;width:.5em;height:.5em}.ly-b i:nth-child(5){--k:4.8;width:.35em;height:.35em}
+.ly.open .ly-b i{animation:lyb 2.6s ease-in infinite;animation-delay:calc(var(--k,0)*.35s)}
+@keyframes lyb{0%{opacity:0;transform:translateY(0)}15%{opacity:.9}100%{opacity:0;transform:translateY(-14em) translateX(.6em)}}
+.ly button:focus{outline:none}.ly button:focus-visible{outline:2px solid currentColor;outline-offset:-4px;border-radius:10px}
+.ly:first-child::before{content:"";position:absolute;inset:0;background:radial-gradient(40% 60% at 25% 20%,rgba(255,255,255,.55),transparent 70%),radial-gradient(30% 50% at 70% 30%,rgba(255,255,255,.35),transparent 70%);pointer-events:none}
+/* F5: the same layers in a pool cutaway: tiled walls and floor, a white coping on top */
+.pool-x{position:relative;width:min(100%,calc(66*var(--t)));padding:0 calc(1.6*var(--t)) calc(1.6*var(--t));border-radius:0 0 calc(3.2*var(--t)) calc(3.2*var(--t));background:repeating-linear-gradient(0deg,rgba(23,43,71,.14) 0 1px,transparent 1px calc(1.6*var(--t))),repeating-linear-gradient(90deg,rgba(23,43,71,.14) 0 1px,transparent 1px calc(1.6*var(--t))),#F4FBFF;box-shadow:inset 0 0 0 1px rgba(23,43,71,.12),0 calc(1.6*var(--t)) calc(4*var(--t)) calc(-1.6*var(--t)) rgba(23,43,71,.3)}
+.pool-x::before{content:"";position:absolute;left:calc(-1*var(--t));right:calc(-1*var(--t));top:calc(-.2*var(--t));height:calc(1.2*var(--t));border-radius:calc(.6*var(--t));background:linear-gradient(#fff,#E3EEF5);box-shadow:0 calc(.3*var(--t)) calc(.6*var(--t)) rgba(23,43,71,.2);z-index:2}
+.pool-x .lys{width:100%;padding-top:calc(3*var(--t))}
+.pool-x .ly:last-child{border-radius:0 0 calc(2*var(--t)) calc(2*var(--t))}
 /* footer */
 .ft{padding:calc(6*var(--u)) calc(6*var(--u)) calc(4*var(--u));text-align:center;color:var(--ink)}
 .ft-in{display:flex;flex-direction:column;align-items:center;gap:calc(1.1*var(--u));max-width:calc(60*var(--u));margin:0 auto}
@@ -733,12 +739,8 @@ html{scroll-behavior:smooth}
 @media (max-width:759.98px){
  .fq{--t:3.4cqw}
  .fq-l{padding:0 4cqw}
- .fq[data-lay="1"] .fqw{display:flex;flex-direction:column;align-items:stretch;gap:5cqw}
- .fq[data-lay="1"] .fqt{position:static;align-items:center;text-align:center}
- .fq-f{grid-template-columns:repeat(2,1fr);gap:3cqw;width:100%}
- .fq-fc{aspect-ratio:1/1.32}
- .fq-bk{font-size:3.15cqw;padding:3.6cqw}
- .fq-fr{padding:4cqw}
+ .ly button{padding:4cqw 5cqw}.ly-a p{padding:0 5cqw 5cqw}
+ .pool-x{padding:0 3cqw 3cqw}
  .ft{padding:12cqw 6cqw 10cqw}
  .ft-in{gap:3cqw;max-width:none}
  .ft-lg img{width:11cqw}.ft-lg b{font-size:6.4cqw}
@@ -746,7 +748,7 @@ html{scroll-behavior:smooth}
  .ft-nv{gap:2cqw 5cqw}.ft-nv a{font-size:3.7cqw}
  .ft-lgl{font-size:3cqw;max-width:none}
 }
-@media (prefers-reduced-motion:reduce){.fq-a,.fq-fr,.fq-bk{transition:none}.fq-ans.in{animation:none}}
+@media (prefers-reduced-motion:reduce){.fq-a,.ly-a{transition:none}.ly-w,.ly.slosh .ly-w,.ly.open .ly-b i{animation:none}}
 </style>
 </head>
 <body>
@@ -1979,7 +1981,7 @@ var LFX = (function () {
   box.innerHTML = `<div class="gr" role="list" aria-label="Example groups">${[G.slice(0, 6), G.slice(6)].map((row, r) => `<div class="gr-t${r ? ' rev' : ''}">${[...row, ...row].map((g, i) => `<div class="gr-i" role="listitem"${i >= row.length ? ' aria-hidden="true"' : ` aria-label="${label(g)}"`}>${tile(g)}</div>`).join('')}</div>`).join('')}</div>`;
 })();
 
-/* Questions, answered: 8 short answers. Round 8 layouts: F0 frosted list, F1 side by side, F2 question chips, F3 flip cards.
+/* Questions, answered: 8 short answers. Round 8 layouts: F0 frosted list, F4 pool layers, F5 pool layers in a pool cutaway.
    ?r8 shows a switcher on the test page. */
 (function () {
   const sec = document.getElementById('faq'); if (!sec) return;
@@ -2000,25 +2002,32 @@ var LFX = (function () {
     box.querySelectorAll('.fq-i').forEach(x => { x.classList.remove('open'); x.querySelector('button').setAttribute('aria-expanded', 'false'); });
     if (on) { it.classList.add('open'); b.setAttribute('aria-expanded', 'true'); }
   }));
+  /* F4, F5: the questions as layers of water, light at the surface and deeper toward the bottom. Each layer's top is a moving wave;
+     open one and it sloshes, the layers below get pushed down and a few bubbles rise through it. */
+  const C = ['#C9F1FF', '#A4E3FF', '#7DD2FD', '#52BAF5', '#2E9CE6', '#1D7CCB', '#195CA4', '#172B47'];
+  const wave = c => `<svg class="ly-w" viewBox="0 0 400 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0 12 Q50 2 100 12 T200 12 T300 12 T400 12 V24 H0Z" fill="${c}"/></svg>`;
+  const layers = () => `<div class="lys">${Q.map((q, i) => `<div class="ly${i > 3 ? ' dk' : ''}" style="--c:${C[i]};--d:${i}">${wave(C[i])}<h3><button type="button" aria-expanded="false" aria-controls="ly-a${i}" id="ly-q${i}">${q[0]}<i aria-hidden="true"></i></button></h3><div class="ly-a" id="ly-a${i}" role="region" aria-labelledby="ly-q${i}"><div><p>${q[1]}</p></div></div><span class="ly-b" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></div>`).join('')}</div>`;
+  const wireLayers = () => {
+    const ls = [...box.querySelectorAll('.ly')];
+    ls.forEach((l, i) => l.querySelector('button').addEventListener('click', () => {
+      const on = !l.classList.contains('open');
+      ls.forEach(x => { x.classList.remove('open'); x.querySelector('button').setAttribute('aria-expanded', 'false'); });
+      if (!on) return;
+      l.classList.add('open'); l.querySelector('button').setAttribute('aria-expanded', 'true');
+      [l, ls[i + 1]].forEach(x => { if (!x) return; x.classList.remove('slosh'); void x.offsetWidth; x.classList.add('slosh'); });
+    }));
+  };
   const R = {
     0() { box.innerHTML = acc(); wireAcc(); },
-    1() { box.innerHTML = acc(); wireAcc(); },
-    2() {
-      box.innerHTML = `<div class="fq-c" role="group" aria-label="Questions">${Q.map((q, i) => `<button type="button" aria-pressed="${!i}" data-i="${i}">${q[0]}</button>`).join('')}</div><div class="fq-ans" aria-live="polite"><b>${Q[0][0]}</b><p>${Q[0][1]}</p></div>`;
-      const bs = [...box.querySelectorAll('.fq-c button')], ans = box.querySelector('.fq-ans');
-      bs.forEach(b => b.addEventListener('click', () => { const q = Q[+b.dataset.i]; bs.forEach(x => x.setAttribute('aria-pressed', String(x === b))); ans.classList.remove('in'); void ans.offsetWidth; ans.innerHTML = `<b>${q[0]}</b><p>${q[1]}</p>`; ans.classList.add('in'); }));
-    },
-    3() {
-      box.innerHTML = `<div class="fq-f">${Q.map(q => `<button type="button" class="fq-fc" aria-pressed="false"><span class="fq-fr"><b>${q[0]}</b><small>Tap for the answer</small></span><span class="fq-bk"><b>${q[0]}</b>${q[1]}</span></button>`).join('')}</div>`;
-      box.querySelectorAll('.fq-fc').forEach(c => c.addEventListener('click', () => { const on = c.getAttribute('aria-pressed') !== 'true'; c.setAttribute('aria-pressed', String(on)); }));
-    }
+    4() { box.innerHTML = layers(); wireLayers(); },
+    5() { box.innerHTML = `<div class="pool-x">${layers()}</div>`; wireLayers(); }
   };
   const set = l => { sec.dataset.lay = l; R[l](); };
   const ql = /[?&]faq=(\d)/.exec(location.search);
   set(ql ? +ql[1] : +(sec.dataset.lay || 0));
   if (/[?&]r8\b/.test(location.search)) {
     const bar = document.createElement('div'); bar.className = 'drsw';
-    bar.innerHTML = ['F0 Frosted list', 'F1 Side by side', 'F2 Question chips', 'F3 Flip cards'].map((n, i) => `<button type="button" data-l="${i}">${n}</button>`).join('');
+    bar.innerHTML = [[0, 'F0 Frosted list'], [4, 'F4 Pool layers'], [5, 'F5 Pool cutaway']].map(([i, n]) => `<button type="button" data-l="${i}">${n}</button>`).join('');
     document.body.appendChild(bar);
     const mark = () => bar.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.l === sec.dataset.lay));
     bar.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; set(+b.dataset.l); mark(); sec.scrollIntoView({ block: 'start' }); });
