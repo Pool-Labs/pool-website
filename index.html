@@ -558,6 +558,127 @@ html{scroll-behavior:smooth}
   .sc .mvl p{font-size:4cqw}.sc .mvl li.on p{max-height:34cqw;padding-bottom:4cqw}
 }
 @media (prefers-reduced-motion:reduce){.mvc,.mvo>*,.mvl p{transition:none}.mvc.hint{animation:none}}
+
+/* Meet Drippy: the 3D mascot (stacked mood frames) and one chat window. Layout M0 to M3 via data-lay on the section. */
+.dr{--t:var(--u)}
+.dr .epc{padding-bottom:calc(5*var(--u))}
+.drx{display:flex;flex-direction:column;align-items:center;gap:calc(2.4*var(--t));width:100%}
+.drt{display:flex;flex-direction:column;align-items:center;gap:calc(1.2*var(--t))}
+.drl{margin:0;max-width:calc(46*var(--t));font-size:calc(1.35*var(--t));line-height:1.45;color:color-mix(in srgb,var(--ink) 80%,transparent)}
+.drm{position:relative;width:calc(20*var(--t));aspect-ratio:1;flex:none;pointer-events:none}
+.drm .drb{position:absolute;inset:0;animation:drbob 4.2s ease-in-out infinite}
+.drm img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0}
+.drm img.on{opacity:1}
+.drm::after{content:"";position:absolute;left:22%;right:16%;bottom:-2%;height:6%;border-radius:50%;background:radial-gradient(closest-side,rgba(23,43,71,.26),transparent);animation:drsh 4.2s ease-in-out infinite;z-index:-1}
+@keyframes drbob{50%{transform:translateY(-2.4%) rotate(-1.4deg)}}
+@keyframes drsh{50%{transform:scaleX(.88);opacity:.7}}
+/* the chat window */
+.dchat{position:relative;z-index:2;display:flex;flex-direction:column;width:calc(48*var(--t));max-width:100%;background:#fff;border-radius:calc(2.2*var(--t));box-shadow:0 calc(.3*var(--t)) 0 rgba(23,43,71,.06),0 calc(1.6*var(--t)) calc(4*var(--t)) calc(-1*var(--t)) rgba(23,43,71,.28);text-align:left;overflow:hidden;font-size:calc(1.1*var(--t));line-height:1.4;color:var(--ink)}
+.dc-hd{display:flex;align-items:center;gap:calc(.8*var(--t));padding:calc(1*var(--t)) calc(1.4*var(--t));border-bottom:1px solid rgba(23,43,71,.08)}
+.dc-hd b{display:block;font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(1.25*var(--t));line-height:1}
+.dc-hd .drpool{font-size:calc(.9*var(--t));opacity:.6}
+.dc-hd .drme{width:calc(2.6*var(--t));height:calc(2.6*var(--t))}
+.drlog{display:flex;flex-direction:column;gap:calc(.7*var(--t));height:calc(32*var(--t));overflow-y:auto;overscroll-behavior:contain;padding:calc(1.4*var(--t))}
+.drlog:focus{outline:none}.drlog:focus-visible{box-shadow:inset 0 0 0 2px var(--ink)}
+.dr .msg{max-width:84%;padding:calc(.7*var(--t)) calc(1.05*var(--t));border-radius:calc(1.3*var(--t));animation:drin .3s ease both}
+.dr .msg.me{align-self:flex-end;background:var(--ink);color:#fff;border-bottom-right-radius:calc(.35*var(--t))}
+.dr .msg.dr{align-self:flex-start;background:#EAF7FF;border-bottom-left-radius:calc(.35*var(--t))}
+@keyframes drin{from{opacity:0;transform:translateY(calc(.6*var(--t)))}}
+.dr .typing{align-self:flex-start;display:flex;gap:4px;padding:calc(.8*var(--t)) calc(1*var(--t));background:#EAF7FF;border-radius:calc(1.3*var(--t))}
+.dr .typing i{width:calc(.5*var(--t));height:calc(.5*var(--t));border-radius:50%;background:var(--ink);opacity:.35;animation:drdot 1s infinite}
+.dr .typing i:nth-child(2){animation-delay:.15s}.dr .typing i:nth-child(3){animation-delay:.3s}
+@keyframes drdot{30%{opacity:.9;transform:translateY(-30%)}}
+.dr .work{list-style:none;margin:0;padding:0 0 0 calc(.4*var(--t));display:flex;flex-direction:column;gap:calc(.35*var(--t));font-size:calc(.95*var(--t));color:color-mix(in srgb,var(--ink) 70%,transparent)}
+.dr .work li{display:flex;align-items:center;gap:calc(.6*var(--t));opacity:.35;transition:opacity .25s}
+.dr .work li::before{content:"";flex:none;width:calc(1.1*var(--t));height:calc(1.1*var(--t));border-radius:50%;border:2px solid currentColor;box-sizing:border-box}
+.dr .work li.run{opacity:1}.dr .work li.run::before{border-right-color:transparent;animation:drspin .7s linear infinite}
+.dr .work li.on{opacity:1}.dr .work li.on::before{content:"✓";border:none;background:#18A957;color:#fff;font-size:calc(.75*var(--t));display:grid;place-items:center;font-weight:700}
+@keyframes drspin{to{transform:rotate(1turn)}}
+.dr .opts{display:flex;flex-direction:column;gap:calc(.5*var(--t));animation:drin .3s ease both}
+.dr .opt{display:grid;grid-template-columns:1fr auto;column-gap:calc(1*var(--t));align-items:center;text-align:left;font:inherit;color:inherit;background:#fff;border:1.5px solid rgba(23,43,71,.14);border-radius:calc(1.1*var(--t));padding:calc(.7*var(--t)) calc(1*var(--t));cursor:pointer;transition:border-color .2s,background .2s,opacity .2s}
+.dr .opt b{font-weight:700}.dr .opt span{grid-column:1;font-size:calc(.9*var(--t));opacity:.65}
+.dr .opt strong{grid-row:1/3;grid-column:2;font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(1.2*var(--t))}
+.dr .opt:hover:not(:disabled){border-color:var(--ink)}
+.dr .opt.picked{border-color:var(--ink);background:#EAF7FF}.dr .opt:disabled:not(.picked){opacity:.4}
+.dr .cfm{align-self:stretch;background:#EAF7FF;border-radius:calc(1.3*var(--t));padding:calc(1*var(--t)) calc(1.1*var(--t));animation:drin .3s ease both}
+.dr .cfm p{margin:0 0 calc(.6*var(--t))}
+.dr .apr{display:flex;align-items:center;gap:calc(.5*var(--t));font-size:calc(.92*var(--t));opacity:.8}
+.dr .cbtns{display:flex;gap:calc(.6*var(--t));margin-top:calc(.3*var(--t))}
+.dr .cbtns button{font:inherit;font-weight:700;border:0;border-radius:999px;padding:calc(.65*var(--t)) calc(1.3*var(--t));cursor:pointer}
+.dr .cbtns .yes{background:var(--btnbg);box-shadow:var(--gloss);color:#fff}
+.dr .cbtns .no{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1.5px rgba(23,43,71,.2)}
+.dr .cfm.done button:not(.picked){opacity:.35}.dr .cfm.done button{cursor:default}
+.dr .rcpt{align-self:stretch;border:1.5px solid rgba(23,43,71,.12);border-radius:calc(1.3*var(--t));padding:calc(1*var(--t)) calc(1.1*var(--t));animation:drin .35s ease both}
+.dr .rcpt .top{display:flex;gap:calc(1*var(--t));align-items:center}
+.dr .rcpt .top b{display:block}.dr .rcpt .top span{display:block;font-size:calc(.9*var(--t));opacity:.7}
+.dr .rcpt .conf{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.dr .rc-who{display:flex;align-items:center;gap:calc(.6*var(--t));margin:calc(.8*var(--t)) 0 0;font-size:calc(.9*var(--t));opacity:.8}
+.dr .stack{display:flex}.dr .stack .drav+.drav{margin-left:calc(-.5*var(--t))}
+.dr .ins{align-self:stretch;background:#EAF7FF;border-radius:calc(1.3*var(--t));padding:calc(1*var(--t)) calc(1.2*var(--t));animation:drin .35s ease both}
+.dr .ins-k{margin:0;font-size:calc(.9*var(--t));opacity:.65}
+.dr .ins-big{margin:calc(.1*var(--t)) 0 calc(.6*var(--t));font-family:"Titan One",system-ui,sans-serif;font-size:calc(2.4*var(--t));line-height:1}
+.dr .ins ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:calc(.55*var(--t))}
+.dr .ins li{display:grid;grid-template-columns:1fr auto;font-size:calc(.95*var(--t))}
+.dr .ins li i{grid-column:1/3;height:calc(.45*var(--t));margin-top:calc(.25*var(--t));border-radius:9px;background:linear-gradient(90deg,var(--ink) var(--w),rgba(23,43,71,.1) var(--w))}
+.dr .ins-sm{margin:calc(.7*var(--t)) 0 0;font-size:calc(.9*var(--t));opacity:.75}
+.dr .nprev{display:flex;gap:calc(.7*var(--t));align-items:flex-start;align-self:stretch;border:1.5px dashed rgba(23,43,71,.2);border-radius:calc(1.3*var(--t));padding:calc(.9*var(--t)) calc(1*var(--t))}
+.dr .nprev p{margin:calc(.2*var(--t)) 0 0}
+.dr .tab{font-variant-numeric:tabular-nums}
+.drav{display:inline-grid;place-items:center;flex:none;width:calc(1.9*var(--t));height:calc(1.9*var(--t));border-radius:50%;background:hsl(var(--h) 62% 52%);color:#fff;font-weight:700;font-size:calc(.85*var(--t));box-shadow:0 0 0 2px #fff}
+.drav.you{background:var(--ink);font-size:calc(.65*var(--t))}
+img.drme{background:#EAF7FF;object-fit:contain;padding:2px;box-sizing:border-box}
+.drcd{position:relative;flex:none;display:flex;flex-direction:column;justify-content:space-between;width:calc(5.2*var(--t));aspect-ratio:1.586;padding:calc(.4*var(--t)) calc(.5*var(--t));box-sizing:border-box;border-radius:calc(.55*var(--t));background:var(--popbg);color:#fff;box-shadow:var(--gloss)}
+.drcd.navy{background:linear-gradient(180deg,#2A3F8F,#16245E 60%,#0E1846)}
+.drcd b{font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(.75*var(--t));line-height:1}
+.drcd i{font-style:normal;font-size:calc(.55*var(--t));opacity:.85;align-self:flex-end}
+.dc-ft{display:flex;flex-direction:column;gap:calc(.8*var(--t));padding:calc(1*var(--t)) calc(1.2*var(--t)) calc(1.2*var(--t));border-top:1px solid rgba(23,43,71,.08)}
+.drasks{display:flex;flex-wrap:wrap;gap:calc(.45*var(--t))}
+.drasks button{font:inherit;font-size:calc(.9*var(--t));font-weight:600;color:var(--ink);background:#EAF7FF;border:0;border-radius:999px;padding:calc(.45*var(--t)) calc(.9*var(--t));cursor:pointer;transition:background .2s,color .2s}
+.drasks button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.drin{display:flex;gap:calc(.5*var(--t));margin:0}
+.drin input{flex:1;min-width:0;font:inherit;font-size:max(16px,calc(1*var(--t)));color:var(--ink);background:#fff;border:1.5px solid rgba(23,43,71,.16);border-radius:999px;padding:calc(.6*var(--t)) calc(1.1*var(--t))}
+.drin input:focus{outline:none;border-color:var(--ink)}
+.drin button{flex:none;width:calc(2.8*var(--t));height:calc(2.8*var(--t));min-width:40px;min-height:40px;border:0;border-radius:50%;background:var(--btnbg);box-shadow:var(--gloss);color:#fff;display:grid;place-items:center;cursor:pointer}
+.drin svg{width:45%;height:45%}
+.drfine{margin:calc(2.4*var(--u)) 0 0;font-size:calc(.95*var(--u));color:color-mix(in srgb,var(--ink) 60%,transparent)}
+/* M1 side by side */
+.dr[data-lay="1"] .drx{display:grid;grid-template-columns:1fr auto;grid-template-areas:"t c" "m c";align-items:start;column-gap:calc(5*var(--t));row-gap:0;text-align:left}
+.dr[data-lay="1"] .drt{grid-area:t;align-items:flex-start;padding-top:calc(3*var(--t))}
+.dr[data-lay="1"] .drm{grid-area:m;width:calc(26*var(--t));justify-self:center}
+.dr[data-lay="1"] .dchat{grid-area:c}
+/* M2 perched on the chat */
+.dr[data-lay="2"] .drx{display:grid;grid-template-areas:"t" "c";justify-items:center}
+.dr[data-lay="2"] .drt{grid-area:t}
+.dr[data-lay="2"] .dchat{grid-area:c;margin-top:calc(8*var(--t))}
+.dr[data-lay="2"] .drm{grid-area:c;z-index:3;align-self:start;justify-self:center;width:calc(15*var(--t));transform:translate(calc(20*var(--t)),calc(-1.2*var(--t)))}
+.dr[data-lay="2"] .dc-hd{padding-right:calc(16*var(--t))}
+/* M3 loose: no window, bubbles on the page, Drippy big beside them */
+.dr[data-lay="3"] .drx{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"t t" "m c";align-items:center;column-gap:calc(3*var(--t))}
+.dr[data-lay="3"] .drt{grid-area:t}
+.dr[data-lay="3"] .drm{grid-area:m;width:calc(28*var(--t))}
+.dr[data-lay="3"] .dchat{grid-area:c;background:none;box-shadow:none;overflow:visible;width:calc(52*var(--t))}
+.dr[data-lay="3"] .dc-hd{display:none}
+.dr[data-lay="3"] .drlog{padding:calc(1*var(--t)) 0;-webkit-mask:linear-gradient(transparent,#000 12%);mask:linear-gradient(transparent,#000 12%)}
+.dr[data-lay="3"] .msg.dr,.dr[data-lay="3"] .typing,.dr[data-lay="3"] .cfm,.dr[data-lay="3"] .ins,.dr[data-lay="3"] .rcpt{background:#fff;box-shadow:0 calc(.5*var(--t)) calc(1.4*var(--t)) calc(-.6*var(--t)) rgba(23,43,71,.25)}
+.dr[data-lay="3"] .dc-ft{border:0;padding:calc(1*var(--t)) 0 0}
+.dr[data-lay="3"] .drasks button{background:#fff}.dr[data-lay="3"] .drasks button[aria-pressed="true"]{background:var(--ink)}
+/* test-page switcher */
+.drsw{position:fixed;z-index:50;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;gap:4px;padding:4px;background:rgba(23,43,71,.92);border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.25);max-width:calc(100vw - 20px);overflow-x:auto}
+.drsw button{font:600 13px/1 Figtree,system-ui,sans-serif;color:#fff;background:none;border:0;border-radius:999px;padding:9px 12px;white-space:nowrap;cursor:pointer}
+.drsw button.on{background:#fff;color:#172B47}
+@media (max-width:759.98px){
+ .dr{--t:3.4cqw}
+ .drl{font-size:3.9cqw;max-width:none}
+ .drm{width:46cqw}
+ .dchat{width:100%;border-radius:5cqw}
+ .drlog{height:128cqw}
+ .dr .msg{max-width:88%}
+ .drfine{font-size:3.2cqw}
+ .dr[data-lay="1"] .drx{display:flex;text-align:center}.dr[data-lay="1"] .drt{align-items:center;padding:0}.dr[data-lay="1"] .drm{width:54cqw}
+ .dr[data-lay="2"] .dchat{margin-top:20cqw}.dr[data-lay="2"] .drm{width:30cqw;transform:translate(26cqw,-3cqw)}.dr[data-lay="2"] .dc-hd{padding-right:30cqw}
+ .dr[data-lay="3"] .drx{display:flex}.dr[data-lay="3"] .drm{width:52cqw}.dr[data-lay="3"] .dchat{width:100%}
+}
+@media (prefers-reduced-motion:reduce){.drm .drb,.drm::after,.dr .msg,.dr .opts,.dr .cfm,.dr .rcpt,.dr .ins{animation:none}}
 </style>
 </head>
 <body>
@@ -577,7 +698,7 @@ html{scroll-behavior:smooth}
 
 
 
-<span class="cue" aria-hidden="true">Scroll<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></span><div class="epg"><canvas class="lfx lfx-rib" data-fx="pour" aria-hidden="true"></canvas><section class="eps eps1" id="social" aria-labelledby="h-social"><div class="epc"><h2 class="bh" id="h-social">Money is social now</h2><p class="bs">The best parts of life happen with other people.</p><div class="echips"><span class="echip"><img src="assets/6738eff053.webp" alt="">Friday dinners</span><span class="echip"><img src="assets/4d55660b2c.webp" alt="">Road trip</span><span class="echip"><img src="assets/7f87d6fa43.webp" alt="">Dorm 3C</span><span class="echip"><img src="assets/5060878c07.webp" alt="">Game night</span></div></div></section><section class="eps eps2" id="how" aria-labelledby="h-how"><div class="epc"><canvas class="lfx lfx-pool" data-fx="pool" aria-hidden="true"></canvas><h2 class="bh" id="h-how">How a pool works</h2><ol class="esteps"><li><b>Start a pool for your group</b><span>Name it, add your people, say what it’s for.</span></li><li><b>Everyone chips in</b><span>The pool fills up before anyone spends a dollar.</span></li><li><b>Spend it together</b><span>Tap your group’s virtual card. Everyone sees&nbsp;it.</span></li></ol></div></section><section class="eps eps3 mv" id="features" aria-labelledby="h-feat"><div class="epc"><h2 class="bh" id="h-feat">Money that moves like your group</h2><div class="mvw" data-mv><div class="mvs" aria-hidden="true"><div class="mvc" data-k="0"><img src="assets/f3f823a08e.webp" alt="" loading="lazy" style="object-position:50% 50%"><div class="mvo"><span class="mvmc mvmc2"><i>Pool</i><em>Ski trip</em><small>•• 7302</small></span><span class="mvmc"><i>Pool</i><em>Friday dinners</em><small>•• 4821</small></span></div></div><div class="mvc" data-k="1"><img src="assets/5eeadeca8b.webp" alt="" loading="lazy" style="object-position:62% 50%"><div class="mvo"><span class="mvch"><img src="assets/6738eff053.webp" alt="">Maya can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch"><img src="assets/7f87d6fa43.webp" alt="">Rin can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch mvdim"><img src="assets/5060878c07.webp" alt="">Liv, view only</span></div></div><div class="mvc" data-k="2"><img src="assets/1b0b6bba10.webp" alt="" loading="lazy" style="object-position:50% 40%"><div class="mvo"><span class="mvch"><img src="assets/4d55660b2c.webp" alt="">Leo chipped in<b>+$22</b></span><span class="mvch"><img src="assets/75dfbc8993.webp" alt="">Pizza, Maya<b>−$42.80</b></span></div></div><div class="mvc" data-k="3"><img src="assets/e5e2cc8502.webp" alt="" loading="lazy" style="object-position:45% 50%"><div class="mvo"><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>6-week streak<b>+25</b></span><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>Pool droplets<b>2,960</b></span><span class="mvch">Custom card unlocked<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span></div></div></div><ul class="mvl"><li class="on"><button type="button" data-i="0" aria-pressed="true"><b>One card per pool</b><span class="mvpm" aria-hidden="true"></span></button><p>Every pool gets its own virtual card.</p></li><li><button type="button" data-i="1" aria-pressed="false"><b>Pick who can tap</b><span class="mvpm" aria-hidden="true"></span></button><p>The host decides who can spend, and can change it anytime.</p></li><li><button type="button" data-i="2" aria-pressed="false"><b>See every dollar</b><span class="mvpm" aria-hidden="true"></span></button><p>Every chip-in and every spend shows up for everyone.</p></li><li><button type="button" data-i="3" aria-pressed="false"><b>Droplets for your pool</b><span class="mvpm" aria-hidden="true"></span></button><p>Keep your streak, stack droplets and unlock a custom card that’s lowkey iconic. Plus discounts, waived fees and exclusive merch.</p></li></ul></div><p class="mvfine">Example groups and amounts.</p></div></section><section class="eps eps3" id="join" aria-labelledby="h-join"><div class="epc"><h2 class="bh" id="h-join">Get Pool first.</h2><p class="bs">Join the waitlist and we’ll tell you when Pool&nbsp;opens.</p><form class="join" id="waitlist" novalidate data-endpoint="https://app.loops.so/api/newsletter-form/cmwl3l3fe00og0jyopp1idia0"><label class="vh" for="wl-email">Your email</label><input id="wl-email" class="jin" type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@email.com" required><button class="go" type="submit">Join the waitlist</button></form><p class="jmsg" id="wl-msg" role="status" aria-live="polite"></p></div></section></div>
+<span class="cue" aria-hidden="true">Scroll<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></span><div class="epg"><canvas class="lfx lfx-rib" data-fx="pour" aria-hidden="true"></canvas><section class="eps eps1" id="social" aria-labelledby="h-social"><div class="epc"><h2 class="bh" id="h-social">Money is social now</h2><p class="bs">The best parts of life happen with other people.</p><div class="echips"><span class="echip"><img src="assets/6738eff053.webp" alt="">Friday dinners</span><span class="echip"><img src="assets/4d55660b2c.webp" alt="">Road trip</span><span class="echip"><img src="assets/7f87d6fa43.webp" alt="">Dorm 3C</span><span class="echip"><img src="assets/5060878c07.webp" alt="">Game night</span></div></div></section><section class="eps eps2" id="how" aria-labelledby="h-how"><div class="epc"><canvas class="lfx lfx-pool" data-fx="pool" aria-hidden="true"></canvas><h2 class="bh" id="h-how">How a pool works</h2><ol class="esteps"><li><b>Start a pool for your group</b><span>Name it, add your people, say what it’s for.</span></li><li><b>Everyone chips in</b><span>The pool fills up before anyone spends a dollar.</span></li><li><b>Spend it together</b><span>Tap your group’s virtual card. Everyone sees&nbsp;it.</span></li></ol></div></section><section class="eps eps3 mv" id="features" aria-labelledby="h-feat"><div class="epc"><h2 class="bh" id="h-feat">Money that moves like your group</h2><div class="mvw" data-mv><div class="mvs" aria-hidden="true"><div class="mvc" data-k="0"><img src="assets/f3f823a08e.webp" alt="" loading="lazy" style="object-position:50% 50%"><div class="mvo"><span class="mvmc mvmc2"><i>Pool</i><em>Ski trip</em><small>•• 7302</small></span><span class="mvmc"><i>Pool</i><em>Friday dinners</em><small>•• 4821</small></span></div></div><div class="mvc" data-k="1"><img src="assets/5eeadeca8b.webp" alt="" loading="lazy" style="object-position:62% 50%"><div class="mvo"><span class="mvch"><img src="assets/6738eff053.webp" alt="">Maya can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch"><img src="assets/7f87d6fa43.webp" alt="">Rin can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch mvdim"><img src="assets/5060878c07.webp" alt="">Liv, view only</span></div></div><div class="mvc" data-k="2"><img src="assets/1b0b6bba10.webp" alt="" loading="lazy" style="object-position:50% 40%"><div class="mvo"><span class="mvch"><img src="assets/4d55660b2c.webp" alt="">Leo chipped in<b>+$22</b></span><span class="mvch"><img src="assets/75dfbc8993.webp" alt="">Pizza, Maya<b>−$42.80</b></span></div></div><div class="mvc" data-k="3"><img src="assets/e5e2cc8502.webp" alt="" loading="lazy" style="object-position:45% 50%"><div class="mvo"><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>6-week streak<b>+25</b></span><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>Pool droplets<b>2,960</b></span><span class="mvch">Custom card unlocked<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span></div></div></div><ul class="mvl"><li class="on"><button type="button" data-i="0" aria-pressed="true"><b>One card per pool</b><span class="mvpm" aria-hidden="true"></span></button><p>Every pool gets its own virtual card.</p></li><li><button type="button" data-i="1" aria-pressed="false"><b>Pick who can tap</b><span class="mvpm" aria-hidden="true"></span></button><p>The host decides who can spend, and can change it anytime.</p></li><li><button type="button" data-i="2" aria-pressed="false"><b>See every dollar</b><span class="mvpm" aria-hidden="true"></span></button><p>Every chip-in and every spend shows up for everyone.</p></li><li><button type="button" data-i="3" aria-pressed="false"><b>Droplets for your pool</b><span class="mvpm" aria-hidden="true"></span></button><p>Keep your streak, stack droplets and unlock a custom card that’s lowkey iconic. Plus discounts, waived fees and exclusive merch.</p></li></ul></div><p class="mvfine">Example groups and amounts.</p></div></section><section class="eps eps1 dr" id="drippy" aria-labelledby="h-dr" data-lay="0"><div class="epc"><div class="drx"><div class="drt"><h2 class="bh" id="h-dr">Meet Drippy</h2><p class="drl">Pool’s AI agent. Tell Drippy the vibe and the budget, and it does the scrolling. It books what your group picks, pays from the pool and tells you where the money went. Nothing gets booked without a yes.</p></div><div class="drm" aria-hidden="true"><div class="drb"><img data-m="smug" class="on" src="assets/drippy-smug.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="blink" src="assets/drippy-blink.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="look" src="assets/drippy-look.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="alert" src="assets/drippy-alert.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="happy" src="assets/drippy-happy.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="paid" src="assets/drippy-paid.webp" alt="" width="640" height="636" loading="lazy" decoding="async"></div></div><div class="dchat"><div class="dc-hd"><img class="drav drme" src="assets/drippy-av.webp" alt="" width="96" height="95"><div><b>Drippy</b><span class="drpool">for Ski club</span></div></div><div class="drlog" role="log" aria-live="polite" aria-label="Chat with Drippy" tabindex="0"></div><div class="dc-ft"><div class="drasks" role="group" aria-label="Try asking Drippy"><button type="button" data-k="0" aria-pressed="true">Plan a ski weekend</button><button type="button" data-k="1" aria-pressed="false">What did we spend on food?</button><button type="button" data-k="2" aria-pressed="false">Book Friday dinner</button><button type="button" data-k="3" aria-pressed="false">Nudge Kai for Tahoe</button><button type="button" data-k="4" aria-pressed="false">Are we good for rent?</button><button type="button" data-k="5" aria-pressed="false">Plan this weekend</button></div><form class="drin" novalidate><input type="text" placeholder="Ask Drippy anything" aria-label="Ask Drippy anything" autocomplete="off" maxlength="140"><button type="submit" aria-label="Send"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5"/></svg></button></form></div></div></div><p class="drfine">A preview of Drippy. Places, prices and amounts are examples.</p></div></section><section class="eps eps3" id="join" aria-labelledby="h-join"><div class="epc"><h2 class="bh" id="h-join">Get Pool first.</h2><p class="bs">Join the waitlist and we’ll tell you when Pool&nbsp;opens.</p><form class="join" id="waitlist" novalidate data-endpoint="https://app.loops.so/api/newsletter-form/cmwl3l3fe00og0jyopp1idia0"><label class="vh" for="wl-email">Your email</label><input id="wl-email" class="jin" type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@email.com" required><button class="go" type="submit">Join the waitlist</button></form><p class="jmsg" id="wl-msg" role="status" aria-live="polite"></p></div></section></div>
 
 </div>
 <script>
@@ -1628,6 +1749,142 @@ var LFX = (function () {
   }
   if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { visible(es[0].isIntersecting); }, { threshold: .35 }).observe(box);
   else visible(true);
+})();
+
+/* Meet Drippy: one chat window. Tap an idea and Drippy shows its work, asks for a yes, books and keeps the receipt.
+   The big 3D Drippy changes face with the chat: Waiting, Reminder, Needs attention, Plan booked, Marked paid.
+   Test page only: ?r5 shows a layout switcher (M0 to M3). */
+(function () {
+  const sec = document.getElementById('drippy'); if (!sec) return;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ql = /[?&]lay=(\d)/.exec(location.search); if (ql) sec.dataset.lay = ql[1];
+  /* moods: stacked frames, one shown */
+  const fr = {}; sec.querySelectorAll('.drm img').forEach(i => { fr[i.dataset.m] = i; });
+  let cur = 'smug', mt = 0, mt2 = 0;
+  const show = k => { if (!fr[k]) return; for (const n in fr) fr[n].classList.toggle('on', n === k); };
+  function mood(k, ms, next) {
+    clearTimeout(mt); clearTimeout(mt2); cur = k; show(k);
+    if (ms) mt = setTimeout(() => { if (next) { cur = next; show(next); mt2 = setTimeout(() => { cur = 'smug'; show('smug'); }, 2200); } else { cur = 'smug'; show('smug'); } }, ms);
+  }
+  /* idle: blink now and then, and glance sideways once in a while, only while on screen */
+  let vis = false;
+  if ('IntersectionObserver' in window) new IntersectionObserver(e => { vis = e[0].isIntersecting; }, { threshold: .15 }).observe(sec);
+  if (!reduce) (function idle() {
+    setTimeout(() => {
+      if (vis && cur === 'smug' && !document.hidden) {
+        if (Math.random() < .2) { show('look'); setTimeout(() => { if (cur === 'smug') show('smug'); }, 1400); }
+        else { show('blink'); setTimeout(() => { if (cur === 'smug') show('smug'); }, 130); }
+      }
+      idle();
+    }, 2600 + Math.random() * 2400);
+  })();
+  const usd = n => '$' + n.toLocaleString('en-US', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 });
+  const HUE = { dev: 205, theo: 150, kai: 28, mia: 330, maya: 265, liv: 12, nia: 175, rin: 48, jordan: 225 };
+  const face = n => `<span class="drav" style="--h:${HUE[n] || 200}" aria-hidden="true">${n[0].toUpperCase()}</span>`;
+  const av = () => '<img class="drav drme" src="assets/drippy-av.webp" alt="" width="96" height="95">';
+  const card = (n, c) => `<span class="drcd ${c || ''}" aria-hidden="true"><b>Pool</b><i>••${(n.length * 977 % 9000 + 1000)}</i></span>`;
+  const D = { dataset: {} }, R = { svg: () => '' };
+  {
+    const S=[
+      {pool:'Ski club',ask:'Cabin in Tahoe for 6, Jan 15 to 17, under $900 total',look:['Searched 14 cabins near Tahoe for Jan 15 to 17','Kept the 3 that sleep 6 for under $900'],
+       intro:'Three cabins fit your $900. The Ski club pool has $2,400 in it.',
+       opts:[['Pine Hollow','Sleeps 6, hot tub',840],['Lakeview A-frame','On the lake',890],['Ridge loft','Near the lifts',760]],
+       pick:o=>({me:`${o[0]} looks good`,ask:`${o[0]}, Jan 15 to 17, is ${usd(o[2])} all in. I can book it from the Ski club pool, which leaves ${usd(2400-o[2])} for the season.`,yes:'Go ahead, book it',ok1:['dev','Dev'],
+         work:[`Held ${o[0]} for Jan 15 to 17`,`Paid ${usd(o[2])} from the Ski club pool`],
+         rc:{card:['Ski club','navy'],title:`Booked: ${o[0]}`,sub:`${usd(o[2])} from the Ski club pool`,conf:'PH-4821',who:['dev','theo','kai','mia'],note:'Receipt sent to all 6'},
+         after:`Done. ${usd(2400-o[2])} left in the pool for lift tickets and gas.`})},
+      {pool:'Apt 4B',ask:'How much did we spend on food this year?',look:['Went through 214 payments from the Apt 4B pool','Sorted out groceries, takeout and dinners'],
+       intro:'Here’s Apt 4B’s food so far this year.',
+       ins:{title:'Food in 2026, Apt 4B',total:4800,rows:[['Groceries',3120],['Casa Verde, 11 Fridays',840],['Takeout',840]],foot:'About $100 each a month. Groceries are the big one.'},
+       pick:()=>({ask:'Want a heads-up if groceries go over $70 in a week?',yes:'Yes, watch it',label:'Watch groceries?',hold:'No problem. Ask me anytime.',
+         work:['Set a $70 weekly watch on groceries'],after:'Done. If a week goes over $70, the whole pool gets a heads-up.'})},
+      {pool:'Friday dinners',ask:'Table for 6 on Friday, around $40 each',look:['Checked 9 places near campus for Friday at 7:30','Kept the 2 with a table for 6 around $40 each'],
+       intro:'Two places have a table for 6 at 7:30. The Friday dinners pool has $640, so this one’s covered.',
+       opts:[['Nori House','Sushi, about $38 each',228],['Casa Verde','Tacos, about $39 each',234]],
+       pick:o=>({me:`${o[0]}, please`,ask:`I can reserve ${o[0]} for 6 at 7:30 and pay the bill from the pool on the night, about ${usd(o[2])} with tip.`,yes:'Go ahead, book it',ok1:['maya','Maya'],
+         work:[`Reserved ${o[0]} for 6 at 7:30`,'Set the bill to come out of the pool on the night'],
+         rc:{card:['Friday dinners',''],title:`Table for 6 at ${o[0]}`,sub:'Friday 7:30, paid from the pool on the night',conf:'NH-7730',who:['maya','liv','nia','rin'],note:'Receipt sent to all 6'},
+         after:`Booked. After Friday you’ll still have about ${usd(640-o[2])} for next week.`})},
+      {pool:'Ski club',ask:'Can you nudge Kai about Tahoe?',look:['Checked the Tahoe pool: 5 of 6 in'],
+       intro:'Kai’s the last one in. How should I say it?',
+       opts:[['Chill','No pressure',0],['Hype','All caps energy',0],['Spicy','A little roast',0]],
+       pick:o=>({me:o[0],preview:{Chill:'Hey Kai, Tahoe’s just waiting on your $160. No rush, the cabin’s held till Friday.',Hype:'KAI. Tahoe is 5 of 6 and you’re the final boss. $160 and we’re booked.',Spicy:'Kai, the hot tub has your name on it. $160 and you’re in.'}[o[0]],
+         ask:'Only Kai sees this. Send it?',yes:'Send it',label:'Send the nudge?',hold:'No problem. I’ll keep it for later.',
+         work:['Sent to Kai, privately'],after:'Sent. I’ll tell you when Kai’s in. Nobody else sees a thing.'})},
+      {pool:'Apt 4B',ask:'Are we good for rent?',look:['Checked the Apt 4B pool','Checked who’s chipped in for November'],
+       intro:'Apt 4B has $1,800 of $2,400, and rent is due in 4 days. Two of you still have to chip in.',
+       opts:[['Nudge them now','Privately, from me',0],['Nudge them tomorrow','Wait one more day',0]],
+       pick:o=>({me:o[0],ask:`${o[0].includes('tomorrow')?'I’ll nudge them tomorrow, privately.':'Done. I nudged them privately.'} Want me to pay the $2,400 rent from the pool on the 1st, once it’s all in?`,yes:'Yes, pay it on the 1st',ok1:['jordan','Jordan'],apr:'Your yes schedules it.',label:'Approve this?',hold:'No problem. I’ll check back tomorrow.',
+         work:['Scheduled $2,400 for Nov 1','Set it to go once everyone’s in'],
+         rc:{card:['Apt 4B',''],title:'Rent scheduled for Nov 1',sub:'$2,400 from the Apt 4B pool, once everyone’s in',conf:'',who:['jordan','you'],note:'2 more nudged privately'},
+         after:'I’ll pay it once the last $600 is in, and tell you when it’s done.'})},
+      {pool:'Friday hangouts',ask:'What’s the plan this weekend? 6 of us, around $30 each',look:['Checked when all 6 of you are free','Found 11 ideas near campus','Kept the 3 that fit $30 each or less'],
+       intro:'Three ideas that fit. The Friday hangouts pool has $640, and all 6 of you are free Saturday after 11.',
+       opts:[['Pickleball and brunch','Court at 11, brunch at 1',168],['Taco night','Casa Verde, 7:30',180],['Movie night in','Dorm 3C, pizza and snacks',54]],
+       pick:o=>({me:`Let’s do ${o[0].toLowerCase()}`,ask:`${o[0]} comes to ${usd(o[2])} for 6, about ${usd(o[2]/6)} each. I’ll book it and pay from the pool.`,yes:'Yes, book it',ok1:['liv','Liv'],
+         work:[`Locked in ${o[0].toLowerCase()} for Saturday`,`Paid ${usd(o[2])} from the pool`,'Sent everyone the plan'],
+         rc:{card:['Friday hangouts',''],title:`Saturday sorted: ${o[0].toLowerCase()}`,sub:`${usd(o[2])} from the Friday hangouts pool`,conf:'WK-2210',who:['liv','maya','dev','rin'],note:'Everyone has the plan'},
+         after:`Booked. ${usd(640-o[2])} left in the pool for next weekend.`})},
+    ];
+    const log=sec.querySelector('.drlog'),bs=[...sec.querySelectorAll('.drasks button')],poolName=sec.querySelector('.drpool');
+    let run=0,fast=false,first=true;
+    const wait=(ms,id)=>fast?Promise.resolve(id===run):new Promise(r=>setTimeout(()=>r(id===run),reduce?0:ms));
+    const add=html=>{log.insertAdjacentHTML('beforeend',html);const el=log.lastElementChild;log.scrollTop=log.scrollHeight;return el};  /* only the chat scrolls, never the page */
+    const typing=async(id,ms=900)=>{if(reduce||fast)return id===run;const t=add('<div class="typing" aria-hidden="true"><i></i><i></i><i></i></div>');const ok=await wait(ms,id);t.remove();return ok};
+    /* Drippy narrates each step, so the group sees the work, not just the answer */
+    const work=async(id,steps)=>{const ul=add(`<ul class="work" aria-label="What Drippy did">${steps.map(t=>`<li>${t}</li>`).join('')}</ul>`),li=[...ul.children];
+      if(reduce||fast){li.forEach(l=>l.classList.add('on'));return id===run}
+      for(const l of li){l.classList.add('run');log.scrollTop=log.scrollHeight;if(!await wait(560,id))return false;l.classList.remove('run');l.classList.add('on')}return id===run};
+    const who=list=>list.map(f=>f==='you'?'<span class="av you" aria-hidden="true">You</span>':face(f)).join('');
+    const rcpt=c=>`<div class="rcpt"><div class="top">${card(...c.card)}<div><b>${c.title}</b><span>${c.sub}</span>${c.conf?`<span class="conf">Confirmation ${c.conf}</span>`:''}</div></div><p class="rc-who"><span class="stack">${who(c.who)}</span>${c.note}</p></div>`;
+    const ins=c=>{const max=Math.max(...c.rows.map(r=>r[1]));return `<div class="ins"><p class="ins-k">${c.title}</p><p class="ins-big disp tab">${usd(c.total)}</p><ul>${c.rows.map(([l,v])=>`<li><span>${l}</span><b class="tab">${usd(v)}</b><i style="--w:${Math.round(v/max*100)}%"></i></li>`).join('')}</ul><p class="ins-sm">${c.foot}</p></div>`};
+    function ask(id,r){
+      mood('alert');
+      if(r.preview)add(`<div class="nprev">${av()}<div><b>Drippy to Kai</b><p>${r.preview}</p></div></div>`);
+      const cf=add(`<div class="cfm"><p>${r.ask}</p>${r.ok1?`<p class="apr">${face(r.ok1[0])}${r.ok1[1]} said yes. ${r.apr||'Your yes books it.'}</p>`:''}<div class="cbtns" role="group" aria-label="${r.label||'Book it?'}"><button type="button" class="yes">${r.yes}</button><button type="button" class="no">Not yet</button></div></div>`);
+      cf.addEventListener('click',async ev=>{const btn=ev.target.closest('button');if(!btn||cf.classList.contains('done'))return;cf.classList.add('done');cf.querySelectorAll('button').forEach(x=>{x.disabled=true;if(x===btn)x.classList.add('picked')});
+        if(btn.classList.contains('no')){add('<div class="msg me">Not yet</div>');mood('smug');if(!await typing(id,700))return;add(`<div class="msg dr">${r.hold||'No problem. I’ll hold it for 24 hours and check back with everyone.'}</div>`);return}
+        add(`<div class="msg me">${r.yes.replace(/^Yes, |^Go ahead, /,'Go ahead and ')}</div>`);
+        mood('look');if(!await wait(300,id)||!await work(id,r.work))return;
+        if(r.rc)add(rcpt(r.rc));mood(r.rc?'happy':'paid',2600,r.rc?'paid':'');
+        if(!await wait(450,id))return;add(`<div class="msg dr">${r.after}</div>`)});
+    }
+    async function play(k){
+      const id=++run,s=S[k];bs.forEach((b,j)=>b.setAttribute('aria-pressed',String(j===k)));poolName.textContent='for '+s.pool;log.innerHTML='';mood('look');
+      if(first)add('<div class="msg dr">Hey, I’m Drippy. I plan, book and pay from your pool, and I can tell you where the money went. Try an idea below.</div>');
+      add(`<div class="msg me">${s.ask}</div>`);
+      if(!await wait(300,id)||!await work(id,s.look))return;
+      add(`<div class="msg dr">${s.intro}</div>`);mood(s.ins?'look':'smug');
+      if(s.ins)add(ins(s.ins));
+      if(!await wait(350,id))return;
+      fast=false;
+      if(!s.opts){if(!await wait(500,id))return;ask(id,s.pick());return}
+      const box=add(`<div class="opts" role="group" aria-label="Pick an option">${s.opts.map((o,i)=>`<button type="button" class="opt" data-i="${i}" aria-pressed="false"><b>${o[0]}</b><span>${o[1]}</span>${o[2]?`<strong class="tab">${usd(o[2])}</strong>`:''}</button>`).join('')}</div>`);
+      box.addEventListener('click',async e=>{const b=e.target.closest('.opt');if(!b||box.classList.contains('done'))return;
+        const o=s.opts[+b.dataset.i],r=s.pick(o);b.classList.add('picked');b.setAttribute('aria-pressed','true');box.classList.add('done');box.querySelectorAll('.opt').forEach(x=>{if(x!==b)x.disabled=true});
+        add(`<div class="msg me">${r.me}</div>`);if(!await typing(id,800))return;
+        ask(id,r)});
+    }
+    bs.forEach((b,k)=>b.addEventListener('click',()=>{first=false;play(k)}));
+    /* typing works too; the preview is honest about what it can answer today */
+    const fm=sec.querySelector('.drin'),q=fm.querySelector('input');
+    fm.addEventListener('submit',async e=>{e.preventDefault();const t=q.value.trim();if(!t)return;q.value='';const id=++run;
+      add(`<div class="msg me">${t.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}</div>`);
+      mood('look');if(!await typing(id,800))return;mood('smug');add('<div class="msg dr">I’ll answer anything about your pool once Pool is live. For now, tap one of the ideas below.</div>')});
+    fast=true;play(0);
+  }
+})();
+
+(function () {
+  if (!/[?&]r5\b/.test(location.search)) return;
+  const sec = document.getElementById('drippy'); if (!sec) return;
+  const names = ['M0 Stacked', 'M1 Side by side', 'M2 Perched', 'M3 Loose'];
+  const bar = document.createElement('div'); bar.className = 'drsw';
+  bar.innerHTML = names.map((n, i) => `<button type="button" data-l="${i}">${n}</button>`).join('');
+  document.body.appendChild(bar);
+  const set = l => { sec.dataset.lay = l; bar.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.l === String(l))); };
+  bar.addEventListener('click', e => { const b = e.target.closest('button'); if (b) { set(b.dataset.l); sec.scrollIntoView({ block: 'start' }); } });
+  set(sec.dataset.lay || '0');
 })();
 
 /* ?lfxdebug: a small readout of how the liquid runs on this device (frame rate, how often the browser
