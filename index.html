@@ -708,6 +708,17 @@ html{scroll-behavior:smooth}
 .fl.pick .fl-c:not(.on){opacity:.3}
 .fl-c.on{left:50%;top:50%;z-index:60!important;transform:translate(-50%,-50%) scale(1.45);filter:none}
 .fl-c:focus{outline:none}.fl-c:focus-visible .pc{outline:2px solid #fff;outline-offset:3px}
+/* G4: floating photos */
+.fp{display:flex;flex-wrap:wrap;justify-content:center;gap:calc(4.4*var(--t)) calc(3.4*var(--t));max-width:calc(4*17*var(--t) + 3*3.4*var(--t));padding:calc(2*var(--t)) 0 calc(4*var(--t))}
+.fp-i{position:relative;padding:0;border:0;background:none;cursor:pointer;color:inherit;font:inherit;text-align:left;transform:translateY(calc(var(--oy)*var(--t))) rotate(var(--r));transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .3s}
+.fp-b{display:block;animation:fpb calc(4.4s + var(--d)*.35s) ease-in-out infinite alternate;animation-delay:calc(var(--d)*-1.1s)}
+@keyframes fpb{from{translate:0 -4%;rotate:-1.2deg}to{translate:0 3%;rotate:1.2deg}}
+.fp .gp{display:block;width:calc(17*var(--t));box-shadow:0 0 0 calc(.35*var(--t)) rgba(255,255,255,.92)}
+.fp-sh{position:absolute;left:12%;right:12%;bottom:calc(-2.6*var(--t));height:calc(1.4*var(--t));border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.5),transparent);animation:fpsh calc(4.4s + var(--d)*.35s) ease-in-out infinite alternate;animation-delay:calc(var(--d)*-1.1s)}
+@keyframes fpsh{from{transform:scaleX(.8);opacity:.35}to{transform:scaleX(1.05);opacity:.6}}
+.fp.pick .fp-i:not(.on){opacity:.4}
+.fp-i.on{z-index:5;transform:translateY(calc(var(--oy)*var(--t))) rotate(0deg) scale(1.22)}
+.fp-i:focus{outline:none}.fp-i:focus-visible .gp{outline:2px solid #fff;outline-offset:4px}
 /* test-page switcher */
 .drsw{position:fixed;z-index:50;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;gap:4px;padding:4px;background:rgba(23,43,71,.94);border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.3);max-width:calc(100vw - 20px);overflow-x:auto}
 .drsw button{font:600 13px/1 Figtree,system-ui,sans-serif;color:#fff;background:none;border:0;border-radius:999px;padding:9px 12px;white-space:nowrap;cursor:pointer}
@@ -719,9 +730,10 @@ html{scroll-behavior:smooth}
  .gr .pc{--cw:58cqw}.gr .pc.v{--cw:36cqw}.gr .pc.gc-s{--cw:42cqw}
  .gp{width:44cqw}
  .wl7{--st:calc(84cqw*.13);width:84cqw;height:calc(var(--st)*(var(--n) - 1) + 84cqw*.63 + 4cqw)}.wl7 .pc{--cw:84cqw}.wl7-c{border-radius:4.6cqw}.wl7-c.on{transform:translateY(calc(var(--k)*var(--st) + 4cqw))}
+ .fp{gap:13cqw 4cqw;max-width:none;padding-bottom:8cqw}.fp .gp{width:35cqw}.fp-i:nth-child(7){display:none}.fp-sh{bottom:-5cqw;height:3cqw}
  .fl{height:130cqw}.fl .pc{--cw:46cqw}.fl .pc.v{--cw:29cqw}.fl .pc.gc-s{--cw:33cqw}
 }
-@media (prefers-reduced-motion:reduce){.gr-t,.fl-c{animation:none}.wl7-c,.fl-c{transition:none}}
+@media (prefers-reduced-motion:reduce){.gr-t,.fl-c,.fp-b,.fp-sh{animation:none}.wl7-c,.fl-c{transition:none}}
 </style>
 </head>
 <body>
@@ -1978,6 +1990,13 @@ var LFX = (function () {
       box.innerHTML = `<div class="fl">${L.map((g, i) => `<button type="button" class="fl-c" style="--x:${P[i][0]};--y:${P[i][1]};--z:${P[i][2]};--d:${i};z-index:${Math.round(P[i][2] * 10)}" aria-label="${label(g)}">${card(g)}</button>`).join('')}</div>`;
       const cs = [...box.querySelectorAll('.fl-c')];
       cs.forEach(c => c.addEventListener('click', () => { const on = !c.classList.contains('on'); cs.forEach(x => x.classList.remove('on')); c.classList.toggle('on', on); box.querySelector('.fl').classList.toggle('pick', on); }));
+    },
+    /* G4: G0's photos, floating like pool floats: a loose, non-overlapping scatter that bobs, each with its own shadow on the water */
+    4() {
+      const L = [G[0], G[1], G[4], G[5], G[2], G[7], G[8]], OY = [0, 2.4, -1.2, 1.8, -.8, 2.2, .4], RT = [-3, 2, -1.5, 3, 2.5, -2, 1.5];
+      box.innerHTML = `<div class="fp">${L.map((g, i) => `<button type="button" class="fp-i" style="--d:${i};--oy:${OY[i]};--r:${RT[i]}deg" aria-label="${label(g)}"><span class="fp-b"><span class="gp"><img src="assets/${g[5]}.webp" alt="" loading="lazy"><span class="gp-t"><b>${g[0]}</b><small>${g[1]}</small></span><span class="gp-a">${g[2]} pooled</span></span></span><i class="fp-sh" aria-hidden="true"></i></button>`).join('')}</div>`;
+      const wrap = box.querySelector('.fp'), cs = [...wrap.querySelectorAll('.fp-i')];
+      cs.forEach(c => c.addEventListener('click', () => { const on = !c.classList.contains('on'); cs.forEach(x => x.classList.remove('on')); c.classList.toggle('on', on); wrap.classList.toggle('pick', on); }));
     }
   };
   const set = l => { stop(); stop = () => {}; sec.dataset.lay = l; R[l](); };
@@ -1985,7 +2004,7 @@ var LFX = (function () {
   set(ql ? +ql[1] : +(sec.dataset.lay || 0));
   if (/[?&]r7\b/.test(location.search)) {
     const bar = document.createElement('div'); bar.className = 'drsw';
-    bar.innerHTML = ['G0 Photo rails', 'G1 Card rails', 'G2 Wallet', 'G3 Floating'].map((n, i) => `<button type="button" data-l="${i}">${n}</button>`).join('');
+    bar.innerHTML = ['G0 Photo rails', 'G1 Card rails', 'G2 Wallet', 'G3 Floating', 'G4 Floating photos'].map((n, i) => `<button type="button" data-l="${i}">${n}</button>`).join('');
     document.body.appendChild(bar);
     const mark = () => bar.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.l === sec.dataset.lay));
     bar.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; set(+b.dataset.l); mark(); sec.scrollIntoView({ block: 'start' }); });
