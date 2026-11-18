@@ -1829,7 +1829,7 @@ var LFX = (function () {
       const hit=INT.find(([re])=>re.test(t));
       if(hit){play(hit[1],t);return}
       const id=++run;add(`<div class="msg me">${esc(t)}</div>`);mood('look');if(!await typing(id,800))return;mood('smug');
-      add('<div class="msg dr">I’ll be on that once Pool is live. For now, try me on a ski weekend, Friday dinner, rent or what you spent on food.</div>');
+      add('<div class="msg dr">Okay, calm down, buddy. I can’t do that one yet. Download the app when Pool is live and I got you. Till then, try me on a ski weekend, Friday dinner, rent or what you spent on food.</div>');
     }
     let demo=0;
     fm.addEventListener('submit',e=>{e.preventDefault();demo=-1;const t=q.value.trim();if(!t)return;q.value='';said(t)});
