@@ -687,27 +687,28 @@ html{scroll-behavior:smooth}
 .fq-a>div{overflow:hidden}
 .fq-a p{margin:0 0 calc(1.2*var(--t));max-width:calc(52*var(--t));font-size:calc(1.12*var(--t));line-height:1.5;color:color-mix(in srgb,var(--ink) 78%,transparent)}
 .fq button:focus{outline:none}.fq button:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:8px}
-/* F4, F5: layers of water (drawn on a canvas behind the text by faq.js) */
-.lys{position:relative;isolation:isolate;width:min(100%,calc(62*var(--t)));padding-top:calc(1.8*var(--t));text-align:left;overflow:hidden;border-radius:0 0 calc(2.4*var(--t)) calc(2.4*var(--t))}
-.ly-cv{position:absolute;left:0;top:0;width:100%;height:100%;z-index:-1;pointer-events:none}
-.ly{position:relative;color:var(--ink)}
-.ly.dk{color:#fff}
-.ly h3{margin:0;font:inherit}
-.ly button{display:flex;justify-content:space-between;align-items:center;gap:calc(1*var(--t));width:100%;padding:calc(1.25*var(--t)) calc(2*var(--t));background:none;border:0;font:inherit;font-weight:700;font-size:calc(1.25*var(--t));color:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.ly button i{position:relative;flex:none;width:calc(1.4*var(--t));height:calc(1.4*var(--t));min-width:14px;min-height:14px}
-.ly button i::before,.ly button i::after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;border-radius:2px;background:currentColor;transition:transform .3s}
-.ly button i::after{transform:rotate(90deg)}
-.ly.open button i::after{transform:rotate(0)}
-.ly-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s cubic-bezier(.3,.7,.25,1)}
-.ly.open .ly-a{grid-template-rows:1fr}
-.ly-a>div{overflow:hidden}
-.ly-a p{margin:0;padding:0 calc(2*var(--t)) calc(1.5*var(--t));max-width:calc(54*var(--t));font-size:calc(1.12*var(--t));line-height:1.5;opacity:.88}
-.ly button:focus{outline:none}.ly button:focus-visible{outline:2px solid currentColor;outline-offset:-4px;border-radius:10px}
-/* F5: the same layers in a pool cutaway: tiled walls and floor, a white coping on top */
-.pool-x{position:relative;width:min(100%,calc(66*var(--t)));padding:0 calc(1.6*var(--t)) calc(1.6*var(--t));border-radius:0 0 calc(3.2*var(--t)) calc(3.2*var(--t));background:repeating-linear-gradient(0deg,rgba(23,43,71,.14) 0 1px,transparent 1px calc(1.6*var(--t))),repeating-linear-gradient(90deg,rgba(23,43,71,.14) 0 1px,transparent 1px calc(1.6*var(--t))),#F4FBFF;box-shadow:inset 0 0 0 1px rgba(23,43,71,.12),0 calc(1.6*var(--t)) calc(4*var(--t)) calc(-1.6*var(--t)) rgba(23,43,71,.3)}
-.pool-x::before{content:"";position:absolute;left:calc(-1*var(--t));right:calc(-1*var(--t));top:calc(-.2*var(--t));height:calc(1.2*var(--t));border-radius:calc(.6*var(--t));background:linear-gradient(#fff,#E3EEF5);box-shadow:0 calc(.3*var(--t)) calc(.6*var(--t)) rgba(23,43,71,.2);z-index:2}
-.pool-x .lys{width:100%;padding-top:calc(3*var(--t))}
-.pool-x .lys{border-radius:0 0 calc(2*var(--t)) calc(2*var(--t))}
+/* F6: depth layers. Only transforms and opacity animate (see faq.js). */
+.dl{position:relative;width:min(100%,calc(62*var(--t)));padding-top:calc(1.8*var(--t));text-align:left;overflow:hidden;border-radius:0 0 calc(2.4*var(--t)) calc(2.4*var(--t))}
+.dl-b{position:relative;background:linear-gradient(180deg,color-mix(in srgb,var(--c) 82%,#fff),var(--c) 55%);color:var(--ink)}
+.dl-b.dk{color:#fff}
+.dl-w{position:absolute;left:0;bottom:calc(100% - 1px);width:200%;height:calc(1.6*var(--t));transform-origin:50% 100%;animation:dlw calc(9s + var(--d)*1.3s) linear infinite;animation-delay:calc(var(--d)*-2.3s);pointer-events:none}
+.dl-b:nth-child(even) .dl-w{animation-direction:reverse}
+.dl-w path{fill:color-mix(in srgb,var(--c) 82%,#fff)}
+@keyframes dlw{to{transform:translateX(-50%)}}
+.dl-b h3{margin:0;font:inherit}
+.dl-h{display:grid;grid-template-columns:calc(6.2*var(--t)) 1fr auto;align-items:center;gap:calc(1.2*var(--t));width:100%;padding:calc(1.15*var(--t)) calc(2*var(--t));background:none;border:0;font:inherit;color:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.dl-mk{justify-self:start;padding:calc(.3*var(--t)) calc(.55*var(--t));border-radius:calc(.45*var(--t));background:rgba(255,255,255,.92);color:#172B47;font-family:"Titan One",system-ui,sans-serif;font-size:calc(.8*var(--t));line-height:1.1;white-space:nowrap;box-shadow:inset 0 0 0 1px rgba(23,43,71,.14),0 1px 0 rgba(23,43,71,.12)}
+.dl-q{font-weight:700;font-size:calc(1.25*var(--t))}
+.dl-h i{position:relative;width:calc(1.4*var(--t));height:calc(1.4*var(--t));min-width:14px;min-height:14px}
+.dl-h i::before,.dl-h i::after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;border-radius:2px;background:currentColor;transition:transform .3s}
+.dl-h i::after{transform:rotate(90deg)}
+.dl-b.open .dl-h i::after{transform:rotate(0)}
+.dl-a{display:none;padding:0 calc(2*var(--t)) calc(1.5*var(--t)) calc(9.4*var(--t))}
+.dl-b.open .dl-a{display:block}
+.dl-a p{margin:0;max-width:calc(48*var(--t));font-size:calc(1.12*var(--t));line-height:1.5;opacity:.9}
+.dl-r{position:absolute;width:calc(14*var(--t));height:calc(14*var(--t));margin:calc(-7*var(--t)) 0 0 calc(-7*var(--t));border-radius:50%;border:2px solid rgba(255,255,255,.85);pointer-events:none;opacity:0}
+.dl-bb{position:absolute;bottom:calc(.6*var(--t));border-radius:50%;border:1.5px solid rgba(255,255,255,.85);background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.7) 0 18%,rgba(255,255,255,.12) 22%);pointer-events:none;opacity:0}
+.dl-h:focus{outline:none}.dl-h:focus-visible{outline:2px solid currentColor;outline-offset:-4px;border-radius:10px}
 /* footer */
 .ft{padding:calc(6*var(--u)) calc(6*var(--u)) calc(4*var(--u));text-align:center;color:var(--ink)}
 .ft-in{display:flex;flex-direction:column;align-items:center;gap:calc(1.1*var(--u));max-width:calc(60*var(--u));margin:0 auto}
@@ -727,8 +728,7 @@ html{scroll-behavior:smooth}
 @media (max-width:759.98px){
  .fq{--t:3.4cqw}
  .fq-l{padding:0 4cqw}
- .ly button{padding:4cqw 5cqw}.ly-a p{padding:0 5cqw 5cqw}
- .pool-x{padding:0 3cqw 3cqw}
+ .dl-h{grid-template-columns:15cqw 1fr auto;padding:4cqw 4.5cqw;gap:2.4cqw}.dl-mk{font-size:2.8cqw}.dl-a{padding:0 4.5cqw 5cqw}
  .ft{padding:12cqw 6cqw 10cqw}
  .ft-in{gap:3cqw;max-width:none}
  .ft-lg img{width:11cqw}.ft-lg b{font-size:6.4cqw}
@@ -736,7 +736,7 @@ html{scroll-behavior:smooth}
  .ft-nv{gap:2cqw 5cqw}.ft-nv a{font-size:3.7cqw}
  .ft-lgl{font-size:3cqw;max-width:none}
 }
-@media (prefers-reduced-motion:reduce){.fq-a,.ly-a{transition:none}}
+@media (prefers-reduced-motion:reduce){.fq-a{transition:none}.dl-w{animation:none}}
 </style>
 </head>
 <body>
@@ -1969,7 +1969,7 @@ var LFX = (function () {
   box.innerHTML = `<div class="gr" role="list" aria-label="Example groups">${[G.slice(0, 6), G.slice(6)].map((row, r) => `<div class="gr-t${r ? ' rev' : ''}">${[...row, ...row].map((g, i) => `<div class="gr-i" role="listitem"${i >= row.length ? ' aria-hidden="true"' : ` aria-label="${label(g)}"`}>${tile(g)}</div>`).join('')}</div>`).join('')}</div>`;
 })();
 
-/* Questions, answered: 8 short answers. Round 8 layouts: F0 frosted list, F4 pool layers, F5 pool layers in a pool cutaway.
+/* Questions, answered: 8 short answers. Round 8 layouts: F0 frosted list, F6 depth layers.
    ?r8 shows a switcher on the test page. */
 (function () {
   const sec = document.getElementById('faq'); if (!sec) return;
@@ -1989,89 +1989,47 @@ var LFX = (function () {
     box.querySelectorAll('.fq-i').forEach(x => { x.classList.remove('open'); x.querySelector('button').setAttribute('aria-expanded', 'false'); });
     if (on) { it.classList.add('open'); b.setAttribute('aria-expanded', 'true'); }
   }));
-  /* F4, F5: the questions as layers of water, light at the surface and deeper toward the bottom. The layers are drawn on one canvas
-     behind the text: every interface is a little spring chain (a 1D wave equation), so a tap splashes and the ripple travels and
-     bounces off the walls, the pointer stirs the surface, scrolling makes the liquid slosh, and bubbles rise through an open layer
-     and pop at its top. Runs only while the section is on screen; with reduced motion it is drawn once, still. */
+  /* F6: depth layers. Each question is a band of pool water, light at the surface and deeper toward the deep end, with a pool's
+     depth marker on the left. Tapping one: a ripple spreads from your finger, the band swells open while the bands below get pushed
+     down and settle with a little overshoot (FLIP, so only transforms animate), the wave under it sloshes and bubbles rise through.
+     Every colour is the band's own background, so nothing can blank out. */
   const C = ['#C9F1FF', '#A4E3FF', '#7DD2FD', '#4FB6F2', '#2A93DE', '#1D6FBF', '#172B47'];
-  const layers = () => `<div class="lys">${Q.map((q, i) => `<div class="ly${i > 3 ? ' dk' : ''}"><h3><button type="button" aria-expanded="false" aria-controls="ly-a${i}" id="ly-q${i}">${q[0]}<i aria-hidden="true"></i></button></h3><div class="ly-a" id="ly-a${i}" role="region" aria-labelledby="ly-q${i}"><div><p>${q[1]}</p></div></div></div>`).join('')}</div>`;
-  const rgb = h => [1, 3, 5].map(j => parseInt(h.slice(j, j + 2), 16));
-  const lite = h => { const c = rgb(h); return `rgb(${c.map(x => Math.round(x + (255 - x) * .22)).join(',')})`; };
+  const D = ['1 ft', '2 ft', '3 ft', '4 ft', '5 ft', '6 ft', 'Deep end'];
   let fstop = () => {};
-  function fluid(lys) {
-    const ls = [...lys.querySelectorAll('.ly')], N = ls.length, M = 64, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const cv = document.createElement('canvas'); cv.className = 'ly-cv'; cv.setAttribute('aria-hidden', 'true'); lys.prepend(cv);
-    const ctx = cv.getContext('2d');
-    const B = ls.map((_, i) => ({ h: new Float32Array(M + 1), v: new Float32Array(M + 1), ph: i * 1.7 + .4, amp: i ? 2.4 : 3.8 }));
-    let W = 1, H = 1, dpr = 1, tops = [], vis = false, run = false, last = 0, sy = scrollY, bub = [], spawn = null, alive = true;
-    const measure = () => { W = lys.clientWidth; H = lys.clientHeight; dpr = Math.min(2, devicePixelRatio || 1); cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); tops = ls.map(l => l.offsetTop); if (!run) draw(performance.now() / 1000); };
-    const yAt = (i, k, t) => tops[i] + B[i].h[k] + (reduce ? 0 : 1) * (Math.sin(k / M * 9.4 + t * (.7 + i * .08) + B[i].ph) * B[i].amp + Math.sin(k / M * 4.4 - t * .45 + B[i].ph * 2) * B[i].amp * .55);
-    const kick = (i, x, f, w = 4) => { const b = B[i]; if (!b) return; const k = Math.round(Math.max(0, Math.min(1, x / W)) * M); for (let j = -w; j <= w; j++) { const q = k + j; if (q >= 0 && q <= M) b.v[q] += f * (1 - Math.abs(j) / (w + 1)); } wake(); };
-    const step = () => {
-      for (let s = 0; s < 4; s++) for (const b of B) {
-        const h = b.h, v = b.v;
-        for (let k = 0; k <= M; k++) { const l = h[k ? k - 1 : 1], r = h[k < M ? k + 1 : M - 1]; v[k] = (v[k] + .22 * (l + r - 2 * h[k]) - .0025 * h[k]) * .992; }
-        for (let k = 0; k <= M; k++) { h[k] += v[k]; if (h[k] > 26) h[k] = 26; if (h[k] < -26) h[k] = -26; }
-      }
-      for (let i = 1; i < N; i++) { const a = B[i - 1].h, c = B[i].h; for (let k = 0; k <= M; k++) { const d = (a[k] - c[k]) * .006; c[k] += d; a[k] -= d * .6; } }
-    };
-    const path = (i, t) => { ctx.moveTo(0, yAt(i, 0, t)); for (let k = 1; k <= M; k++) { const x0 = (k - 1) / M * W, x1 = k / M * W, y0 = yAt(i, k - 1, t), y1 = yAt(i, k, t); ctx.quadraticCurveTo(x0, y0, (x0 + x1) / 2, (y0 + y1) / 2); } ctx.lineTo(W, yAt(i, M, t)); };
-    function draw(t) {
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
-      for (let i = 0; i < N; i++) {
-        const top = tops[i], bot = i < N - 1 ? tops[i + 1] : H, g = ctx.createLinearGradient(0, top - 6, 0, bot + 10);
-        g.addColorStop(0, lite(C[i])); g.addColorStop(.45, C[i]); g.addColorStop(1, C[i]);
-        ctx.beginPath(); path(i, t); ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath(); ctx.fillStyle = g; ctx.fill();
-        ctx.beginPath(); path(i, t); ctx.strokeStyle = i ? 'rgba(255,255,255,.22)' : 'rgba(255,255,255,.75)'; ctx.lineWidth = i ? 1.2 : 2.2; ctx.stroke();
-      }
-      for (const p of bub) { ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fillStyle = 'rgba(255,255,255,.14)'; ctx.fill(); ctx.strokeStyle = 'rgba(255,255,255,.75)'; ctx.lineWidth = 1.2; ctx.stroke(); ctx.beginPath(); ctx.arc(p.x - p.r * .35, p.y - p.r * .35, p.r * .25, 0, 6.283); ctx.fillStyle = 'rgba(255,255,255,.8)'; ctx.fill(); }
-    }
-    const bubbles = (dt, t) => {
-      if (spawn && t < spawn.until && Math.random() < dt * 9) { const i = spawn.i, bot = i < N - 1 ? tops[i + 1] : H; bub.push({ i, x: W * (.08 + Math.random() * .84), y: bot - 6, r: 2 + Math.random() * 4, vy: 38 + Math.random() * 40, ph: Math.random() * 6 }); }
-      bub = bub.filter(p => { p.vy += 30 * dt; p.y -= p.vy * dt; p.x += Math.sin(t * 4 + p.ph) * .35; const k = Math.round(Math.max(0, Math.min(1, p.x / W)) * M); if (p.y - p.r <= yAt(p.i, k, t)) { kick(p.i, p.x, -.5 - p.r * .12, 2); return false; } return true; });
-    };
-    function loop(now) {
-      if (!alive) return;
-      const t = now / 1000, dt = Math.min(.05, (now - last) / 1000 || .016); last = now;
-      tops = ls.map(l => l.offsetTop); step(); bubbles(dt, t); draw(t);
-      if (vis && !document.hidden) requestAnimationFrame(loop); else run = false;
-    }
-    const wake = () => { if (!run && vis && !reduce) { run = true; last = performance.now(); requestAnimationFrame(loop); } };
-    const ro = new ResizeObserver(measure); ro.observe(lys);
-    const io = new IntersectionObserver(e => { vis = e[0].isIntersecting; if (vis) wake(); }); io.observe(lys);
-    const onScroll = () => { const d = Math.max(-40, Math.min(40, scrollY - sy)); sy = scrollY; if (!vis || reduce) return; B.forEach((b, i) => { for (let k = 0; k <= M; k++) b.v[k] += d * .014 * (k / M - .5) * (1 + i * .12); }); };
-    addEventListener('scroll', onScroll, { passive: true });
-    let px = null, py = null;
-    lys.addEventListener('pointermove', e => { const r = lys.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top; if (px !== null) { const dy = y - py, dx = x - px, sp = Math.min(30, Math.hypot(dx, dy)); let bi = -1, bd = 22; tops.forEach((tp, i) => { const d = Math.abs(y - tp); if (d < bd) { bd = d; bi = i; } }); if (bi >= 0 && sp > 1) kick(bi, x, Math.max(-4, Math.min(4, dy * .12 + (dy >= 0 ? .4 : -.4))), 3); } px = x; py = y; });
-    lys.addEventListener('pointerleave', () => { px = py = null; });
-    ls.forEach((l, i) => l.querySelector('button').addEventListener('click', e => {
-      const r = lys.getBoundingClientRect(), x = e.clientX ? e.clientX - r.left : W / 2;
-      if (l.classList.contains('open')) { kick(i, x, -7, 6); kick(i + 1, x, 6, 6); spawn = { i, until: performance.now() / 1000 + 2.6 }; }
-      else { kick(i + 1, x, -4, 6); spawn = null; }
+  const depth = () => `<div class="dl">${Q.map((q, i) => `<div class="dl-b${i > 3 ? ' dk' : ''}" style="--c:${C[i]};--d:${i}"><svg class="dl-w" viewBox="0 0 400 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0 12 Q50 3 100 12 T200 12 T300 12 T400 12 V24 H0Z" fill="${C[i]}"/></svg><h3><button type="button" class="dl-h" aria-expanded="false" aria-controls="dl-a${i}" id="dl-q${i}"><span class="dl-mk">${D[i]}</span><span class="dl-q">${q[0]}</span><i aria-hidden="true"></i></button></h3><div class="dl-a" id="dl-a${i}" role="region" aria-labelledby="dl-q${i}"><p>${q[1]}</p></div></div>`).join('')}</div>`;
+  const wireDepth = () => {
+    const bs = [...box.querySelectorAll('.dl-b')], rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fx = (el, k, o) => { if (el.animate) { const a = el.animate(k, o); return a; } };
+    bs.forEach((b, i) => b.querySelector('.dl-h').addEventListener('click', e => {
+      const on = !b.classList.contains('open'), first = bs.map(x => x.getBoundingClientRect().top);
+      bs.forEach(x => { x.classList.remove('open'); x.querySelector('.dl-h').setAttribute('aria-expanded', 'false'); });
+      if (on) { b.classList.add('open'); b.querySelector('.dl-h').setAttribute('aria-expanded', 'true'); }
+      if (rm || !b.animate) return;
+      bs.forEach((x, j) => { const d = first[j] - x.getBoundingClientRect().top; if (Math.abs(d) > .5) fx(x, [{ transform: `translateY(${d}px)` }, { transform: 'translateY(0)' }], { duration: 680, easing: 'cubic-bezier(.3,1.45,.5,1)' }); });
+      const nx = bs[i + 1];
+      if (nx) fx(nx.querySelector('.dl-w'), [{ scale: '1 1' }, { scale: '1 2.6' }, { scale: '1 .55' }, { scale: '1 1.35' }, { scale: '1 1' }], { duration: 1000, easing: 'ease-out' });
+      fx(b.querySelector('.dl-w'), [{ scale: '1 1' }, { scale: '1 1.8' }, { scale: '1 .8' }, { scale: '1 1' }], { duration: 800, easing: 'ease-out' });
+      const r = b.getBoundingClientRect(), x = (e.clientX || r.left + r.width / 2) - r.left, y = (e.clientY || r.top + 28) - r.top;
+      [0, 1].forEach(k => { const s = document.createElement('span'); s.className = 'dl-r'; s.style.left = x + 'px'; s.style.top = y + 'px'; b.appendChild(s);
+        const a = fx(s, [{ transform: 'scale(.08,.03)', opacity: .9 }, { transform: 'scale(1,.34)', opacity: 0 }], { duration: 900, delay: k * 170, easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'backwards' }); a.onfinish = () => s.remove(); });
+      if (!on) return;
+      fx(b.querySelector('.dl-a p'), [{ opacity: 0, transform: 'translateY(.6em)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 420, delay: 140, easing: 'ease-out', fill: 'backwards' });
+      const h = b.offsetHeight - 18;
+      for (let k = 0; k < 7; k++) { const s = document.createElement('span'), z = 5 + Math.random() * 7, dx = 4 + Math.random() * 8; s.className = 'dl-bb'; s.style.left = (8 + Math.random() * 84) + '%'; s.style.width = s.style.height = z + 'px'; b.appendChild(s);
+        const a = fx(s, [{ transform: 'translate(0,0)', opacity: 0 }, { transform: `translate(${dx}px,${-h * .3}px)`, opacity: .9, offset: .25 }, { transform: `translate(${-dx}px,${-h * .65}px)`, opacity: .8, offset: .6 }, { transform: `translate(${dx * .5}px,${-h}px)`, opacity: 0 }], { duration: 1500 + Math.random() * 900, delay: 220 + k * 170, easing: 'ease-in', fill: 'backwards' }); a.onfinish = () => s.remove(); }
     }));
-    measure(); wake();
-    return () => { alive = false; ro.disconnect(); io.disconnect(); removeEventListener('scroll', onScroll); };
-  }
-  const wireLayers = () => {
-    const ls = [...box.querySelectorAll('.ly')];
-    ls.forEach(l => l.querySelector('button').addEventListener('click', () => {
-      const on = !l.classList.contains('open');
-      ls.forEach(x => { x.classList.remove('open'); x.querySelector('button').setAttribute('aria-expanded', 'false'); });
-      if (on) { l.classList.add('open'); l.querySelector('button').setAttribute('aria-expanded', 'true'); }
-    }));
-    fstop = fluid(box.querySelector('.lys'));
   };
   const R = {
     0() { box.innerHTML = acc(); wireAcc(); },
-    4() { box.innerHTML = layers(); wireLayers(); },
-    5() { box.innerHTML = `<div class="pool-x">${layers()}</div>`; wireLayers(); }
+    6() { box.innerHTML = depth(); wireDepth(); }
   };
+
   const set = l => { fstop(); fstop = () => {}; sec.dataset.lay = l; R[l](); };
   const ql = /[?&]faq=(\d)/.exec(location.search);
   set(ql ? +ql[1] : +(sec.dataset.lay || 0));
   if (/[?&]r8\b/.test(location.search)) {
     const bar = document.createElement('div'); bar.className = 'drsw';
-    bar.innerHTML = [[0, 'F0 Frosted list'], [4, 'F4 Pool layers'], [5, 'F5 Pool cutaway']].map(([i, n]) => `<button type="button" data-l="${i}">${n}</button>`).join('');
+    bar.innerHTML = [[0, 'F0 Frosted list'], [6, 'F6 Depth layers']].map(([i, n]) => `<button type="button" data-l="${i}">${n}</button>`).join('');
     document.body.appendChild(bar);
     const mark = () => bar.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.l === sec.dataset.lay));
     bar.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; set(+b.dataset.l); mark(); sec.scrollIntoView({ block: 'start' }); });
