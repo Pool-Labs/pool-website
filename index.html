@@ -667,6 +667,86 @@ html{scroll-behavior:smooth}
  .gp{width:44cqw}
 }
 @media (prefers-reduced-motion:reduce){.gr-t{animation:none}}
+
+/* Questions, answered (layouts F0 to F3 via data-lay) and the footer. */
+.fq{--t:var(--u)}
+.fqw{display:flex;flex-direction:column;align-items:center}
+.fqt{display:flex;flex-direction:column;align-items:center;gap:calc(1.2*var(--t))}
+.fqx{display:flex;flex-direction:column;align-items:center;width:100%;margin-top:calc(3*var(--t))}
+/* the accordion (F0, F1) */
+.fq-l{width:min(100%,calc(58*var(--t)));padding:calc(.4*var(--t)) calc(2*var(--t));text-align:left;background:rgba(255,255,255,.55);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.85);border-radius:calc(2.4*var(--t));box-shadow:0 calc(1.6*var(--t)) calc(4*var(--t)) calc(-1.6*var(--t)) rgba(23,43,71,.25)}
+.fq-i{border-top:1px solid rgba(23,43,71,.1)}.fq-i:first-child{border-top:0}
+.fq-i h3{margin:0;font:inherit}
+.fq-i button{display:flex;justify-content:space-between;align-items:center;gap:calc(1*var(--t));width:100%;padding:calc(1.15*var(--t)) 0;background:none;border:0;font:inherit;font-weight:700;font-size:calc(1.25*var(--t));color:var(--ink);text-align:left;cursor:pointer}
+.fq-i button i{position:relative;flex:none;width:calc(1.4*var(--t));height:calc(1.4*var(--t));min-width:14px;min-height:14px}
+.fq-i button i::before,.fq-i button i::after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;border-radius:2px;background:currentColor;transition:transform .3s}
+.fq-i button i::after{transform:rotate(90deg)}
+.fq-i.open button i::after{transform:rotate(0)}
+.fq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+.fq-i.open .fq-a{grid-template-rows:1fr}
+.fq-a>div{overflow:hidden}
+.fq-a p{margin:0 0 calc(1.2*var(--t));max-width:calc(52*var(--t));font-size:calc(1.12*var(--t));line-height:1.5;color:color-mix(in srgb,var(--ink) 78%,transparent)}
+.fq button:focus{outline:none}.fq button:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:8px}
+/* F1: side by side */
+.fq[data-lay="1"] .fqw{display:grid;grid-template-columns:calc(26*var(--t)) 1fr;gap:calc(5*var(--t));align-items:start;text-align:left}
+.fq[data-lay="1"] .fqt{align-items:flex-start;position:sticky;top:calc(6*var(--t))}
+.fq[data-lay="1"] .fqx{margin-top:0}
+.fq[data-lay="1"] .fq-l{width:100%;padding:0;background:none;border:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;border-top:1px solid rgba(23,43,71,.12);border-radius:0}
+.fq[data-lay="1"] .fq-i:first-child{border-top:0}
+/* F2: question chips */
+.fq-c{display:flex;flex-wrap:wrap;justify-content:center;gap:calc(.6*var(--t));max-width:calc(64*var(--t))}
+.fq-c button{font:inherit;font-weight:600;font-size:calc(1*var(--t));color:var(--ink);background:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.9);border-radius:999px;padding:calc(.6*var(--t)) calc(1.1*var(--t));cursor:pointer;transition:background .2s,color .2s}
+.fq-c button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.fq-ans{width:min(100%,calc(52*var(--t)));margin-top:calc(2*var(--t));padding:calc(1.6*var(--t)) calc(2*var(--t));text-align:left;background:rgba(255,255,255,.6);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.85);border-radius:calc(2*var(--t))}
+.fq-ans b{display:block;margin-bottom:calc(.4*var(--t));font-size:calc(1.25*var(--t))}
+.fq-ans p{margin:0;font-size:calc(1.15*var(--t));line-height:1.5;color:color-mix(in srgb,var(--ink) 80%,transparent)}
+.fq-ans.in{animation:fqin .3s ease}
+@keyframes fqin{from{opacity:0;transform:translateY(calc(.6*var(--t)))}}
+/* F3: flip cards */
+.fq-f{display:grid;grid-template-columns:repeat(4,1fr);gap:calc(1.4*var(--t));width:calc(72*var(--t));max-width:100%}
+.fq-fc{position:relative;aspect-ratio:1/1.05;padding:0;border:0;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer;perspective:900px}
+.fq-fr,.fq-bk{position:absolute;inset:0;display:flex;flex-direction:column;padding:calc(1.4*var(--t));border-radius:calc(1.8*var(--t));-webkit-backface-visibility:hidden;backface-visibility:hidden;transition:transform .55s cubic-bezier(.2,.8,.2,1);box-shadow:0 calc(1*var(--t)) calc(2.4*var(--t)) calc(-1*var(--t)) rgba(23,43,71,.3)}
+.fq-fr{justify-content:space-between;background:#fff}
+.fq-fc:nth-child(4n+2) .fq-fr{background:#FFE3F3}.fq-fc:nth-child(4n+3) .fq-fr{background:#EFFFC8}.fq-fc:nth-child(4n+4) .fq-fr{background:#CDEFFF}
+.fq-fr b{font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(1.55*var(--t));line-height:1.1}
+.fq-fr small{font-size:calc(.9*var(--t));opacity:.55}
+.fq-bk{gap:calc(.6*var(--t));background:var(--ink);color:#fff;font-size:calc(1.02*var(--t));line-height:1.45;transform:rotateY(180deg)}
+.fq-bk b{font-size:calc(.95*var(--t));opacity:.65}
+.fq-fc[aria-pressed="true"] .fq-fr{transform:rotateY(-180deg)}
+.fq-fc[aria-pressed="true"] .fq-bk{transform:rotateY(0)}
+/* footer */
+.ft{padding:calc(6*var(--u)) calc(6*var(--u)) calc(4*var(--u));text-align:center;color:var(--ink)}
+.ft-in{display:flex;flex-direction:column;align-items:center;gap:calc(1.1*var(--u));max-width:calc(60*var(--u));margin:0 auto}
+.ft-lg{display:flex;align-items:center;gap:calc(.6*var(--u));color:var(--ink);text-decoration:none}
+.ft-lg img{width:calc(3.6*var(--u));height:auto}
+.ft-lg b{font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(2.2*var(--u))}
+.ft-tg{margin:0;font-family:Fraunces,serif;font-weight:600;font-size:calc(2.6*var(--u));line-height:1.1}
+.ft-ln{margin:0;font-size:calc(1.15*var(--u));opacity:.75;max-width:calc(40*var(--u))}
+.ft-nv{display:flex;flex-wrap:wrap;justify-content:center;gap:calc(.4*var(--u)) calc(2*var(--u));margin-top:calc(1*var(--u))}
+.ft-nv a{color:var(--ink);font-weight:600;font-size:calc(1.05*var(--u));text-decoration:none}
+.ft-nv a:hover{text-decoration:underline}
+.ft-lgl{margin:calc(1.4*var(--u)) 0 0;font-size:calc(.85*var(--u));line-height:1.5;opacity:.6;max-width:calc(56*var(--u))}
+/* test-page switcher */
+.drsw{position:fixed;z-index:50;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;gap:4px;padding:4px;background:rgba(23,43,71,.94);border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.3);max-width:calc(100vw - 20px);overflow-x:auto}
+.drsw button{font:600 13px/1 Figtree,system-ui,sans-serif;color:#fff;background:none;border:0;border-radius:999px;padding:9px 12px;white-space:nowrap;cursor:pointer}
+.drsw button.on{background:#fff;color:#172B47}
+@media (max-width:759.98px){
+ .fq{--t:3.4cqw}
+ .fq-l{padding:0 4cqw}
+ .fq[data-lay="1"] .fqw{display:flex;flex-direction:column;align-items:stretch;gap:5cqw}
+ .fq[data-lay="1"] .fqt{position:static;align-items:center;text-align:center}
+ .fq-f{grid-template-columns:repeat(2,1fr);gap:3cqw;width:100%}
+ .fq-fc{aspect-ratio:1/1.32}
+ .fq-bk{font-size:3.15cqw;padding:3.6cqw}
+ .fq-fr{padding:4cqw}
+ .ft{padding:12cqw 6cqw 10cqw}
+ .ft-in{gap:3cqw;max-width:none}
+ .ft-lg img{width:11cqw}.ft-lg b{font-size:6.4cqw}
+ .ft-tg{font-size:7.4cqw}.ft-ln{font-size:3.7cqw;max-width:none}
+ .ft-nv{gap:2cqw 5cqw}.ft-nv a{font-size:3.7cqw}
+ .ft-lgl{font-size:3cqw;max-width:none}
+}
+@media (prefers-reduced-motion:reduce){.fq-a,.fq-fr,.fq-bk{transition:none}.fq-ans.in{animation:none}}
 </style>
 </head>
 <body>
@@ -686,7 +766,7 @@ html{scroll-behavior:smooth}
 
 
 
-<span class="cue" aria-hidden="true">Scroll<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></span><div class="epg"><canvas class="lfx lfx-rib" data-fx="pour" aria-hidden="true"></canvas><section class="eps eps1" id="social" aria-labelledby="h-social"><div class="epc"><h2 class="bh" id="h-social">Money is social now</h2><p class="bs">The best parts of life happen with other people.</p><div class="echips"><span class="echip"><img src="assets/6738eff053.webp" alt="">Friday dinners</span><span class="echip"><img src="assets/4d55660b2c.webp" alt="">Road trip</span><span class="echip"><img src="assets/7f87d6fa43.webp" alt="">Dorm 3C</span><span class="echip"><img src="assets/5060878c07.webp" alt="">Game night</span></div></div></section><section class="eps eps2" id="how" aria-labelledby="h-how"><div class="epc"><canvas class="lfx lfx-pool" data-fx="pool" aria-hidden="true"></canvas><h2 class="bh" id="h-how">How a pool works</h2><ol class="esteps"><li><b>Start a pool for your group</b><span>Name it, add your people, say what it’s for.</span></li><li><b>Everyone chips in</b><span>The pool fills up before anyone spends a dollar.</span></li><li><b>Spend it together</b><span>Tap your group’s virtual card. Everyone sees&nbsp;it.</span></li></ol></div></section><section class="eps eps3 mv" id="features" aria-labelledby="h-feat"><div class="epc"><h2 class="bh" id="h-feat">Money that moves like your group</h2><div class="mvw" data-mv><div class="mvs" aria-hidden="true"><div class="mvc" data-k="0"><img src="assets/f3f823a08e.webp" alt="" loading="lazy" style="object-position:50% 50%"><div class="mvo"><span class="mvmc mvmc2"><i>Pool</i><em>Ski trip</em><small>•• 7302</small></span><span class="mvmc"><i>Pool</i><em>Friday dinners</em><small>•• 4821</small></span></div></div><div class="mvc" data-k="1"><img src="assets/5eeadeca8b.webp" alt="" loading="lazy" style="object-position:62% 50%"><div class="mvo"><span class="mvch"><img src="assets/6738eff053.webp" alt="">Maya can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch"><img src="assets/7f87d6fa43.webp" alt="">Rin can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch mvdim"><img src="assets/5060878c07.webp" alt="">Liv, view only</span></div></div><div class="mvc" data-k="2"><img src="assets/1b0b6bba10.webp" alt="" loading="lazy" style="object-position:50% 40%"><div class="mvo"><span class="mvch"><img src="assets/4d55660b2c.webp" alt="">Leo chipped in<b>+$22</b></span><span class="mvch"><img src="assets/75dfbc8993.webp" alt="">Pizza, Maya<b>−$42.80</b></span></div></div><div class="mvc" data-k="3"><img src="assets/e5e2cc8502.webp" alt="" loading="lazy" style="object-position:45% 50%"><div class="mvo"><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>6-week streak<b>+25</b></span><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>Pool droplets<b>2,960</b></span><span class="mvch">Custom card unlocked<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span></div></div></div><ul class="mvl"><li class="on"><button type="button" data-i="0" aria-pressed="true"><b>One card per pool</b><span class="mvpm" aria-hidden="true"></span></button><p>Every pool gets its own virtual card.</p></li><li><button type="button" data-i="1" aria-pressed="false"><b>Pick who can tap</b><span class="mvpm" aria-hidden="true"></span></button><p>The host decides who can spend, and can change it anytime.</p></li><li><button type="button" data-i="2" aria-pressed="false"><b>See every dollar</b><span class="mvpm" aria-hidden="true"></span></button><p>Every chip-in and every spend shows up for everyone.</p></li><li><button type="button" data-i="3" aria-pressed="false"><b>Droplets for your pool</b><span class="mvpm" aria-hidden="true"></span></button><p>Keep your streak, stack droplets and unlock a custom card that’s lowkey iconic. Plus discounts, waived fees and exclusive merch.</p></li></ul></div><p class="mvfine">Example groups and amounts.</p></div></section><section class="eps eps1 dr" id="drippy" aria-labelledby="h-dr"><div class="epc"><div class="drt"><h2 class="bh" id="h-dr">Meet Drippy</h2><p class="drl">Drippy is part of your pool, and lowkey the most useful one in the group. Ask for whatever: it does the research, drops the best picks and pays when you say bet.</p></div><div class="drx"><div class="drm" aria-hidden="true"><div class="drb"><img data-m="smug" class="on" src="assets/drippy-smug.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="blink" src="assets/drippy-blink.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="look" src="assets/drippy-look.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="alert" src="assets/drippy-alert.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="happy" src="assets/drippy-happy.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="paid" src="assets/drippy-paid.webp" alt="" width="640" height="636" loading="lazy" decoding="async"></div></div><div class="dchat"><div class="drlog" role="log" aria-live="polite" aria-label="Chat with Drippy" tabindex="0"></div><form class="drin" novalidate><input type="text" placeholder="Ask Drippy anything" aria-label="Ask Drippy anything" autocomplete="off" enterkeyhint="send" maxlength="140"><button type="submit" aria-label="Send"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5"/></svg></button></form></div></div><p class="drfine">A preview of Drippy. Places, prices and amounts are examples.</p></div></section><section class="eps eps2 grp" id="groups" aria-labelledby="h-grp"><div class="epc"><div class="grt"><h2 class="bh" id="h-grp">A pool for every group you’re in</h2><p class="grl">It takes more than 200 hours together before you can call someone a close friend. Give your roommates, your team, your family, your partner and the coworkers you eat with a pool each, for as long as you’re together.</p></div><div class="grx" data-groups></div><p class="grfine">Example groups and amounts.</p></div></section><section class="eps eps3" id="join" aria-labelledby="h-join"><div class="epc"><h2 class="bh" id="h-join">Get Pool first.</h2><p class="bs">Join the waitlist and we’ll tell you when Pool&nbsp;opens.</p><form class="join" id="waitlist" novalidate data-endpoint="https://app.loops.so/api/newsletter-form/cmwl3l3fe00og0jyopp1idia0"><label class="vh" for="wl-email">Your email</label><input id="wl-email" class="jin" type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@email.com" required><button class="go" type="submit">Join the waitlist</button></form><p class="jmsg" id="wl-msg" role="status" aria-live="polite"></p></div></section></div>
+<span class="cue" aria-hidden="true">Scroll<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></span><div class="epg"><canvas class="lfx lfx-rib" data-fx="pour" aria-hidden="true"></canvas><section class="eps eps1" id="social" aria-labelledby="h-social"><div class="epc"><h2 class="bh" id="h-social">Money is social now</h2><p class="bs">The best parts of life happen with other people.</p><div class="echips"><span class="echip"><img src="assets/6738eff053.webp" alt="">Friday dinners</span><span class="echip"><img src="assets/4d55660b2c.webp" alt="">Road trip</span><span class="echip"><img src="assets/7f87d6fa43.webp" alt="">Dorm 3C</span><span class="echip"><img src="assets/5060878c07.webp" alt="">Game night</span></div></div></section><section class="eps eps2" id="how" aria-labelledby="h-how"><div class="epc"><canvas class="lfx lfx-pool" data-fx="pool" aria-hidden="true"></canvas><h2 class="bh" id="h-how">How a pool works</h2><ol class="esteps"><li><b>Start a pool for your group</b><span>Name it, add your people, say what it’s for.</span></li><li><b>Everyone chips in</b><span>The pool fills up before anyone spends a dollar.</span></li><li><b>Spend it together</b><span>Tap your group’s virtual card. Everyone sees&nbsp;it.</span></li></ol></div></section><section class="eps eps3 mv" id="features" aria-labelledby="h-feat"><div class="epc"><h2 class="bh" id="h-feat">Money that moves like your group</h2><div class="mvw" data-mv><div class="mvs" aria-hidden="true"><div class="mvc" data-k="0"><img src="assets/f3f823a08e.webp" alt="" loading="lazy" style="object-position:50% 50%"><div class="mvo"><span class="mvmc mvmc2"><i>Pool</i><em>Ski trip</em><small>•• 7302</small></span><span class="mvmc"><i>Pool</i><em>Friday dinners</em><small>•• 4821</small></span></div></div><div class="mvc" data-k="1"><img src="assets/5eeadeca8b.webp" alt="" loading="lazy" style="object-position:62% 50%"><div class="mvo"><span class="mvch"><img src="assets/6738eff053.webp" alt="">Maya can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch"><img src="assets/7f87d6fa43.webp" alt="">Rin can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch mvdim"><img src="assets/5060878c07.webp" alt="">Liv, view only</span></div></div><div class="mvc" data-k="2"><img src="assets/1b0b6bba10.webp" alt="" loading="lazy" style="object-position:50% 40%"><div class="mvo"><span class="mvch"><img src="assets/4d55660b2c.webp" alt="">Leo chipped in<b>+$22</b></span><span class="mvch"><img src="assets/75dfbc8993.webp" alt="">Pizza, Maya<b>−$42.80</b></span></div></div><div class="mvc" data-k="3"><img src="assets/e5e2cc8502.webp" alt="" loading="lazy" style="object-position:45% 50%"><div class="mvo"><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>6-week streak<b>+25</b></span><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>Pool droplets<b>2,960</b></span><span class="mvch">Custom card unlocked<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span></div></div></div><ul class="mvl"><li class="on"><button type="button" data-i="0" aria-pressed="true"><b>One card per pool</b><span class="mvpm" aria-hidden="true"></span></button><p>Every pool gets its own virtual card.</p></li><li><button type="button" data-i="1" aria-pressed="false"><b>Pick who can tap</b><span class="mvpm" aria-hidden="true"></span></button><p>The host decides who can spend, and can change it anytime.</p></li><li><button type="button" data-i="2" aria-pressed="false"><b>See every dollar</b><span class="mvpm" aria-hidden="true"></span></button><p>Every chip-in and every spend shows up for everyone.</p></li><li><button type="button" data-i="3" aria-pressed="false"><b>Droplets for your pool</b><span class="mvpm" aria-hidden="true"></span></button><p>Keep your streak, stack droplets and unlock a custom card that’s lowkey iconic. Plus discounts, waived fees and exclusive merch.</p></li></ul></div><p class="mvfine">Example groups and amounts.</p></div></section><section class="eps eps1 dr" id="drippy" aria-labelledby="h-dr"><div class="epc"><div class="drt"><h2 class="bh" id="h-dr">Meet Drippy</h2><p class="drl">Drippy is part of your pool, and lowkey the most useful one in the group. Ask for whatever: it does the research, drops the best picks and pays when you say bet.</p></div><div class="drx"><div class="drm" aria-hidden="true"><div class="drb"><img data-m="smug" class="on" src="assets/drippy-smug.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="blink" src="assets/drippy-blink.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="look" src="assets/drippy-look.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="alert" src="assets/drippy-alert.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="happy" src="assets/drippy-happy.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="paid" src="assets/drippy-paid.webp" alt="" width="640" height="636" loading="lazy" decoding="async"></div></div><div class="dchat"><div class="drlog" role="log" aria-live="polite" aria-label="Chat with Drippy" tabindex="0"></div><form class="drin" novalidate><input type="text" placeholder="Ask Drippy anything" aria-label="Ask Drippy anything" autocomplete="off" enterkeyhint="send" maxlength="140"><button type="submit" aria-label="Send"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5"/></svg></button></form></div></div><p class="drfine">A preview of Drippy. Places, prices and amounts are examples.</p></div></section><section class="eps eps2 grp" id="groups" aria-labelledby="h-grp"><div class="epc"><div class="grt"><h2 class="bh" id="h-grp">A pool for every group you’re in</h2><p class="grl">It takes more than 200 hours together before you can call someone a close friend. Give your roommates, your team, your family, your partner and the coworkers you eat with a pool each, for as long as you’re together.</p></div><div class="grx" data-groups></div><p class="grfine">Example groups and amounts.</p></div></section><section class="eps eps3" id="join" aria-labelledby="h-join"><div class="epc"><h2 class="bh" id="h-join">Get Pool first.</h2><p class="bs">Join the waitlist and we’ll tell you when Pool&nbsp;opens.</p><form class="join" id="waitlist" novalidate data-endpoint="https://app.loops.so/api/newsletter-form/cmwl3l3fe00og0jyopp1idia0"><label class="vh" for="wl-email">Your email</label><input id="wl-email" class="jin" type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@email.com" required><button class="go" type="submit">Join the waitlist</button></form><p class="jmsg" id="wl-msg" role="status" aria-live="polite"></p></div></section><section class="eps eps1 fq" id="faq" aria-labelledby="h-faq" data-lay="0"><div class="epc"><div class="fqw"><div class="fqt"><h2 class="bh" id="h-faq">Questions, answered</h2></div><div class="fqx" data-faq></div></div></div></section><footer class="ft"><div class="ft-in"><a class="ft-lg" href="#top" aria-label="Pool, back to top"><img src="assets/449ca5a00d.webp" alt="" width="64" height="64"><b>Pool</b></a><p class="ft-tg">Life’s better pooled.</p><p class="ft-ln">The social layer of money. One pool and one virtual card for every group you spend with.</p><nav class="ft-nv" aria-label="Footer"><a href="#how">How it works</a><a href="#drippy">Drippy</a><a href="#groups">Groups</a><a href="#faq">FAQ</a><a href="#join">Join the waitlist</a></nav><p class="ft-lgl">Pool isn’t live yet. Names, groups, places and amounts on this page are examples. The Pool card is virtual. Droplets have no cash value. Pool doesn’t lend money and never charges interest. © 2026 Pool.</p></div></footer></div>
 
 </div>
 <script>
@@ -1897,6 +1977,53 @@ var LFX = (function () {
   const label = g => `${g[0]}: ${g[1]}, ${g[2]} pooled`;
   const tile = g => `<div class="gp"><img src="assets/${g[5]}.webp" alt="" loading="lazy"><span class="gp-t"><b>${g[0]}</b><small>${g[1]}</small></span><span class="gp-a">${g[2]} pooled</span></div>`;
   box.innerHTML = `<div class="gr" role="list" aria-label="Example groups">${[G.slice(0, 6), G.slice(6)].map((row, r) => `<div class="gr-t${r ? ' rev' : ''}">${[...row, ...row].map((g, i) => `<div class="gr-i" role="listitem"${i >= row.length ? ' aria-hidden="true"' : ` aria-label="${label(g)}"`}>${tile(g)}</div>`).join('')}</div>`).join('')}</div>`;
+})();
+
+/* Questions, answered: 8 short answers. Round 8 layouts: F0 frosted list, F1 side by side, F2 question chips, F3 flip cards.
+   ?r8 shows a switcher on the test page. */
+(function () {
+  const sec = document.getElementById('faq'); if (!sec) return;
+  const box = sec.querySelector('[data-faq]');
+  const Q = [
+    ['What is Pool?', 'The social layer of money. Your group chips into one pool, spends from one virtual card, and everyone sees every dollar.'],
+    ['Who controls the money?', 'The host picks who can spend and can change it anytime. Every chip-in and spend shows up for the whole pool, and nobody can move the pool’s money into their own account, the host included.'],
+    ['What does Drippy do?', 'Drippy is part of your pool. It researches options, makes suggestions and pays for things, but only after your group says yes.'],
+    ['Where will our money be kept?', 'Pool isn’t a bank. Pools will be held at a partner bank, which we’ll name before anyone puts money in.'],
+    ['Does Pool charge interest?', 'No. Pool doesn’t lend money, so there’s no interest and no debt. Your group spends what it puts in.'],
+    ['What are droplets?', 'What your pool collects for chipping in on time and doing things together. Trade them for perks like discounts, waived fees and merch. They have no cash value.'],
+    ['Is there a physical card?', 'Not at launch. Every pool gets its own virtual card.'],
+    ['When can we start?', 'Pool isn’t live yet. Join the waitlist with your friends and you’ll get in together.']
+  ];
+  const acc = () => `<div class="fq-l">${Q.map((q, i) => `<div class="fq-i${i ? '' : ' open'}"><h3><button type="button" aria-expanded="${!i}" aria-controls="fq-a${i}" id="fq-q${i}">${q[0]}<i aria-hidden="true"></i></button></h3><div class="fq-a" id="fq-a${i}" role="region" aria-labelledby="fq-q${i}"><div><p>${q[1]}</p></div></div></div>`).join('')}</div>`;
+  const wireAcc = () => box.querySelectorAll('.fq-i button').forEach(b => b.addEventListener('click', () => {
+    const it = b.closest('.fq-i'), on = !it.classList.contains('open');
+    box.querySelectorAll('.fq-i').forEach(x => { x.classList.remove('open'); x.querySelector('button').setAttribute('aria-expanded', 'false'); });
+    if (on) { it.classList.add('open'); b.setAttribute('aria-expanded', 'true'); }
+  }));
+  const R = {
+    0() { box.innerHTML = acc(); wireAcc(); },
+    1() { box.innerHTML = acc(); wireAcc(); },
+    2() {
+      box.innerHTML = `<div class="fq-c" role="group" aria-label="Questions">${Q.map((q, i) => `<button type="button" aria-pressed="${!i}" data-i="${i}">${q[0]}</button>`).join('')}</div><div class="fq-ans" aria-live="polite"><b>${Q[0][0]}</b><p>${Q[0][1]}</p></div>`;
+      const bs = [...box.querySelectorAll('.fq-c button')], ans = box.querySelector('.fq-ans');
+      bs.forEach(b => b.addEventListener('click', () => { const q = Q[+b.dataset.i]; bs.forEach(x => x.setAttribute('aria-pressed', String(x === b))); ans.classList.remove('in'); void ans.offsetWidth; ans.innerHTML = `<b>${q[0]}</b><p>${q[1]}</p>`; ans.classList.add('in'); }));
+    },
+    3() {
+      box.innerHTML = `<div class="fq-f">${Q.map(q => `<button type="button" class="fq-fc" aria-pressed="false"><span class="fq-fr"><b>${q[0]}</b><small>Tap for the answer</small></span><span class="fq-bk"><b>${q[0]}</b>${q[1]}</span></button>`).join('')}</div>`;
+      box.querySelectorAll('.fq-fc').forEach(c => c.addEventListener('click', () => { const on = c.getAttribute('aria-pressed') !== 'true'; c.setAttribute('aria-pressed', String(on)); }));
+    }
+  };
+  const set = l => { sec.dataset.lay = l; R[l](); };
+  const ql = /[?&]faq=(\d)/.exec(location.search);
+  set(ql ? +ql[1] : +(sec.dataset.lay || 0));
+  if (/[?&]r8\b/.test(location.search)) {
+    const bar = document.createElement('div'); bar.className = 'drsw';
+    bar.innerHTML = ['F0 Frosted list', 'F1 Side by side', 'F2 Question chips', 'F3 Flip cards'].map((n, i) => `<button type="button" data-l="${i}">${n}</button>`).join('');
+    document.body.appendChild(bar);
+    const mark = () => bar.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.l === sec.dataset.lay));
+    bar.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; set(+b.dataset.l); mark(); sec.scrollIntoView({ block: 'start' }); });
+    mark();
+  }
 })();
 
 /* ?lfxdebug: a small readout of how the liquid runs on this device (frame rate, how often the browser
