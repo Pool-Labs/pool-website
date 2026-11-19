@@ -687,20 +687,8 @@ html{scroll-behavior:smooth}
 .fq-a>div{overflow:hidden}
 .fq-a p{margin:0 0 calc(1.2*var(--t));max-width:calc(52*var(--t));font-size:calc(1.12*var(--t));line-height:1.5;color:color-mix(in srgb,var(--ink) 78%,transparent)}
 .fq button:focus{outline:none}.fq button:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:8px}
-/* F8: stories you drive yourself */
+/* F9: stories you drive yourself (no rings) and F10: the card stack */
 .st{display:flex;flex-direction:column;align-items:center;gap:calc(1.8*var(--t));width:100%}
-.st-rings{display:flex;justify-content:center;gap:calc(1.4*var(--t));max-width:100%;overflow-x:auto;scrollbar-width:none;padding:calc(.6*var(--t)) calc(.6*var(--t)) calc(.2*var(--t))}
-.st-rings::-webkit-scrollbar{display:none}
-.st-ring{flex:none;display:flex;flex-direction:column;align-items:center;gap:calc(.5*var(--t));padding:0;border:0;background:none;color:var(--ink);font:inherit;cursor:pointer;transition:transform .2s}
-.st-ring[aria-selected="true"]{transform:translateY(-2px)}
-.st-dot{position:relative;display:grid;place-items:center;width:calc(4.6*var(--t));height:calc(4.6*var(--t));min-width:50px;min-height:50px;border-radius:50%;font-size:calc(1.9*var(--t));background:var(--sb);box-shadow:0 0 0 3px #A9E4FF}
-.st-dot::before{content:"";position:absolute;inset:-6px;z-index:-1;border-radius:50%;background:conic-gradient(from 200deg,#E01B33,#FF5DB8,#FFC23B,#E01B33)}
-.st-ring.seen .st-dot::before{background:#9DB3C4}
-.st-ring[aria-selected="true"] .st-dot::before{background:#172B47}
-.st-dot img{width:78%;height:auto}
-.st-lb{font-size:calc(.85*var(--t));font-weight:600}
-.st-ring[aria-selected="true"] .st-lb{font-weight:800}
-.st-ring:focus{outline:none}.st-ring:focus-visible .st-dot{outline:2px solid var(--ink);outline-offset:8px}
 .st-card{position:relative;width:min(100%,calc(46*var(--t)));padding:calc(1.2*var(--t)) calc(2.2*var(--t)) calc(1.8*var(--t));border-radius:calc(2.2*var(--t));background:var(--sb);color:var(--sc,#fff);text-align:left;overflow:hidden;touch-action:pan-y;transition:background .4s;box-shadow:0 calc(1.6*var(--t)) calc(4*var(--t)) calc(-1.8*var(--t)) rgba(23,43,71,.45)}
 .st-bars{display:flex;gap:4px}
 .st-bars i{flex:1;height:3px;border-radius:3px;background:color-mix(in srgb,currentColor 28%,transparent);overflow:hidden}
@@ -728,6 +716,23 @@ html{scroll-behavior:smooth}
 .st-nx span{font-size:1.2em}
 .st-nx[hidden]{display:none}
 .st-bk:focus,.st-nx:focus{outline:none}.st-bk:focus-visible,.st-nx:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.sk{display:flex;flex-direction:column;align-items:center;gap:calc(1.6*var(--t));width:100%}
+.sk-deck{display:grid;width:min(100%,calc(44*var(--t)));padding-bottom:calc(3.4*var(--t));touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.sk-c{--k:0;--r:0deg;--dx:0px;grid-area:1/1;align-self:start;padding:calc(1.4*var(--t)) calc(2.2*var(--t)) calc(2.2*var(--t));border-radius:calc(2.2*var(--t));background:var(--sb);color:var(--sc,#fff);text-align:left;box-shadow:0 calc(.6*var(--t)) calc(2.4*var(--t)) calc(-.8*var(--t)) rgba(23,43,71,.4);transform-origin:50% 100%;transform:translate(var(--dx),calc(var(--k)*1.15*var(--t))) scale(calc(1 - var(--k)*.045)) rotate(var(--r));transition:transform .42s cubic-bezier(.2,.8,.2,1),opacity .3s}
+.sk-c.hid{opacity:0}
+.sk-c.drag{transition:none;transform:translate(var(--dx),0) rotate(calc(var(--dx)*.04deg))}
+.sk-c.fly{transition:transform .34s ease-in,opacity .34s ease-in;opacity:0;transform:translate(calc(var(--fx)*125%),-4%) rotate(calc(var(--fx)*18deg))}
+.sk-c.snap{transition:none}
+.sk-c h3{margin:calc(1.2*var(--t)) 0 0;max-width:calc(30*var(--t));font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(2.6*var(--t));line-height:1.04}
+.sk-c p{margin:calc(1*var(--t)) 0 0;max-width:calc(36*var(--t));font-size:calc(1.22*var(--t));line-height:1.5;opacity:.92}
+.sk-c .st-dr{margin-top:calc(.4*var(--t))}
+.sk-ft{display:flex;align-items:center;justify-content:space-between;gap:calc(1*var(--t));width:min(100%,calc(44*var(--t)));color:var(--ink)}
+.sk-ft .st-bk{color:var(--ink)}
+.sk-ft .st-nx{background:#172B47;color:#fff}
+.sk-dots{display:flex;gap:6px}
+.sk-dots i{width:7px;height:7px;border-radius:50%;background:rgba(23,43,71,.22);transition:transform .2s,background .2s}
+.sk-dots i.on{background:#172B47;transform:scale(1.3)}
+.sk-live{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .st-sky{--sb:linear-gradient(165deg,#C9F1FF,#5EC3FA);--sc:#172B47}
 .st-red{--sb:radial-gradient(120% 90% at 20% 10%,#FF6A6A,#E01B33 45%,#9C0C22)}
 .st-navy{--sb:linear-gradient(170deg,#2A3D93,#1F2E77 55%,#141E55)}
@@ -755,7 +760,7 @@ html{scroll-behavior:smooth}
 @media (max-width:759.98px){
  .fq{--t:3.4cqw}
  .fq-l{padding:0 4cqw}
- .st-rings{justify-content:flex-start;width:90cqw;max-width:90cqw;gap:3.6cqw}.st-dot{width:13.5cqw;height:13.5cqw;font-size:5.6cqw}.st-lb{font-size:3cqw}.st-card{width:100%;padding:4cqw 5cqw 5cqw;border-radius:6cqw}.st-s h3{font-size:8cqw}.st-s p{font-size:4.2cqw}.st-hd b{font-size:4cqw}.st-hd img{width:7cqw}.st-n{font-size:3.4cqw}
+ .st-card{width:100%;padding:4cqw 5cqw 5cqw;border-radius:6cqw}.st-s h3{font-size:8cqw}.st-s p{font-size:4.2cqw}.st-hd b{font-size:4cqw}.st-hd img{width:7cqw}.st-n{font-size:3.4cqw}.sk-deck{width:100%;padding-bottom:9cqw}.sk-c{padding:4cqw 5cqw 6cqw;border-radius:6cqw}.sk-c h3{font-size:8cqw}.sk-c p{font-size:4.2cqw}.sk-ft{width:100%}
  .ft{padding:12cqw 6cqw 10cqw}
  .ft-in{gap:3cqw;max-width:none}
  .ft-lg img{width:11cqw}.ft-lg b{font-size:6.4cqw}
@@ -763,7 +768,7 @@ html{scroll-behavior:smooth}
  .ft-nv{gap:2cqw 5cqw}.ft-nv a{font-size:3.7cqw}
  .ft-lgl{font-size:3cqw;max-width:none}
 }
-@media (prefers-reduced-motion:reduce){.fq-a,.st-card,.st-bars b,.st-stack{transition:none}.st-s.in-r,.st-s.in-l{animation:none}}
+@media (prefers-reduced-motion:reduce){.fq-a,.st-card,.st-bars b,.st-stack,.sk-c{transition:none}.st-s.in-r,.st-s.in-l{animation:none}}
 </style>
 </head>
 <body>
@@ -1996,7 +2001,7 @@ var LFX = (function () {
   box.innerHTML = `<div class="gr" role="list" aria-label="Example groups">${[G.slice(0, 6), G.slice(6)].map((row, r) => `<div class="gr-t${r ? ' rev' : ''}">${[...row, ...row].map((g, i) => `<div class="gr-i" role="listitem"${i >= row.length ? ' aria-hidden="true"' : ` aria-label="${label(g)}"`}>${tile(g)}</div>`).join('')}</div>`).join('')}</div>`;
 })();
 
-/* Questions, answered: 8 short answers. Round 8 layouts: F0 frosted list, F8 stories.
+/* Questions, answered: 8 short answers. Round 8 layouts: F0 frosted list, F9 stories (no rings), F10 card stack.
    ?r8 shows a switcher on the test page. */
 (function () {
   const sec = document.getElementById('faq'); if (!sec) return;
@@ -2025,10 +2030,10 @@ var LFX = (function () {
   ];
   let fstop = () => {};
   const N7 = Q.length;
-  const stories = () => `<div class="st"><div class="st-rings" role="tablist" aria-label="Questions">${S7.map((r, i) => `<button type="button" class="st-ring" role="tab" aria-selected="${!i}" aria-controls="st-s${i}" aria-label="${Q[i][0]}" data-i="${i}"><span class="st-dot st-${r[2]}">${r[0] || '<img src="assets/drippy-av.webp" alt="" width="96" height="95">'}</span><span class="st-lb">${r[1]}</span></button>`).join('')}</div>` +
+  const stories = () => `<div class="st">` +
     `<div class="st-card st-${S7[0][2]}" aria-roledescription="carousel" aria-label="Questions, answered"><div class="st-bars" aria-hidden="true">${Q.map(() => '<i><b></b></i>').join('')}</div>` +
     `<div class="st-hd"><img src="assets/449ca5a00d.webp" alt="" width="64" height="64"><b>Pool</b><span class="st-n" aria-live="polite">1 of ${N7}</span></div>` +
-    `<div class="st-stack">${Q.map((q, i) => `<div class="st-s" id="st-s${i}" role="tabpanel" aria-roledescription="slide" aria-hidden="${!!i}">${i === 2 ? '<img class="st-dr" src="assets/drippy-smug.webp" alt="" loading="lazy">' : ''}<h3>${q[0]}</h3><p>${q[1]}</p>${i === N7 - 1 ? '<a class="st-cta" href="#join">Join the waitlist</a>' : ''}</div>`).join('')}</div>` +
+    `<div class="st-stack">${Q.map((q, i) => `<div class="st-s" id="st-s${i}" aria-roledescription="slide" aria-hidden="${!!i}">${i === 2 ? '<img class="st-dr" src="assets/drippy-smug.webp" alt="" loading="lazy">' : ''}<h3>${q[0]}</h3><p>${q[1]}</p>${i === N7 - 1 ? '<a class="st-cta" href="#join">Join the waitlist</a>' : ''}</div>`).join('')}</div>` +
     `<div class="st-ft"><button type="button" class="st-bk" aria-label="Previous question">‹</button><button type="button" class="st-nx">Next question <span aria-hidden="true">›</span></button></div></div></div>`;
   const wireStories = () => {
     const root = box.querySelector('.st'), card = root.querySelector('.st-card'), rings = [...root.querySelectorAll('.st-ring')], slides = [...root.querySelectorAll('.st-s')], bars = [...root.querySelectorAll('.st-bars i')];
@@ -2044,7 +2049,6 @@ var LFX = (function () {
       rings.forEach((r, i) => { r.setAttribute('aria-selected', String(i === k)); if (i === k) r.classList.add('seen'); });
       bars.forEach((b, i) => b.classList.toggle('done', i <= k));
       n.textContent = `${k + 1} of ${N7}`; bk.disabled = k === 0; nx.hidden = k === N7 - 1;
-      const ring = rings[k], row = ring.parentElement; row.scrollTo({ left: ring.offsetLeft - row.clientWidth / 2 + ring.clientWidth / 2, behavior: rm ? 'auto' : 'smooth' });
     };
     rings.forEach(r => r.addEventListener('click', () => go(+r.dataset.i)));
     bk.addEventListener('click', () => go(at - 1, -1)); nx.addEventListener('click', () => go(at + 1, 1));
@@ -2057,22 +2061,49 @@ var LFX = (function () {
     /* the first time it comes into view, the card nudges sideways once so people see it swipes */
     const io = new IntersectionObserver((en, o) => { if (en[0].isIntersecting) { o.disconnect(); if (!rm && card.animate) card.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-16px)' }, { transform: 'translateX(0)' }], { duration: 700, delay: 500, easing: 'ease-in-out' }); } }, { threshold: .5 });
     io.observe(card);
-    rings[0].classList.add('seen'); go(0, 1);
+    go(0, 1);
     fstop = () => io.disconnect();
+  };
+  /* F10: a card stack, like the swipe stack in "Money that moves like your group": the question cards sit on top of each other
+     so you can see the edges of the next ones. Next, or a swipe either way, flicks the top card off and it slides to the back;
+     Back brings the last one back on top. Only transforms and opacity animate. */
+  const stack = () => `<div class="sk"><div class="sk-deck">${Q.map((q, i) => `<div class="sk-c st-${S7[i][2]}" data-i="${i}" aria-hidden="${!!i}"><div class="st-hd"><img src="assets/449ca5a00d.webp" alt="" width="64" height="64"><b>Pool</b><span class="st-n">${i + 1} of ${N7}</span></div>${i === 2 ? '<img class="st-dr" src="assets/drippy-smug.webp" alt="" loading="lazy">' : ''}<h3>${q[0]}</h3><p>${q[1]}</p>${i === N7 - 1 ? '<a class="st-cta" href="#join" tabindex="-1">Join the waitlist</a>' : ''}</div>`).join('')}</div>` +
+    `<div class="sk-ft"><button type="button" class="st-bk sk-bk" aria-label="Previous question">‹</button><span class="sk-dots" aria-hidden="true">${Q.map(() => '<i></i>').join('')}</span><button type="button" class="st-nx sk-nx">Next question <span aria-hidden="true">›</span></button></div><p class="sk-live" aria-live="polite"></p></div>`;
+  const wireStack = () => {
+    const root = box.querySelector('.sk'), deck = root.querySelector('.sk-deck'), cs = [...deck.querySelectorAll('.sk-c')], dots = [...root.querySelectorAll('.sk-dots i')];
+    const bk = root.querySelector('.sk-bk'), nx = root.querySelector('.sk-nx'), live = root.querySelector('.sk-live'), rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let order = cs.map((_, i) => i), busy = false;
+    const R = [0, -2.4, 2, -1.4];
+    const lay = () => { order.forEach((ci, k) => { const c = cs[ci]; c.style.setProperty('--k', Math.min(k, 3)); c.style.setProperty('--r', (R[Math.min(k, 3)] || 0) + 'deg'); c.style.zIndex = 20 - k; c.classList.toggle('hid', k > 3); c.setAttribute('aria-hidden', String(k > 0)); c.querySelectorAll('a').forEach(a => a.tabIndex = k ? -1 : 0); });
+      const top = order[0]; dots.forEach((d, i) => d.classList.toggle('on', i === top)); bk.disabled = top === 0; nx.hidden = top === N7 - 1; live.textContent = `${Q[top][0]} ${Q[top][1]}`; };
+    const next = dir => { if (busy || order[0] === N7 - 1) return; busy = true; const c = cs[order[0]];
+      c.style.setProperty('--fx', dir); c.classList.add('fly');
+      setTimeout(() => { c.classList.add('snap'); c.classList.remove('fly'); order.push(order.shift()); lay(); void c.offsetWidth; c.classList.remove('snap'); busy = false; }, rm ? 0 : 340); };
+    const back = () => { if (busy || order[0] === 0) return; busy = true; const ci = order.pop(); order.unshift(ci); const c = cs[ci];
+      c.classList.add('snap'); c.style.setProperty('--fx', -1); c.classList.add('fly'); void c.offsetWidth; c.classList.remove('snap'); lay(); requestAnimationFrame(() => { c.classList.remove('fly'); setTimeout(() => { busy = false; }, rm ? 0 : 340); }); };
+    nx.addEventListener('click', () => next(1)); bk.addEventListener('click', back);
+    root.addEventListener('keydown', e => { if (e.key === 'ArrowRight') next(1); if (e.key === 'ArrowLeft') back(); });
+    let x0 = null, y0 = 0, dx = 0, lock = null;
+    deck.addEventListener('pointerdown', e => { if (e.target.closest('a,button')) return; x0 = e.clientX; y0 = e.clientY; dx = 0; lock = null; });
+    deck.addEventListener('pointermove', e => { if (x0 === null) return; dx = e.clientX - x0; const dy = e.clientY - y0; if (lock === null && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) lock = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y'; if (lock === 'x') { const c = cs[order[0]]; c.classList.add('drag'); c.style.setProperty('--dx', dx + 'px'); } });
+    const end = () => { if (x0 === null) return; const c = cs[order[0]]; c.classList.remove('drag'); c.style.removeProperty('--dx'); if (lock === 'x' && Math.abs(dx) > 70) next(dx < 0 ? -1 : 1); x0 = null; };
+    deck.addEventListener('pointerup', end); deck.addEventListener('pointercancel', end); deck.addEventListener('pointerleave', end);
+    lay();
   };
   const R = {
     0() { box.innerHTML = acc(); wireAcc(); },
-    8() { box.innerHTML = stories(); wireStories(); }
+    9() { box.innerHTML = stories(); wireStories(); },
+    10() { box.innerHTML = stack(); wireStack(); }
   };
 
 
 
   const set = l => { fstop(); fstop = () => {}; sec.dataset.lay = l; R[l](); };
-  const ql = /[?&]faq=(\d)/.exec(location.search);
+  const ql = /[?&]faq=(\d+)/.exec(location.search);
   set(ql ? +ql[1] : +(sec.dataset.lay || 0));
   if (/[?&]r8\b/.test(location.search)) {
     const bar = document.createElement('div'); bar.className = 'drsw';
-    bar.innerHTML = [[0, 'F0 Frosted list'], [8, 'F8 Stories']].map(([i, n]) => `<button type="button" data-l="${i}">${n}</button>`).join('');
+    bar.innerHTML = [[0, 'F0 Frosted list'], [9, 'F9 Stories'], [10, 'F10 Card stack']].map(([i, n]) => `<button type="button" data-l="${i}">${n}</button>`).join('');
     document.body.appendChild(bar);
     const mark = () => bar.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.l === sec.dataset.lay));
     bar.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; set(+b.dataset.l); mark(); sec.scrollIntoView({ block: 'start' }); });
