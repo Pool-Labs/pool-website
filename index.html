@@ -687,52 +687,38 @@ html{scroll-behavior:smooth}
 .fq-a>div{overflow:hidden}
 .fq-a p{margin:0 0 calc(1.2*var(--t));max-width:calc(52*var(--t));font-size:calc(1.12*var(--t));line-height:1.5;color:color-mix(in srgb,var(--ink) 78%,transparent)}
 .fq button:focus{outline:none}.fq button:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:8px}
-/* F9: stories you drive yourself (no rings) and F10: the card stack */
-.st{display:flex;flex-direction:column;align-items:center;gap:calc(1.8*var(--t));width:100%}
-.st-card{position:relative;width:min(100%,calc(46*var(--t)));padding:calc(1.2*var(--t)) calc(2.2*var(--t)) calc(1.8*var(--t));border-radius:calc(2.2*var(--t));background:var(--sb);color:var(--sc,#fff);text-align:left;overflow:hidden;touch-action:pan-y;transition:background .4s;box-shadow:0 calc(1.6*var(--t)) calc(4*var(--t)) calc(-1.8*var(--t)) rgba(23,43,71,.45)}
-.st-bars{display:flex;gap:4px}
-.st-bars i{flex:1;height:3px;border-radius:3px;background:color-mix(in srgb,currentColor 28%,transparent);overflow:hidden}
-.st-bars b{display:block;height:100%;background:currentColor;transform:scaleX(0);transform-origin:0 50%;transition:transform .35s ease}
-.st-bars i.done b{transform:scaleX(1)}
-.st-hd{display:flex;align-items:center;gap:calc(.5*var(--t));margin-top:calc(1*var(--t))}
-.st-hd img{width:calc(2.1*var(--t));min-width:26px;height:auto}
-.st-hd b{font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(1.05*var(--t))}
-.st-n{margin-left:auto;font-size:calc(.95*var(--t));font-weight:600;opacity:.75;font-variant-numeric:tabular-nums}
-.st-stack{display:grid;margin-top:calc(1.6*var(--t));transition:transform .25s ease}
-.st-s{grid-area:1/1;visibility:hidden;opacity:0}
-.st-s.on{visibility:visible;opacity:1}
-.st-s.in-r{animation:stin .42s cubic-bezier(.2,.8,.2,1)}.st-s.in-l{animation:stin .42s cubic-bezier(.2,.8,.2,1) reverse;animation-direction:normal;animation-name:stinl}
-@keyframes stin{from{opacity:0;transform:translateX(36px)}}
-@keyframes stinl{from{opacity:0;transform:translateX(-36px)}}
-.st-s h3{margin:0;max-width:calc(30*var(--t));font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(2.6*var(--t));line-height:1.04;letter-spacing:-.01em}
-.st-s p{margin:calc(1*var(--t)) 0 0;max-width:calc(36*var(--t));font-size:calc(1.22*var(--t));line-height:1.5;opacity:.92}
-.st-dr{float:right;width:30%;height:auto;margin:calc(-1*var(--t)) calc(-1*var(--t)) calc(.4*var(--t)) calc(1*var(--t));transform:rotate(-6deg)}
+/* F11: colour accordion (every question visible, each its own colour) */
+.ca{display:flex;flex-direction:column;gap:calc(.7*var(--t));width:min(100%,calc(60*var(--t)));text-align:left}
+.ca-i{border-radius:calc(1.6*var(--t));background:var(--sb);color:var(--sc,#fff);box-shadow:0 calc(.4*var(--t)) calc(1.4*var(--t)) calc(-.6*var(--t)) rgba(23,43,71,.3);transition:transform .2s ease}
+@media (hover:hover){.ca-i:hover{transform:translateY(-2px)}}
+.ca-i h3{margin:0;font:inherit}
+.ca-i button{display:flex;justify-content:space-between;align-items:center;gap:calc(1*var(--t));width:100%;min-height:44px;padding:calc(1.15*var(--t)) calc(1.6*var(--t));background:none;border:0;color:inherit;text-align:left;cursor:pointer;font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(1.35*var(--t));line-height:1.15}
+.ca-i button i{position:relative;flex:none;width:calc(2.2*var(--t));height:calc(2.2*var(--t));min-width:28px;min-height:28px;border-radius:50%;background:color-mix(in srgb,currentColor 16%,transparent)}
+.ca-i button i::before,.ca-i button i::after{content:"";position:absolute;left:28%;right:28%;top:50%;height:2px;margin-top:-1px;border-radius:2px;background:currentColor;transition:transform .3s}
+.ca-i button i::after{transform:rotate(90deg)}
+.ca-i.open button i::after{transform:rotate(0)}
+.ca-i button:focus{outline:none}.ca-i button:focus-visible{outline:2px solid currentColor;outline-offset:-5px;border-radius:calc(1.4*var(--t))}
+.ca-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s ease}
+.ca-i.open .ca-a{grid-template-rows:1fr}
+.ca-a>div{overflow:hidden;padding:0 calc(1.6*var(--t))}
+.ca-a p{margin:0 0 calc(1.4*var(--t));max-width:calc(50*var(--t));font-size:calc(1.12*var(--t));line-height:1.5;opacity:.92}
+.ca-a .st-cta{margin:calc(-.4*var(--t)) 0 calc(1.6*var(--t))}
+.ca-dr{float:right;width:calc(7*var(--t));height:auto;margin:calc(-1.6*var(--t)) 0 calc(.4*var(--t)) calc(1*var(--t));transform:rotate(-6deg)}
+/* F12: the list of questions and one big answer card */
+.md{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:calc(2.4*var(--t));align-items:start;width:min(100%,calc(80*var(--t)));text-align:left}
+.md-l{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:calc(.3*var(--t))}
+.md-l button{display:flex;align-items:center;gap:calc(.9*var(--t));width:100%;min-height:44px;padding:calc(.8*var(--t)) calc(1.1*var(--t));border:0;border-radius:999px;background:none;color:var(--ink);font:inherit;font-weight:700;font-size:calc(1.15*var(--t));text-align:left;cursor:pointer;transition:background .2s,color .2s}
+.md-l button:hover{background:rgba(255,255,255,.5)}
+.md-l button[aria-selected="true"]{background:#172B47;color:#fff}
+.md-l button:focus{outline:none}.md-l button:focus-visible{outline:2px solid #172B47;outline-offset:2px}
+.md-dot{flex:none;width:calc(1.1*var(--t));height:calc(1.1*var(--t));min-width:12px;min-height:12px;border-radius:50%;background:var(--sb);box-shadow:inset 0 0 0 1px rgba(23,43,71,.15)}
+.md-c{position:sticky;top:calc(6*var(--t));min-height:calc(24*var(--t));padding:calc(2.4*var(--t));border-radius:calc(2.2*var(--t));background:var(--sb);color:var(--sc,#fff);box-shadow:0 calc(1.6*var(--t)) calc(4*var(--t)) calc(-1.8*var(--t)) rgba(23,43,71,.45);transition:background .35s}
+.md-in.in{animation:mdin .38s cubic-bezier(.2,.8,.2,1)}
+@keyframes mdin{from{opacity:0;transform:translateY(10px)}}
+.md-c h3{margin:0;max-width:calc(26*var(--t));font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(2.5*var(--t));line-height:1.04}
+.md-c p{margin:calc(1.1*var(--t)) 0 0;max-width:calc(34*var(--t));font-size:calc(1.2*var(--t));line-height:1.5;opacity:.92}
+.md-c .st-dr{float:right;width:34%;height:auto;margin:calc(-1*var(--t)) calc(-1*var(--t)) calc(.6*var(--t)) calc(1*var(--t));transform:rotate(-6deg)}
 .st-cta{display:inline-block;margin-top:calc(1.4*var(--t));padding:calc(.8*var(--t)) calc(1.5*var(--t));border-radius:999px;background:var(--btnbg);box-shadow:var(--gloss);color:#fff;font-weight:700;text-decoration:none}
-.st-ft{display:flex;align-items:center;justify-content:space-between;gap:calc(1*var(--t));margin-top:calc(1.8*var(--t))}
-.st-bk,.st-nx{min-height:44px;border:0;cursor:pointer;font:inherit;font-weight:700}
-.st-bk{width:44px;border-radius:50%;background:color-mix(in srgb,currentColor 14%,transparent);color:inherit;font-size:22px;line-height:1}
-.st-bk:disabled{opacity:.3;cursor:default}
-.st-nx{margin-left:auto;padding:0 calc(1.4*var(--t));border-radius:999px;background:#fff;color:#172B47;box-shadow:0 2px 10px rgba(23,43,71,.18)}
-.st-nx span{font-size:1.2em}
-.st-nx[hidden]{display:none}
-.st-bk:focus,.st-nx:focus{outline:none}.st-bk:focus-visible,.st-nx:focus-visible{outline:2px solid currentColor;outline-offset:3px}
-.sk{display:flex;flex-direction:column;align-items:center;gap:calc(1.6*var(--t));width:100%}
-.sk-deck{display:grid;width:min(100%,calc(44*var(--t)));padding-bottom:calc(3.4*var(--t));touch-action:pan-y;user-select:none;-webkit-user-select:none}
-.sk-c{--k:0;--r:0deg;--dx:0px;grid-area:1/1;align-self:start;padding:calc(1.4*var(--t)) calc(2.2*var(--t)) calc(2.2*var(--t));border-radius:calc(2.2*var(--t));background:var(--sb);color:var(--sc,#fff);text-align:left;box-shadow:0 calc(.6*var(--t)) calc(2.4*var(--t)) calc(-.8*var(--t)) rgba(23,43,71,.4);transform-origin:50% 100%;transform:translate(var(--dx),calc(var(--k)*1.15*var(--t))) scale(calc(1 - var(--k)*.045)) rotate(var(--r));transition:transform .42s cubic-bezier(.2,.8,.2,1),opacity .3s}
-.sk-c.hid{opacity:0}
-.sk-c.drag{transition:none;transform:translate(var(--dx),0) rotate(calc(var(--dx)*.04deg))}
-.sk-c.fly{transition:transform .34s ease-in,opacity .34s ease-in;opacity:0;transform:translate(calc(var(--fx)*125%),-4%) rotate(calc(var(--fx)*18deg))}
-.sk-c.snap{transition:none}
-.sk-c h3{margin:calc(1.2*var(--t)) 0 0;max-width:calc(30*var(--t));font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(2.6*var(--t));line-height:1.04}
-.sk-c p{margin:calc(1*var(--t)) 0 0;max-width:calc(36*var(--t));font-size:calc(1.22*var(--t));line-height:1.5;opacity:.92}
-.sk-c .st-dr{margin-top:calc(.4*var(--t))}
-.sk-ft{display:flex;align-items:center;justify-content:space-between;gap:calc(1*var(--t));width:min(100%,calc(44*var(--t)));color:var(--ink)}
-.sk-ft .st-bk{color:var(--ink)}
-.sk-ft .st-nx{background:#172B47;color:#fff}
-.sk-dots{display:flex;gap:6px}
-.sk-dots i{width:7px;height:7px;border-radius:50%;background:rgba(23,43,71,.22);transition:transform .2s,background .2s}
-.sk-dots i.on{background:#172B47;transform:scale(1.3)}
-.sk-live{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .st-sky{--sb:linear-gradient(165deg,#C9F1FF,#5EC3FA);--sc:#172B47}
 .st-red{--sb:radial-gradient(120% 90% at 20% 10%,#FF6A6A,#E01B33 45%,#9C0C22)}
 .st-navy{--sb:linear-gradient(170deg,#2A3D93,#1F2E77 55%,#141E55)}
@@ -740,7 +726,6 @@ html{scroll-behavior:smooth}
 .st-pink{--sb:linear-gradient(160deg,#FF8AC9,#FF4FAE)}
 .st-pearl{--sb:conic-gradient(from 200deg at 70% 30%,#fff,#F1E6FF,#DFF3FF,#FFEEE2,#E6FFF2,#fff);--sc:#172B47}
 .st-ink{--sb:linear-gradient(170deg,#24406A,#172B47)}
-.st-card.st-sky .st-nx,.st-card.st-lime .st-nx,.st-card.st-pearl .st-nx{background:#172B47;color:#fff}
 /* footer */
 .ft{padding:calc(6*var(--u)) calc(6*var(--u)) calc(4*var(--u));text-align:center;color:var(--ink)}
 .ft-in{display:flex;flex-direction:column;align-items:center;gap:calc(1.1*var(--u));max-width:calc(60*var(--u));margin:0 auto}
@@ -760,7 +745,7 @@ html{scroll-behavior:smooth}
 @media (max-width:759.98px){
  .fq{--t:3.4cqw}
  .fq-l{padding:0 4cqw}
- .st-card{width:100%;padding:4cqw 5cqw 5cqw;border-radius:6cqw}.st-s h3{font-size:8cqw}.st-s p{font-size:4.2cqw}.st-hd b{font-size:4cqw}.st-hd img{width:7cqw}.st-n{font-size:3.4cqw}.sk-deck{width:100%;padding-bottom:9cqw}.sk-c{padding:4cqw 5cqw 6cqw;border-radius:6cqw}.sk-c h3{font-size:8cqw}.sk-c p{font-size:4.2cqw}.sk-ft{width:100%}
+ .ca-i button{font-size:4.6cqw;padding:3.6cqw 4.4cqw}.ca-a>div{padding:0 4.4cqw}.ca-a p{font-size:4cqw}.ca-dr{width:20cqw}
  .ft{padding:12cqw 6cqw 10cqw}
  .ft-in{gap:3cqw;max-width:none}
  .ft-lg img{width:11cqw}.ft-lg b{font-size:6.4cqw}
@@ -768,7 +753,7 @@ html{scroll-behavior:smooth}
  .ft-nv{gap:2cqw 5cqw}.ft-nv a{font-size:3.7cqw}
  .ft-lgl{font-size:3cqw;max-width:none}
 }
-@media (prefers-reduced-motion:reduce){.fq-a,.st-card,.st-bars b,.st-stack,.sk-c{transition:none}.st-s.in-r,.st-s.in-l{animation:none}}
+@media (prefers-reduced-motion:reduce){.fq-a,.ca-a,.ca-i,.md-c{transition:none}.md-in.in{animation:none}}
 </style>
 </head>
 <body>
@@ -2001,7 +1986,7 @@ var LFX = (function () {
   box.innerHTML = `<div class="gr" role="list" aria-label="Example groups">${[G.slice(0, 6), G.slice(6)].map((row, r) => `<div class="gr-t${r ? ' rev' : ''}">${[...row, ...row].map((g, i) => `<div class="gr-i" role="listitem"${i >= row.length ? ' aria-hidden="true"' : ` aria-label="${label(g)}"`}>${tile(g)}</div>`).join('')}</div>`).join('')}</div>`;
 })();
 
-/* Questions, answered: 8 short answers. Round 8 layouts: F0 frosted list, F9 stories (no rings), F10 card stack.
+/* Questions, answered: 8 short answers. Round 8 layouts: F0 frosted list, F11 colour accordion, F12 list and answer card.
    ?r8 shows a switcher on the test page. */
 (function () {
   const sec = document.getElementById('faq'); if (!sec) return;
@@ -2021,80 +2006,34 @@ var LFX = (function () {
     box.querySelectorAll('.fq-i').forEach(x => { x.classList.remove('open'); x.querySelector('button').setAttribute('aria-expanded', 'false'); });
     if (on) { it.classList.add('open'); b.setAttribute('aria-expanded', 'true'); }
   }));
-  /* F8: stories you drive yourself. Story rings up top (one per question, they go grey once seen), one story card below with the
-     question in big type, the answer, progress bars, "2 of 7" and a clear Next button. Swipe the card, tap Next or Back, or tap a ring.
-     Nothing advances on its own. The new story slides in from the side you're going. Only transforms and opacity animate. */
-  const S7 = [
-    ['💧', 'Pool', 'sky'], ['🔐', 'Money', 'red'], ['', 'Drippy', 'navy'], ['🏦', 'Bank', 'lime'],
-    ['✨', 'Droplets', 'pink'], ['💳', 'Card', 'pearl'], ['🚀', 'Start', 'ink']
-  ];
-  let fstop = () => {};
+  /* All questions stay visible: people scan the list and open only the ones they care about (FAQ best practice, 19 Nov).
+     F11: colour accordion. Every question is its own coloured band in big type; tap to open it in place, several can be open.
+     F12: questions on the left, the answer as a big coloured card on the right (on phones it falls back to F11). */
+  const S7 = [['sky'], ['red'], ['navy'], ['lime'], ['pink'], ['pearl'], ['ink']];
   const N7 = Q.length;
-  const stories = () => `<div class="st">` +
-    `<div class="st-card st-${S7[0][2]}" aria-roledescription="carousel" aria-label="Questions, answered"><div class="st-bars" aria-hidden="true">${Q.map(() => '<i><b></b></i>').join('')}</div>` +
-    `<div class="st-hd"><img src="assets/449ca5a00d.webp" alt="" width="64" height="64"><b>Pool</b><span class="st-n" aria-live="polite">1 of ${N7}</span></div>` +
-    `<div class="st-stack">${Q.map((q, i) => `<div class="st-s" id="st-s${i}" aria-roledescription="slide" aria-hidden="${!!i}">${i === 2 ? '<img class="st-dr" src="assets/drippy-smug.webp" alt="" loading="lazy">' : ''}<h3>${q[0]}</h3><p>${q[1]}</p>${i === N7 - 1 ? '<a class="st-cta" href="#join">Join the waitlist</a>' : ''}</div>`).join('')}</div>` +
-    `<div class="st-ft"><button type="button" class="st-bk" aria-label="Previous question">‹</button><button type="button" class="st-nx">Next question <span aria-hidden="true">›</span></button></div></div></div>`;
-  const wireStories = () => {
-    const root = box.querySelector('.st'), card = root.querySelector('.st-card'), rings = [...root.querySelectorAll('.st-ring')], slides = [...root.querySelectorAll('.st-s')], bars = [...root.querySelectorAll('.st-bars i')];
-    const n = root.querySelector('.st-n'), bk = root.querySelector('.st-bk'), nx = root.querySelector('.st-nx'), stack = root.querySelector('.st-stack');
-    const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let at = 0;
-    const go = (k, dir) => {
-      if (k < 0 || k >= N7 || k === at && dir) return;
-      const d = dir || (k > at ? 1 : -1); at = k;
-      card.className = `st-card st-${S7[k][2]}`;
-      slides.forEach((s, i) => { s.classList.remove('on', 'in-r', 'in-l'); s.setAttribute('aria-hidden', String(i !== k)); });
-      const s = slides[k]; s.classList.add('on'); if (!rm) { void s.offsetWidth; s.classList.add(d > 0 ? 'in-r' : 'in-l'); }
-      rings.forEach((r, i) => { r.setAttribute('aria-selected', String(i === k)); if (i === k) r.classList.add('seen'); });
-      bars.forEach((b, i) => b.classList.toggle('done', i <= k));
-      n.textContent = `${k + 1} of ${N7}`; bk.disabled = k === 0; nx.hidden = k === N7 - 1;
-    };
-    rings.forEach(r => r.addEventListener('click', () => go(+r.dataset.i)));
-    bk.addEventListener('click', () => go(at - 1, -1)); nx.addEventListener('click', () => go(at + 1, 1));
-    card.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(at + 1, 1); if (e.key === 'ArrowLeft') go(at - 1, -1); });
-    let x0 = null, y0 = 0, dx = 0, lock = null;
-    card.addEventListener('pointerdown', e => { if (e.target.closest('a,button')) return; x0 = e.clientX; y0 = e.clientY; dx = 0; lock = null; });
-    card.addEventListener('pointermove', e => { if (x0 === null) return; dx = e.clientX - x0; const dy = e.clientY - y0; if (lock === null && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) lock = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y'; if (lock === 'x') { const edge = (at === 0 && dx > 0) || (at === N7 - 1 && dx < 0); stack.style.transform = `translateX(${dx * (edge ? .2 : .55)}px)`; } });
-    const end = () => { if (x0 === null) return; stack.style.transform = ''; if (lock === 'x' && Math.abs(dx) > 50) go(at + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1); x0 = null; };
-    card.addEventListener('pointerup', end); card.addEventListener('pointercancel', end); card.addEventListener('pointerleave', end);
-    /* the first time it comes into view, the card nudges sideways once so people see it swipes */
-    const io = new IntersectionObserver((en, o) => { if (en[0].isIntersecting) { o.disconnect(); if (!rm && card.animate) card.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-16px)' }, { transform: 'translateX(0)' }], { duration: 700, delay: 500, easing: 'ease-in-out' }); } }, { threshold: .5 });
-    io.observe(card);
-    go(0, 1);
-    fstop = () => io.disconnect();
+  let fstop = () => {};
+  const extra = i => (i === 2 ? '<img class="st-dr" src="assets/drippy-smug.webp" alt="" loading="lazy">' : '') + (i === N7 - 1 ? '<a class="st-cta" href="#join">Join the waitlist</a>' : '');
+  const cacc = () => `<div class="ca">${Q.map((q, i) => `<div class="ca-i st-${S7[i][0]}"><h3><button type="button" aria-expanded="false" aria-controls="ca-a${i}" id="ca-q${i}"><span>${q[0]}</span><i aria-hidden="true"></i></button></h3><div class="ca-a" id="ca-a${i}" role="region" aria-labelledby="ca-q${i}"><div>${i === 2 ? '<img class="ca-dr" src="assets/drippy-smug.webp" alt="" loading="lazy">' : ''}<p>${q[1]}</p>${i === N7 - 1 ? '<a class="st-cta" href="#join">Join the waitlist</a>' : ''}</div></div></div>`).join('')}</div>`;
+  const wireCacc = () => box.querySelectorAll('.ca-i button').forEach(b => b.addEventListener('click', () => {
+    const it = b.closest('.ca-i'), on = !it.classList.contains('open'); it.classList.toggle('open', on); b.setAttribute('aria-expanded', String(on));
+  }));
+  const md = () => `<div class="md"><ul class="md-l" role="tablist" aria-label="Questions" aria-orientation="vertical">${Q.map((q, i) => `<li role="presentation"><button type="button" role="tab" id="md-q${i}" aria-controls="md-a" aria-selected="${!i}" tabindex="${i ? -1 : 0}" data-i="${i}"><i class="md-dot st-${S7[i][0]}" aria-hidden="true"></i>${q[0]}</button></li>`).join('')}</ul>` +
+    `<div class="md-c st-${S7[0][0]}" id="md-a" role="tabpanel" aria-labelledby="md-q0" aria-live="polite"><div class="md-in"><h3>${Q[0][0]}</h3><p>${Q[0][1]}</p></div></div></div>`;
+  const wireMd = () => {
+    const bs = [...box.querySelectorAll('.md-l button')], card = box.querySelector('.md-c'), rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const show = (i, focus) => { bs.forEach((b, j) => { b.setAttribute('aria-selected', String(j === i)); b.tabIndex = j === i ? 0 : -1; }); if (focus) bs[i].focus();
+      card.className = `md-c st-${S7[i][0]}`; card.setAttribute('aria-labelledby', `md-q${i}`);
+      card.innerHTML = `<div class="md-in${rm ? '' : ' in'}">${extra(i)}<h3>${Q[i][0]}</h3><p>${Q[i][1]}</p></div>`; };
+    bs.forEach((b, i) => { b.addEventListener('click', () => show(i)); b.addEventListener('keydown', e => { const d = e.key === 'ArrowDown' ? 1 : e.key === 'ArrowUp' ? -1 : 0; if (d) { e.preventDefault(); show((i + d + N7) % N7, true); } }); });
+    show(0);
   };
-  /* F10: a card stack, like the swipe stack in "Money that moves like your group": the question cards sit on top of each other
-     so you can see the edges of the next ones. Next, or a swipe either way, flicks the top card off and it slides to the back;
-     Back brings the last one back on top. Only transforms and opacity animate. */
-  const stack = () => `<div class="sk"><div class="sk-deck">${Q.map((q, i) => `<div class="sk-c st-${S7[i][2]}" data-i="${i}" aria-hidden="${!!i}"><div class="st-hd"><img src="assets/449ca5a00d.webp" alt="" width="64" height="64"><b>Pool</b><span class="st-n">${i + 1} of ${N7}</span></div>${i === 2 ? '<img class="st-dr" src="assets/drippy-smug.webp" alt="" loading="lazy">' : ''}<h3>${q[0]}</h3><p>${q[1]}</p>${i === N7 - 1 ? '<a class="st-cta" href="#join" tabindex="-1">Join the waitlist</a>' : ''}</div>`).join('')}</div>` +
-    `<div class="sk-ft"><button type="button" class="st-bk sk-bk" aria-label="Previous question">‹</button><span class="sk-dots" aria-hidden="true">${Q.map(() => '<i></i>').join('')}</span><button type="button" class="st-nx sk-nx">Next question <span aria-hidden="true">›</span></button></div><p class="sk-live" aria-live="polite"></p></div>`;
-  const wireStack = () => {
-    const root = box.querySelector('.sk'), deck = root.querySelector('.sk-deck'), cs = [...deck.querySelectorAll('.sk-c')], dots = [...root.querySelectorAll('.sk-dots i')];
-    const bk = root.querySelector('.sk-bk'), nx = root.querySelector('.sk-nx'), live = root.querySelector('.sk-live'), rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let order = cs.map((_, i) => i), busy = false;
-    const R = [0, -2.4, 2, -1.4];
-    const lay = () => { order.forEach((ci, k) => { const c = cs[ci]; c.style.setProperty('--k', Math.min(k, 3)); c.style.setProperty('--r', (R[Math.min(k, 3)] || 0) + 'deg'); c.style.zIndex = 20 - k; c.classList.toggle('hid', k > 3); c.setAttribute('aria-hidden', String(k > 0)); c.querySelectorAll('a').forEach(a => a.tabIndex = k ? -1 : 0); });
-      const top = order[0]; dots.forEach((d, i) => d.classList.toggle('on', i === top)); bk.disabled = top === 0; nx.hidden = top === N7 - 1; live.textContent = `${Q[top][0]} ${Q[top][1]}`; };
-    const next = dir => { if (busy || order[0] === N7 - 1) return; busy = true; const c = cs[order[0]];
-      c.style.setProperty('--fx', dir); c.classList.add('fly');
-      setTimeout(() => { c.classList.add('snap'); c.classList.remove('fly'); order.push(order.shift()); lay(); void c.offsetWidth; c.classList.remove('snap'); busy = false; }, rm ? 0 : 340); };
-    const back = () => { if (busy || order[0] === 0) return; busy = true; const ci = order.pop(); order.unshift(ci); const c = cs[ci];
-      c.classList.add('snap'); c.style.setProperty('--fx', -1); c.classList.add('fly'); void c.offsetWidth; c.classList.remove('snap'); lay(); requestAnimationFrame(() => { c.classList.remove('fly'); setTimeout(() => { busy = false; }, rm ? 0 : 340); }); };
-    nx.addEventListener('click', () => next(1)); bk.addEventListener('click', back);
-    root.addEventListener('keydown', e => { if (e.key === 'ArrowRight') next(1); if (e.key === 'ArrowLeft') back(); });
-    let x0 = null, y0 = 0, dx = 0, lock = null;
-    deck.addEventListener('pointerdown', e => { if (e.target.closest('a,button')) return; x0 = e.clientX; y0 = e.clientY; dx = 0; lock = null; });
-    deck.addEventListener('pointermove', e => { if (x0 === null) return; dx = e.clientX - x0; const dy = e.clientY - y0; if (lock === null && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) lock = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y'; if (lock === 'x') { const c = cs[order[0]]; c.classList.add('drag'); c.style.setProperty('--dx', dx + 'px'); } });
-    const end = () => { if (x0 === null) return; const c = cs[order[0]]; c.classList.remove('drag'); c.style.removeProperty('--dx'); if (lock === 'x' && Math.abs(dx) > 70) next(dx < 0 ? -1 : 1); x0 = null; };
-    deck.addEventListener('pointerup', end); deck.addEventListener('pointercancel', end); deck.addEventListener('pointerleave', end);
-    lay();
-  };
+  const narrow = matchMedia('(max-width: 759.98px)');
   const R = {
     0() { box.innerHTML = acc(); wireAcc(); },
-    9() { box.innerHTML = stories(); wireStories(); },
-    10() { box.innerHTML = stack(); wireStack(); }
+    11() { box.innerHTML = cacc(); wireCacc(); },
+    12() { if (narrow.matches) { box.innerHTML = cacc(); wireCacc(); } else { box.innerHTML = md(); wireMd(); } }
   };
+
 
 
 
@@ -2103,7 +2042,7 @@ var LFX = (function () {
   set(ql ? +ql[1] : +(sec.dataset.lay || 0));
   if (/[?&]r8\b/.test(location.search)) {
     const bar = document.createElement('div'); bar.className = 'drsw';
-    bar.innerHTML = [[0, 'F0 Frosted list'], [9, 'F9 Stories'], [10, 'F10 Card stack']].map(([i, n]) => `<button type="button" data-l="${i}">${n}</button>`).join('');
+    bar.innerHTML = [[0, 'F0 Frosted list'], [11, 'F11 Colour list'], [12, 'F12 List + card']].map(([i, n]) => `<button type="button" data-l="${i}">${n}</button>`).join('');
     document.body.appendChild(bar);
     const mark = () => bar.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.l === sec.dataset.lay));
     bar.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; set(+b.dataset.l); mark(); sec.scrollIntoView({ block: 'start' }); });
