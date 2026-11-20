@@ -783,6 +783,8 @@ html{scroll-behavior:smooth}
 .dk-c[data-r="2"]{z-index:5;transform:translateY(calc(-3.6*var(--t))) scale(.88)}
 .dk-c:is([data-r="3"],[data-r="4"],[data-r="5"],[data-r="6"]){z-index:1;transform:translateY(calc(-3.6*var(--t))) scale(.88);opacity:0}
 .dk-c .st-cta{align-self:flex-start}
+.dk-c.dk-pop{transition:none;animation:dkpop .5s cubic-bezier(.2,.8,.2,1)}
+@keyframes dkpop{from{opacity:0;transform:translateY(calc(3*var(--t))) scale(.97)}25%{opacity:1}}
 /* phones: the frosted list opens into a colour card (F13, F15) or a colour band (F14); several can be open */
 .gq{width:100%;padding:0 4cqw;border-radius:6cqw;text-align:left}
 .gq-i+.gq-i{border-top:1px solid rgba(23,43,71,.1)}
@@ -837,7 +839,7 @@ html{scroll-behavior:smooth}
  .ft-nv{gap:2cqw 5cqw}.ft-nv a{font-size:3.7cqw}
  .ft-lgl{font-size:3cqw;max-width:none}
 }
-@media (prefers-reduced-motion:reduce){.fq-a,.ca-a,.ca-i,.md-c,.gq-a,.gx-bgs i,.gx-hl,.dk-c,.gx-dr{transition:none!important}.md-in.in,.gx-in.in{animation:none}}
+@media (prefers-reduced-motion:reduce){.fq-a,.ca-a,.ca-i,.md-c,.gq-a,.gx-bgs i,.gx-hl,.dk-c,.gx-dr{transition:none!important}.md-in.in,.gx-in.in,.dk-c.dk-pop{animation:none}}
 </style>
 </head>
 <body>
@@ -2141,7 +2143,10 @@ var LFX = (function () {
       lay.forEach((g, j) => g.classList.toggle('on', j === i));
       panes.forEach(p => { const on = +p.dataset.i === i; p.classList.toggle('on', on); p.classList.remove('in'); p.setAttribute('aria-hidden', String(!on)); });
       if (!rm) panes.forEach(p => { if (+p.dataset.i === i) { void p.offsetWidth; p.classList.add('in'); } });
-      cards.forEach((c, j) => { const r = (j - i + N7) % N7; c.dataset.r = r; c.setAttribute('aria-hidden', String(r !== 0)); });
+      cards.forEach((c, j) => { const r = (j - i + N7) % N7, was = +c.dataset.r;
+        /* a card that was hidden in the stack slides up solid instead of fading in, so the cards behind never show through */
+        if (r === 0 && was > 2 && !rm) { c.classList.remove('dk-pop'); void c.offsetWidth; c.classList.add('dk-pop'); } else if (r !== 0) c.classList.remove('dk-pop');
+        c.dataset.r = r; c.setAttribute('aria-hidden', String(r !== 0)); });
       place();
     };
     bs.forEach((b, i) => { b.addEventListener('click', () => show(i)); b.addEventListener('keydown', e => {
