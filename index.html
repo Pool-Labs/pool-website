@@ -866,6 +866,25 @@ html{scroll-behavior:smooth}
  .fq{--t:3.4cqw}
  .fq-l{padding:0 4cqw}
  .ca-i button{font-size:4.6cqw;padding:3.6cqw 4.4cqw}.ca-a>div{padding:0 4.4cqw}.ca-a p{font-size:4cqw}.ca-dr{width:20cqw}
+ /* F15 to F18 on phones: the same list and card stack as on laptops, stacked */
+ .gx{grid-template-columns:minmax(0,1fr);gap:17cqw;width:100%}
+ .gx-l{padding:2cqw;border-radius:6cqw}
+ .gx-hl{left:2cqw;right:2cqw;border-radius:4.2cqw}
+ .gx-l button{gap:3cqw;padding:2.9cqw 3.6cqw;border-radius:4.2cqw;font-size:4.1cqw}
+ .gx-l li+li::before{left:3.6cqw;right:3.6cqw}
+ .gx-l .gx-dot{width:2.8cqw;height:2.8cqw}.gx-ch{width:4cqw;height:4cqw}
+ .dk{padding-top:7cqw;touch-action:pan-y}
+ .dk-c{padding:6cqw 5.6cqw 5.6cqw;border-radius:6cqw}
+ .dk-c[data-r="1"]{transform:translateY(-3.5cqw) scale(.94)}
+ .dk-c:is([data-r="2"],[data-r="3"],[data-r="4"],[data-r="5"],[data-r="6"]){transform:translateY(-7cqw) scale(.88)}
+ .dk-c h3{max-width:54cqw;font-size:6.2cqw}
+ .dk-c p{max-width:none;margin-top:3cqw;font-size:4cqw}
+ .dk-c .st-cta{margin-top:4cqw}
+ .dk .pp{right:3cqw;top:-17cqw;width:26cqw}
+ .dk .pp-pool{width:28cqw;top:-23cqw}.dk .pp-toggle{width:31cqw;top:-14.5cqw}.dk .pp-lock{width:22.5cqw;top:-22.5cqw;right:5cqw}
+ .dk .pp-drops{width:29cqw;top:-19.5cqw}.dk .pp-card{width:31cqw;top:-19.5cqw;right:1.5cqw}.dk .pp-ticket{width:31cqw;top:-15cqw;right:2cqw}.dk .pp-dr{width:27cqw;top:-20cqw}
+ .dk .gx-dr{width:24cqw;top:-15cqw;right:3cqw}
+ .dk-host{width:34cqw;top:-18cqw;right:5cqw}
  .ft{padding:12cqw 6cqw 10cqw}
  .ft-in{gap:3cqw;max-width:none}
  .ft-lg img{width:11cqw}.ft-lg b{font-size:6.4cqw}
@@ -2144,10 +2163,18 @@ var LFX = (function () {
     const show = (i, focus) => { bs.forEach((b, j) => { b.setAttribute('aria-selected', String(j === i)); b.tabIndex = j === i ? 0 : -1; }); if (focus) bs[i].focus();
       card.className = `md-c st-${S7[i][0]}`; card.setAttribute('aria-labelledby', `md-q${i}`);
       panes.forEach((pn, j) => { pn.classList.toggle('on', j === i); pn.classList.remove('in'); pn.setAttribute('aria-hidden', String(j !== i)); }); if (!rm) { void panes[i].offsetWidth; panes[i].classList.add('in'); } };
-    bs.forEach((b, i) => { b.addEventListener('click', () => show(i)); b.addEventListener('keydown', e => { const d = e.key === 'ArrowDown' ? 1 : e.key === 'ArrowUp' ? -1 : 0; if (d) { e.preventDefault(); show((i + d + N7) % N7, true); } }); });
+    const reveal = () => { if (!narrow.matches) return; const r = pan.getBoundingClientRect(), over = r.bottom + 16 - innerHeight;
+      if (over > 0) scrollBy({ top: Math.min(over, r.top - 70), behavior: rm ? 'auto' : 'smooth' }); };
+    if (cards.length) { let sx = 0, sy = 0, on = false;
+      pan.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') return; sx = e.clientX; sy = e.clientY; on = true; });
+      pan.addEventListener('pointerup', e => { if (!on) return; on = false; const dx = e.clientX - sx, dy = e.clientY - sy;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.4) show((cur + (dx < 0 ? 1 : -1) + N7) % N7); });
+      pan.addEventListener('pointercancel', () => { on = false; }); }
+    bs.forEach((b, i) => { b.addEventListener('click', () => { show(i); reveal(); }); b.addEventListener('keydown', e => { const d = e.key === 'ArrowDown' ? 1 : e.key === 'ArrowUp' ? -1 : 0; if (d) { e.preventDefault(); show((i + d + N7) % N7, true); } }); });
     show(0);
   };
   const narrow = matchMedia('(max-width: 759.98px)');
+  /* F15 to F18 look the same on phones: the frosted list on top and the card stack under it (swipe the cards to move through). */
   /* F13 to F15: F0's frosted glass list (every question visible) beside a colour answer card.
      F13 colour card, F14 glass card with a colour top, F15 a stack of colour cards like a wallet.
      Phones: the frosted list opens into a colour card (F13, F15) or a colour band (F14). */
@@ -2194,7 +2221,14 @@ var LFX = (function () {
         if (started && !rm) { host.classList.remove('hop'); void host.offsetWidth; host.classList.add('hop'); mood('blink'); ht = setTimeout(() => mood(MOOD[i]), 170); } else mood(MOOD[i]); }
       started = true;
     };
-    bs.forEach((b, i) => { b.addEventListener('click', () => show(i)); b.addEventListener('keydown', e => {
+    const reveal = () => { if (!narrow.matches) return; const r = pan.getBoundingClientRect(), over = r.bottom + 16 - innerHeight;
+      if (over > 0) scrollBy({ top: Math.min(over, r.top - 70), behavior: rm ? 'auto' : 'smooth' }); };
+    if (cards.length) { let sx = 0, sy = 0, on = false;
+      pan.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') return; sx = e.clientX; sy = e.clientY; on = true; });
+      pan.addEventListener('pointerup', e => { if (!on) return; on = false; const dx = e.clientX - sx, dy = e.clientY - sy;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.4) show((cur + (dx < 0 ? 1 : -1) + N7) % N7); });
+      pan.addEventListener('pointercancel', () => { on = false; }); }
+    bs.forEach((b, i) => { b.addEventListener('click', () => { show(i); reveal(); }); b.addEventListener('keydown', e => {
       const k = e.key, n = k === 'ArrowDown' ? (i + 1) % N7 : k === 'ArrowUp' ? (i - 1 + N7) % N7 : k === 'Home' ? 0 : k === 'End' ? N7 - 1 : -1;
       if (n > -1) { e.preventDefault(); show(n, true); } }); });
     show(0); requestAnimationFrame(() => requestAnimationFrame(() => l.classList.add('ready')));
@@ -2216,7 +2250,7 @@ var LFX = (function () {
     const it = b.closest('.gq-i'), on = !it.classList.contains('open'); it.classList.toggle('open', on); b.setAttribute('aria-expanded', String(on));
   }));
   const GX = { 13: [card13, 'a'], 14: [card14, 'b'], 15: [card15, 'a'], 16: [card16, 'pp'], 17: [card17, 'dr'], 18: [card18, 'pp'] };
-  const gx = l => { const [card, m] = GX[l]; if (narrow.matches) { box.innerHTML = gq(m); wireGq(); } else { box.innerHTML = `<div class="gx gx${l}">${glist()}${card()}</div>`; wireGx(); } };
+  const gx = l => { const [card, m] = GX[l]; if (narrow.matches && l < 15) { box.innerHTML = gq(m); wireGq(); } else { box.innerHTML = `<div class="gx gx${l}">${glist()}${card()}</div>`; wireGx(); } };
   const R = {
     0() { box.innerHTML = acc(); wireAcc(); },
     11() { box.innerHTML = cacc(); wireCacc(); },
