@@ -819,6 +819,45 @@ html{scroll-behavior:smooth}
 .gq-sp{float:right;width:24cqw;height:10cqw}
 .gq-hd{position:absolute;z-index:-1;right:3cqw;top:-15cqw;width:26cqw;height:auto;transform:translateY(12cqw);transition:transform .65s cubic-bezier(.3,1.5,.5,1) .12s}
 .gq-i.open .gq-hd{transform:none}
+/* phones, P1 Wallet: the questions are stacked colour cards; the one you tap slides out of the stack and opens in place */
+.wst{display:flex;flex-direction:column;width:100%;padding-top:14cqw;text-align:left}
+.wst-c{position:relative;margin-top:-5.5cqw;padding-bottom:5.5cqw;color:var(--sc,#fff);transition:margin-top .45s cubic-bezier(.2,.8,.2,1)}
+.wst-c:nth-child(1){z-index:1}.wst-c:nth-child(2){z-index:2}.wst-c:nth-child(3){z-index:3}.wst-c:nth-child(4){z-index:4}.wst-c:nth-child(5){z-index:5}.wst-c:nth-child(6){z-index:6}.wst-c:nth-child(7){z-index:7}
+.wst-c.open{margin-top:10cqw}
+.wst-c.open+.wst-c{margin-top:5cqw}
+.wst-c:first-child{margin-top:0}
+.wst-bg{position:absolute;inset:0;z-index:-2;border-radius:5.6cqw;background:var(--sb);box-shadow:0 -1cqw 3.6cqw -1.6cqw rgba(23,43,71,.45)}
+.wst-bg::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,0) 38%);box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+.wst h3{margin:0;font:inherit}
+.wst-c button{display:flex;align-items:center;gap:3cqw;width:100%;min-height:44px;padding:4.6cqw 5.4cqw;background:none;border:0;color:inherit;font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:5cqw;line-height:1.12;text-align:left;cursor:pointer}
+.wst-c button span{flex:1}
+.wst-c button:focus{outline:none}.wst-c button:focus-visible{outline:2px solid currentColor;outline-offset:-4px;border-radius:5cqw}
+.wst-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.8,.2,1)}
+.wst-c.open .wst-a{grid-template-rows:1fr}
+.wst-a>div{overflow:hidden}
+.wst-in{padding:0 5.4cqw .6cqw}
+.wst-in p{margin:0;font-size:4cqw;line-height:1.5;opacity:.95}
+.wst .st-cta{margin-top:4cqw}
+.wst-c.open .pp{opacity:1;transform:none;transition:opacity .25s ease .15s,transform .75s cubic-bezier(.3,1.55,.5,1) .15s}
+.wst .pp{right:3cqw}
+.wst .pp-pool{width:26cqw;top:-23cqw}.wst .pp-toggle{width:29cqw;top:-13cqw}.wst .pp-dr{width:23cqw;top:-19cqw}.wst .pp-lock{width:21cqw;top:-19.5cqw;right:5cqw}
+.wst .pp-drops{width:27cqw;top:-18.5cqw}.wst .pp-card{width:29cqw;top:-20cqw;right:1.5cqw}.wst .pp-ticket{width:29cqw;top:-15.5cqw;right:2cqw}
+.wst-hd{position:absolute;z-index:-3;right:6cqw;top:-15cqw;width:24cqw;height:auto;opacity:0;transform:translateY(12cqw);transition:opacity .2s,transform .3s}
+.wst-c.open .wst-hd{opacity:1;transform:none;transition:opacity .25s ease .12s,transform .7s cubic-bezier(.3,1.5,.5,1) .12s}
+/* phones, P2 Sheet: lives on <body> so it can cover the screen */
+.sh{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;--t:3.4vw;font-family:"Figtree",system-ui,sans-serif;color:var(--ink)}
+.sh[hidden]{display:none}
+.sh-bd{position:absolute;inset:0;background:rgba(23,43,71,.42);opacity:0;transition:opacity .35s ease}
+.sh.on .sh-bd{opacity:1}
+.sh-p{position:relative;width:100%;padding:13vw 6vw calc(7vw + env(safe-area-inset-bottom));background:#F3FAFF;border-radius:8vw 8vw 0 0;box-shadow:0 -10px 40px -12px rgba(23,43,71,.45);transform:translateY(105%);transition:transform .5s cubic-bezier(.2,.85,.2,1);touch-action:none}
+.sh.on .sh-p{transform:none}
+.sh-p.drag{transition:none}
+.sh-gr{position:absolute;left:50%;top:2.6vw;width:11vw;height:1.3vw;margin-left:-5.5vw;border-radius:9px;background:rgba(23,43,71,.2)}
+.sh-x{position:absolute;left:3vw;top:3vw;z-index:30;display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:rgba(23,43,71,.08);color:var(--ink);cursor:pointer}
+.sh-x svg{width:16px;height:16px}
+.sh-x:focus{outline:none}.sh-x:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+html.sh-lock{overflow:hidden}
+.sh .dk{padding-top:7vw}
 /* phones: the frosted list opens into a colour card (F13, F15) or a colour band (F14); several can be open */
 .gq{width:100%;padding:0 4cqw;border-radius:6cqw;text-align:left}
 .gq-i+.gq-i{border-top:1px solid rgba(23,43,71,.1)}
@@ -892,7 +931,7 @@ html{scroll-behavior:smooth}
  .ft-nv{gap:2cqw 5cqw}.ft-nv a{font-size:3.7cqw}
  .ft-lgl{font-size:3cqw;max-width:none}
 }
-@media (prefers-reduced-motion:reduce){.fq-a,.ca-a,.ca-i,.md-c,.gq-a,.gx-bgs i,.gx-hl,.dk-c,.gx-dr{transition:none!important}.md-in.in,.gx-in.in,.dk-c.dk-pop,.dk-host.hop{animation:none}.pp,.gq-hd,.gx18 .dk{transition:none!important}}
+@media (prefers-reduced-motion:reduce){.fq-a,.ca-a,.ca-i,.md-c,.gq-a,.gx-bgs i,.gx-hl,.dk-c,.gx-dr{transition:none!important}.md-in.in,.gx-in.in,.dk-c.dk-pop,.dk-host.hop{animation:none}.pp,.gq-hd,.gx18 .dk,.wst-c,.wst-a,.wst-hd,.sh-p,.sh-bd{transition:none!important}}
 </style>
 </head>
 <body>
@@ -2170,7 +2209,25 @@ var LFX = (function () {
       pan.addEventListener('pointerup', e => { if (!on) return; on = false; const dx = e.clientX - sx, dy = e.clientY - sy;
         if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.4) show((cur + (dx < 0 ? 1 : -1) + N7) % N7); });
       pan.addEventListener('pointercancel', () => { on = false; }); }
-    bs.forEach((b, i) => { b.addEventListener('click', () => { show(i); reveal(); }); b.addEventListener('keydown', e => { const d = e.key === 'ArrowDown' ? 1 : e.key === 'ArrowUp' ? -1 : 0; if (d) { e.preventDefault(); show((i + d + N7) % N7, true); } }); });
+    const sh = document.querySelector('body > .sh');
+    if (sh) {
+      /* P2 sheet: the colour card slides up from the bottom, like Cash App's sheets; swipe it down, tap outside or press X to close */
+      const p = sh.querySelector('.sh-p'), x = sh.querySelector('.sh-x'), html = document.documentElement; let last = null, y0 = null, x0 = 0, dy = 0;
+      const open = b => { last = b; sh.hidden = false; html.classList.add('sh-lock'); requestAnimationFrame(() => requestAnimationFrame(() => sh.classList.add('on'))); setTimeout(() => x.focus({ preventScroll: true }), 80); };
+      const close = () => { if (!sh.classList.contains('on')) return; sh.classList.remove('on'); p.style.transform = ''; html.classList.remove('sh-lock');
+        setTimeout(() => { if (!sh.classList.contains('on')) sh.hidden = true; }, 480); if (last) last.focus({ preventScroll: true }); };
+      sh.querySelector('.sh-bd').addEventListener('click', close); x.addEventListener('click', close);
+      sh.addEventListener('keydown', e => { if (e.key === 'Escape') close();
+        if (e.key === 'Tab') { const f = [...sh.querySelectorAll('button, a[href]')].filter(el => el.offsetParent && !el.closest('[aria-hidden="true"]')); const a0 = f[0], a1 = f[f.length - 1];
+          if (e.shiftKey && document.activeElement === a0) { e.preventDefault(); a1.focus(); } else if (!e.shiftKey && document.activeElement === a1) { e.preventDefault(); a0.focus(); } } });
+      p.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse' || e.target.closest('button, a')) return; y0 = e.clientY; x0 = e.clientX; dy = 0; });
+      p.addEventListener('pointermove', e => { if (y0 == null) return; dy = e.clientY - y0; if (dy > 6 && dy > Math.abs(e.clientX - x0)) { p.classList.add('drag'); p.style.transform = `translateY(${dy}px)`; } });
+      const up = () => { if (y0 == null) return; y0 = null; p.classList.remove('drag'); if (dy > 80) close(); else p.style.transform = ''; };
+      p.addEventListener('pointerup', up); p.addEventListener('pointercancel', up);
+      const prev = fstop; fstop = () => { prev(); html.classList.remove('sh-lock'); sh.remove(); };
+      bs.forEach((b, i) => b.addEventListener('click', () => open(b)));
+    }
+    bs.forEach((b, i) => { b.addEventListener('click', () => { show(i); if (!sh) reveal(); }); b.addEventListener('keydown', e => { const d = e.key === 'ArrowDown' ? 1 : e.key === 'ArrowUp' ? -1 : 0; if (d) { e.preventDefault(); show((i + d + N7) % N7, true); } }); });
     show(0);
   };
   const narrow = matchMedia('(max-width: 759.98px)');
@@ -2199,7 +2256,7 @@ var LFX = (function () {
   const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const wireGx = () => {
     const l = box.querySelector('.gx-l'), hl = l.querySelector('.gx-hl'), lis = [...l.querySelectorAll('li')], bs = lis.map(li => li.querySelector('button'));
-    const pan = box.querySelector('#gx-a'), panes = [...pan.querySelectorAll('.gx-in')], lay = [...pan.querySelectorAll('.gx-bgs i')], cards = [...pan.querySelectorAll('.dk-c')];
+    const pan = document.getElementById('gx-a'), panes = [...pan.querySelectorAll('.gx-in')], lay = [...pan.querySelectorAll('.gx-bgs i')], cards = [...pan.querySelectorAll('.dk-c')];
     let cur = 0, ht = 0, started = false;
     const host = pan.querySelector('.dk-host'), hims = host ? [...host.querySelectorAll('img')] : [];
     const mood = m => hims.forEach(im => im.classList.toggle('on', im.dataset.m === m));
@@ -2228,7 +2285,25 @@ var LFX = (function () {
       pan.addEventListener('pointerup', e => { if (!on) return; on = false; const dx = e.clientX - sx, dy = e.clientY - sy;
         if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.4) show((cur + (dx < 0 ? 1 : -1) + N7) % N7); });
       pan.addEventListener('pointercancel', () => { on = false; }); }
-    bs.forEach((b, i) => { b.addEventListener('click', () => { show(i); reveal(); }); b.addEventListener('keydown', e => {
+    const sh = document.querySelector('body > .sh');
+    if (sh) {
+      /* P2 sheet: the colour card slides up from the bottom, like Cash App's sheets; swipe it down, tap outside or press X to close */
+      const p = sh.querySelector('.sh-p'), x = sh.querySelector('.sh-x'), html = document.documentElement; let last = null, y0 = null, x0 = 0, dy = 0;
+      const open = b => { last = b; sh.hidden = false; html.classList.add('sh-lock'); requestAnimationFrame(() => requestAnimationFrame(() => sh.classList.add('on'))); setTimeout(() => x.focus({ preventScroll: true }), 80); };
+      const close = () => { if (!sh.classList.contains('on')) return; sh.classList.remove('on'); p.style.transform = ''; html.classList.remove('sh-lock');
+        setTimeout(() => { if (!sh.classList.contains('on')) sh.hidden = true; }, 480); if (last) last.focus({ preventScroll: true }); };
+      sh.querySelector('.sh-bd').addEventListener('click', close); x.addEventListener('click', close);
+      sh.addEventListener('keydown', e => { if (e.key === 'Escape') close();
+        if (e.key === 'Tab') { const f = [...sh.querySelectorAll('button, a[href]')].filter(el => el.offsetParent && !el.closest('[aria-hidden="true"]')); const a0 = f[0], a1 = f[f.length - 1];
+          if (e.shiftKey && document.activeElement === a0) { e.preventDefault(); a1.focus(); } else if (!e.shiftKey && document.activeElement === a1) { e.preventDefault(); a0.focus(); } } });
+      p.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse' || e.target.closest('button, a')) return; y0 = e.clientY; x0 = e.clientX; dy = 0; });
+      p.addEventListener('pointermove', e => { if (y0 == null) return; dy = e.clientY - y0; if (dy > 6 && dy > Math.abs(e.clientX - x0)) { p.classList.add('drag'); p.style.transform = `translateY(${dy}px)`; } });
+      const up = () => { if (y0 == null) return; y0 = null; p.classList.remove('drag'); if (dy > 80) close(); else p.style.transform = ''; };
+      p.addEventListener('pointerup', up); p.addEventListener('pointercancel', up);
+      const prev = fstop; fstop = () => { prev(); html.classList.remove('sh-lock'); sh.remove(); };
+      bs.forEach((b, i) => b.addEventListener('click', () => open(b)));
+    }
+    bs.forEach((b, i) => { b.addEventListener('click', () => { show(i); if (!sh) reveal(); }); b.addEventListener('keydown', e => {
       const k = e.key, n = k === 'ArrowDown' ? (i + 1) % N7 : k === 'ArrowUp' ? (i - 1 + N7) % N7 : k === 'Home' ? 0 : k === 'End' ? N7 - 1 : -1;
       if (n > -1) { e.preventDefault(); show(n, true); } }); });
     show(0); requestAnimationFrame(() => requestAnimationFrame(() => l.classList.add('ready')));
@@ -2242,15 +2317,39 @@ var LFX = (function () {
         tl.classList.add('hov'); if (!raf) raf = requestAnimationFrame(ap); });
       tl.addEventListener('pointerleave', () => { tl.classList.remove('hov'); px = py = 0; if (!raf) raf = requestAnimationFrame(ap); });
     }
-    if ('ResizeObserver' in window) { const ro = new ResizeObserver(place); ro.observe(l); fstop = () => ro.disconnect(); }
+    if ('ResizeObserver' in window) { const ro = new ResizeObserver(place); ro.observe(l); const prev = fstop; fstop = () => { prev(); ro.disconnect(); }; }
   };
   const gqIn = (m, i) => m === 'pp' ? '<i class="gq-sp" aria-hidden="true"></i>' + ppImg(i) : m === 'dr' ? `<img class="gq-hd" src="assets/drippy-${MOOD[i]}.webp" alt="" width="640" height="636" loading="lazy" decoding="async">` : i === 2 ? DRI('gq-dr') : '';
   const gq = m => `<div class="gq${m === 'b' ? ' gq-b' : m === 'pp' ? ' gq-pp' : m === 'dr' ? ' gq-hst' : ''}">${Q.map((q, i) => `<div class="gq-i st-${col(i)}${i ? '' : ' open'}"><h3><button type="button" aria-expanded="${!i}" aria-controls="gq-a${i}" id="gq-q${i}"><i class="gx-dot" aria-hidden="true"></i><span>${q[0]}</span><i class="gq-pm" aria-hidden="true"></i></button></h3><div class="gq-a" id="gq-a${i}" role="region" aria-labelledby="gq-q${i}"><div><div class="${m === 'b' ? 'gq-txt' : 'gq-card'}">${gqIn(m, i)}<p>${q[1]}</p>${i === N7 - 1 ? CTA : ''}</div></div></div></div>`).join('')}</div>`;
   const wireGq = () => box.querySelectorAll('.gq-i button').forEach(b => b.addEventListener('click', () => {
     const it = b.closest('.gq-i'), on = !it.classList.contains('open'); it.classList.toggle('open', on); b.setAttribute('aria-expanded', String(on));
   }));
+  /* Phones (F15 to F18): the answer shows up right where you tap.
+     pm=w Wallet: the questions are stacked colour cards (like Apple Wallet) and the one you tap opens in place, its 3D prop popping out.
+     pm=s Sheet: the frosted list stays, and tapping a question slides its colour card up from the bottom (like Cash App's sheets). */
+  let pm = (/[?&]pm=([ws])/.exec(location.search) || [0, 'w'])[1];
+  const wst = m => `<div class="wst${m === 'dr' ? ' wst-hst' : ''}">${Q.map((q, i) => `<div class="wst-c st-${col(i)}${i ? '' : ' open'}"><div class="wst-bg" aria-hidden="true"></div>${m === 'dr' ? `<img class="wst-hd" src="assets/drippy-${MOOD[i]}.webp" alt="" width="640" height="636" loading="lazy" decoding="async">` : m === 'pp' ? ppImg(i) : ''}<h3><button type="button" aria-expanded="${!i}" aria-controls="wst-a${i}" id="wst-q${i}"><span>${q[0]}</span><i class="gq-pm" aria-hidden="true"></i></button></h3><div class="wst-a" id="wst-a${i}" role="region" aria-labelledby="wst-q${i}"><div><div class="wst-in">${m === 'a' && i === 2 ? DRI('gq-dr') : ''}<p>${q[1]}</p>${i === N7 - 1 ? CTA : ''}</div></div></div></div>`).join('')}</div>`;
+  const wireWst = () => {
+    const cs = [...box.querySelectorAll('.wst-c')];
+    cs.forEach((c, i) => { const b = c.querySelector('button'); b.addEventListener('click', () => {
+      const y0 = b.getBoundingClientRect().top, on = !c.classList.contains('open');
+      cs.forEach((d, j) => { const o = j === i && on; d.classList.toggle('open', o); d.querySelector('button').setAttribute('aria-expanded', String(o)); });
+      /* the card you tapped stays under your finger while the others fold away, then the whole answer is brought into view */
+      const t0 = performance.now();
+      const step = () => { const d = b.getBoundingClientRect().top - y0; if (Math.abs(d) > .5) scrollBy(0, d);
+        if (!rm && performance.now() - t0 < 520) requestAnimationFrame(step);
+        else if (on) { const r = c.getBoundingClientRect(), over = r.bottom + 20 - innerHeight; if (over > 0) scrollBy({ top: Math.min(over, r.top - 90), behavior: rm ? 'auto' : 'smooth' }); } };
+      requestAnimationFrame(step); }); });
+  };
+  const sheet = card => { const d = document.createElement('div'); d.className = 'sh pal-skyred'; d.hidden = true;
+    d.innerHTML = `<div class="sh-bd"></div><div class="sh-p" role="dialog" aria-modal="true" aria-label="Answer"><span class="sh-gr" aria-hidden="true"></span><button class="sh-x" type="button" aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>${card()}</div>`;
+    document.body.appendChild(d); };
   const GX = { 13: [card13, 'a'], 14: [card14, 'b'], 15: [card15, 'a'], 16: [card16, 'pp'], 17: [card17, 'dr'], 18: [card18, 'pp'] };
-  const gx = l => { const [card, m] = GX[l]; if (narrow.matches && l < 15) { box.innerHTML = gq(m); wireGq(); } else { box.innerHTML = `<div class="gx gx${l}">${glist()}${card()}</div>`; wireGx(); } };
+  const gx = l => { const [card, m] = GX[l];
+    if (narrow.matches && l < 15) { box.innerHTML = gq(m); wireGq(); return; }
+    if (narrow.matches && pm === 'w') { box.innerHTML = wst(m); wireWst(); return; }
+    if (narrow.matches) { box.innerHTML = `<div class="gx gx${l} gx-sh">${glist()}</div>`; sheet(card); wireGx(); return; }
+    { box.innerHTML = `<div class="gx gx${l}">${glist()}${card()}</div>`; wireGx(); } };
   const R = {
     0() { box.innerHTML = acc(); wireAcc(); },
     11() { box.innerHTML = cacc(); wireCacc(); },
@@ -2263,10 +2362,11 @@ var LFX = (function () {
   if (narrow.addEventListener) narrow.addEventListener('change', () => set(+sec.dataset.lay));
   if (/[?&]r8\b/.test(location.search)) {
     const bar = document.createElement('div'); bar.className = 'drsw';
-    bar.innerHTML = [[13, 'F13'], [15, 'F15 Stack'], [16, 'F16 Pop-outs'], [17, 'F17 Drippy hosts'], [18, 'F18 3D tilt']].map(([i, n]) => `<button type="button" data-l="${i}">${n}</button>`).join('');
+    const E = narrow.matches ? [['16w', 'P1 Wallet + 3D'], ['16s', 'P2 Sheet + 3D'], ['17w', 'Wallet + Drippy'], ['17s', 'Sheet + Drippy']] : [[13, 'F13'], [15, 'F15 Stack'], [16, 'F16 Pop-outs'], [17, 'F17 Drippy hosts'], [18, 'F18 3D tilt']];
+    bar.innerHTML = E.map(([i, n]) => `<button type="button" data-l="${i}">${n}</button>`).join('');
     document.body.appendChild(bar);
-    const mark = () => bar.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.l === sec.dataset.lay));
-    bar.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; set(+b.dataset.l); mark(); sec.scrollIntoView({ block: 'start' }); });
+    const mark = () => bar.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.l === sec.dataset.lay || b.dataset.l === sec.dataset.lay + pm));
+    bar.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; const m = /^(\d+)([ws]?)$/.exec(b.dataset.l); if (m[2]) pm = m[2]; set(+m[1]); mark(); sec.scrollIntoView({ block: 'start' }); });
     mark();
   }
 })();
