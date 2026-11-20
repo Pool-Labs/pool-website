@@ -732,6 +732,83 @@ html{scroll-behavior:smooth}
 .st-lime{--sb:linear-gradient(150deg,#ECFF7A,#BDF23C 55%,#8FD61F);--sc:#172B47}
 .st-pink{--sb:linear-gradient(160deg,#FF6FB8,#E8318F 60%,#CC1F78)}
 .st-pearl{--sb:conic-gradient(from 200deg at 70% 30%,#fff,#F1E6FF,#DFF3FF,#FFEEE2,#E6FFF2,#fff);--sc:#172B47}
+/* F13 to F15: F0's frosted list beside a colour answer card */
+.gx{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:calc(2*var(--t));align-items:stretch;width:min(100%,calc(84*var(--t)));text-align:left}
+.gx-l,.gq,.gy-c{background:rgba(255,255,255,.55);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.85);box-shadow:0 calc(1.6*var(--t)) calc(4*var(--t)) calc(-1.6*var(--t)) rgba(23,43,71,.25)}
+.gx-l{position:relative;padding:calc(.9*var(--t));border-radius:calc(2.4*var(--t))}
+.gx-l ul{list-style:none;margin:0;padding:0}
+.gx-hl{position:absolute;left:calc(.9*var(--t));right:calc(.9*var(--t));top:0;border-radius:calc(1.4*var(--t));background:#fff;box-shadow:0 calc(.3*var(--t)) calc(1.2*var(--t)) calc(-.4*var(--t)) rgba(23,43,71,.22)}
+.gx-l.ready .gx-hl{transition:transform .42s cubic-bezier(.2,.8,.2,1)}
+.gx-l li{position:relative}
+.gx-l li+li::before{content:"";position:absolute;left:calc(1.2*var(--t));right:calc(1.2*var(--t));top:0;height:1px;background:rgba(23,43,71,.1);transition:opacity .2s}
+.gx-l li.on::before,.gx-l li.on+li::before{opacity:0}
+.gx-l button{position:relative;display:flex;align-items:center;gap:calc(.9*var(--t));width:100%;min-height:44px;padding:calc(1*var(--t)) calc(1.2*var(--t));background:none;border:0;border-radius:calc(1.4*var(--t));color:var(--ink);font:inherit;font-weight:700;font-size:max(15px,calc(1.15*var(--t)));line-height:1.25;text-align:left;cursor:pointer;transition:background .2s}
+.gx-l button span{flex:1}
+@media (hover:hover){.gx-l button[aria-selected="false"]:hover{background:rgba(255,255,255,.5)}}
+.gx-l button:focus{outline:none}.gx-l button:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
+.gx-dot{flex:none;width:calc(1*var(--t));height:calc(1*var(--t));min-width:11px;min-height:11px;border-radius:50%;background:var(--sb);box-shadow:inset 0 0 0 1px rgba(23,43,71,.14);transition:transform .3s}
+.gx-l [aria-selected="true"] .gx-dot{transform:scale(1.3)}
+.gx-ch{flex:none;width:calc(1.2*var(--t));height:calc(1.2*var(--t));min-width:14px;min-height:14px;opacity:0;transform:translateX(-4px);transition:opacity .25s,transform .25s}
+.gx-l [aria-selected="true"] .gx-ch{opacity:.5;transform:none}
+/* F13: the colour card; its colours crossfade (opacity only) */
+.gx-c{position:relative;isolation:isolate;display:flex;flex-direction:column;padding:calc(2.6*var(--t)) calc(2.6*var(--t)) calc(2.4*var(--t));border-radius:calc(2.4*var(--t));box-shadow:0 calc(1.8*var(--t)) calc(4*var(--t)) calc(-1.8*var(--t)) rgba(23,43,71,.45)}
+.gx-bgs,.dk-bg{position:absolute;inset:0;z-index:-1;border-radius:inherit;overflow:hidden}
+.gx-bgs i{position:absolute;inset:0;background:var(--sb);opacity:0;transition:opacity .45s ease}
+.gx-bgs i.on{opacity:1}
+.gx-bgs::after,.dk-bg::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,255,255,0) 38%);box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+.gx-wm{position:absolute;right:-3%;bottom:-16%;width:34%;height:auto;fill:#fff;opacity:.11}
+.gx-g{display:grid;flex:1;align-content:start}
+.gx-in{grid-area:1/1;visibility:hidden;opacity:0;color:var(--sc,#fff)}
+.gx-in.on{visibility:visible;opacity:1}
+.gx-in.in{animation:mdin .38s cubic-bezier(.2,.8,.2,1)}
+.gx-c h3,.gy-c h3,.dk-c h3{margin:0;max-width:max(250px,calc(24*var(--t)));font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:max(24px,calc(2.4*var(--t)));line-height:1.05}
+.gx-c p,.gy-c p,.dk-c p{margin:calc(1.1*var(--t)) 0 0;max-width:max(340px,calc(35*var(--t)));font-size:max(15px,calc(1.3*var(--t)));line-height:1.5}
+.gx-c p,.dk-c p{opacity:.94}
+.gx-dr{position:absolute;z-index:2;right:calc(1.6*var(--t));top:calc(-4.4*var(--t));width:calc(10.5*var(--t));height:auto;opacity:0;transform:translateY(12px) rotate(-6deg) scale(.9);transition:opacity .3s,transform .5s cubic-bezier(.3,1.5,.5,1);pointer-events:none}
+.dr-on .gx-dr,.dk-c .gx-dr{opacity:1;transform:rotate(-6deg)}
+/* F14: a glass card too, with the question on a colour top that ends in a soft wave */
+.gy-c{position:relative;display:flex;flex-direction:column;border-radius:calc(2.4*var(--t))}
+.gy-top{position:relative;isolation:isolate;display:flex;margin:calc(.9*var(--t)) calc(.9*var(--t)) 0;padding:calc(2.2*var(--t)) calc(2*var(--t)) calc(3*var(--t));border-radius:calc(1.7*var(--t)) calc(1.7*var(--t)) 0 0}
+.gy-top .gx-bgs{border-radius:inherit;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M0 0H100V5C82 11 66 11 50 6S17 0 0 6Z'/%3E%3C/svg%3E") bottom/100% calc(1.4*var(--t)) no-repeat,linear-gradient(#000,#000) top/100% calc(100% - 1.4*var(--t) + 1px) no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M0 0H100V5C82 11 66 11 50 6S17 0 0 6Z'/%3E%3C/svg%3E") bottom/100% calc(1.4*var(--t)) no-repeat,linear-gradient(#000,#000) top/100% calc(100% - 1.4*var(--t) + 1px) no-repeat}
+.gy-top .gx-wm{bottom:-30%;width:26%}
+.gy-ans{padding:calc(1*var(--t)) calc(2.9*var(--t)) calc(2.4*var(--t))}
+.gy-ans .gx-in{color:var(--ink)}
+.gy-ans p{margin:0;color:color-mix(in srgb,var(--ink) 82%,transparent)}
+/* F15: a stack of colour cards, the answer in front and the next two peeking above, like a wallet */
+.dk{display:grid;padding-top:calc(3.6*var(--t))}
+.dk-c{grid-area:1/1;position:relative;isolation:isolate;display:flex;flex-direction:column;padding:calc(2.6*var(--t)) calc(2.6*var(--t)) calc(2.4*var(--t));border-radius:calc(2.4*var(--t));color:var(--sc,#fff);box-shadow:0 calc(1.2*var(--t)) calc(3*var(--t)) calc(-1.6*var(--t)) rgba(23,43,71,.4);transform-origin:50% 0;transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .4s ease}
+.dk-bg{background:var(--sb)}
+.dk-c[data-r="0"]{z-index:7}
+.dk-c[data-r="1"]{z-index:6;transform:translateY(calc(-1.8*var(--t))) scale(.94)}
+.dk-c[data-r="2"]{z-index:5;transform:translateY(calc(-3.6*var(--t))) scale(.88)}
+.dk-c:is([data-r="3"],[data-r="4"],[data-r="5"],[data-r="6"]){z-index:1;transform:translateY(calc(-3.6*var(--t))) scale(.88);opacity:0}
+.dk-c .st-cta{align-self:flex-start}
+/* phones: the frosted list opens into a colour card (F13, F15) or a colour band (F14); several can be open */
+.gq{width:100%;padding:0 4cqw;border-radius:6cqw;text-align:left}
+.gq-i+.gq-i{border-top:1px solid rgba(23,43,71,.1)}
+.gq-i h3{margin:0;font:inherit}
+.gq-i button{position:relative;isolation:isolate;display:flex;align-items:center;gap:3cqw;width:100%;min-height:44px;padding:4.2cqw 0;background:none;border:0;color:var(--ink);font:inherit;font-weight:700;font-size:4.2cqw;line-height:1.25;text-align:left;cursor:pointer;transition:color .3s}
+.gq-i button span{flex:1}
+.gq-i button .gx-dot{width:3cqw;height:3cqw}
+.gq-i button:focus{outline:none}.gq-i button:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:8px}
+.gq-pm{position:relative;flex:none;width:4cqw;height:4cqw}
+.gq-pm::before,.gq-pm::after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;border-radius:2px;background:currentColor;transition:transform .3s}
+.gq-pm::after{transform:rotate(90deg)}
+.gq-i.open .gq-pm::after{transform:rotate(0)}
+.gq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s ease}
+.gq-i.open .gq-a{grid-template-rows:1fr}
+.gq-a>div{overflow:hidden}
+.gq-card{position:relative;margin:0 0 4cqw;padding:4.6cqw 4.8cqw;border-radius:4.6cqw;background:var(--sb);color:var(--sc,#fff);box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+.gq-card p,.gq-txt p{margin:0;font-size:4cqw;line-height:1.5}
+.gq-txt{padding:0 0 4.4cqw}
+.gq-txt p{color:color-mix(in srgb,var(--ink) 82%,transparent)}
+.gq-dr{float:right;width:19cqw;height:auto;margin:-1cqw -1cqw 1cqw 2cqw;transform:rotate(-6deg)}
+.gq .st-cta{margin-top:3.6cqw}
+.gq-b .gq-i button::before{content:"";position:absolute;z-index:-1;inset:1.4cqw -2.4cqw;border-radius:3.6cqw;background:var(--sb);opacity:0;transition:opacity .3s}
+.gq-b .gq-i.open button{color:var(--sc,#fff)}
+.gq-b .gq-i.open button::before{opacity:1}
+.gq-b .gq-i.open .gx-dot{box-shadow:0 0 0 2px rgba(255,255,255,.9)}
+.gq-b .gq-txt{padding-top:2cqw}
 /* footer */
 .ft{padding:calc(6*var(--u)) calc(6*var(--u)) calc(4*var(--u));text-align:center;color:var(--ink)}
 .ft-in{display:flex;flex-direction:column;align-items:center;gap:calc(1.1*var(--u));max-width:calc(60*var(--u));margin:0 auto}
@@ -759,7 +836,7 @@ html{scroll-behavior:smooth}
  .ft-nv{gap:2cqw 5cqw}.ft-nv a{font-size:3.7cqw}
  .ft-lgl{font-size:3cqw;max-width:none}
 }
-@media (prefers-reduced-motion:reduce){.fq-a,.ca-a,.ca-i,.md-c{transition:none}.md-in.in{animation:none}}
+@media (prefers-reduced-motion:reduce){.fq-a,.ca-a,.ca-i,.md-c,.gq-a,.gx-bgs i,.gx-hl,.dk-c,.gx-dr{transition:none!important}.md-in.in,.gx-in.in{animation:none}}
 </style>
 </head>
 <body>
@@ -1992,8 +2069,8 @@ var LFX = (function () {
   box.innerHTML = `<div class="gr" role="list" aria-label="Example groups">${[G.slice(0, 6), G.slice(6)].map((row, r) => `<div class="gr-t${r ? ' rev' : ''}">${[...row, ...row].map((g, i) => `<div class="gr-i" role="listitem"${i >= row.length ? ' aria-hidden="true"' : ` aria-label="${label(g)}"`}>${tile(g)}</div>`).join('')}</div>`).join('')}</div>`;
 })();
 
-/* Questions, answered: 8 short answers. Round 8 layouts: F0 frosted list, F11 colour accordion, F12 list and answer card.
-   ?r8 shows a switcher on the test page. */
+/* Questions, answered: 7 short answers. Round 8 layouts: F0 frosted list, F11 colour accordion, F12 list and answer card,
+   F13 to F15 the frosted list beside a colour answer card. ?r8 shows a switcher on the test page. */
 (function () {
   const sec = document.getElementById('faq'); if (!sec) return;
   const box = sec.querySelector('[data-faq]');
@@ -2034,21 +2111,64 @@ var LFX = (function () {
     show(0);
   };
   const narrow = matchMedia('(max-width: 759.98px)');
+  /* F13 to F15: F0's frosted glass list (every question visible) beside a colour answer card.
+     F13 colour card, F14 glass card with a colour top, F15 a stack of colour cards like a wallet.
+     Phones: the frosted list opens into a colour card (F13, F15) or a colour band (F14). */
+  const col = i => S7[i][0];
+  const DRI = c => `<img class="${c}" src="assets/drippy-smug.webp" alt="" width="640" height="636" loading="lazy" decoding="async">`;
+  const CTA = '<a class="st-cta" href="#join">Join the waitlist</a>';
+  const WM = '<svg class="gx-wm" viewBox="0 0 12 16" aria-hidden="true"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z"/></svg>';
+  const CH = '<svg class="gx-ch" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5L10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const glist = () => `<div class="gx-l"><span class="gx-hl" aria-hidden="true"></span><ul role="tablist" aria-label="Questions" aria-orientation="vertical">${Q.map((q, i) => `<li role="presentation"${i ? '' : ' class="on"'}><button type="button" role="tab" id="gx-q${i}" aria-controls="gx-a" aria-selected="${!i}" tabindex="${i ? -1 : 0}"><i class="gx-dot st-${col(i)}" aria-hidden="true"></i><span>${q[0]}</span>${CH}</button></li>`).join('')}</ul></div>`;
+  const bgs = () => `<div class="gx-bgs" aria-hidden="true">${Q.map((q, i) => `<i class="st-${col(i)}${i ? '' : ' on'}"></i>`).join('')}${WM}</div>`;
+  const pane = (i, inner) => `<div class="gx-in st-${col(i)}${i ? '' : ' on'}" data-i="${i}" aria-hidden="${!!i}">${inner}</div>`;
+  const qa = i => `<h3>${Q[i][0]}</h3><p>${Q[i][1]}</p>${i === N7 - 1 ? CTA : ''}`;
+  const card13 = () => `<div class="gx-c" id="gx-a" role="tabpanel" aria-labelledby="gx-q0">${bgs()}${DRI('gx-dr')}<div class="gx-g">${Q.map((q, i) => pane(i, qa(i))).join('')}</div></div>`;
+  const card14 = () => `<div class="gy-c" id="gx-a" role="tabpanel" aria-labelledby="gx-q0"><div class="gy-top">${bgs()}${DRI('gx-dr')}<div class="gx-g">${Q.map((q, i) => pane(i, `<h3>${q[0]}</h3>`)).join('')}</div></div><div class="gx-g gy-ans">${Q.map((q, i) => pane(i, `<p>${q[1]}</p>${i === N7 - 1 ? CTA : ''}`)).join('')}</div></div>`;
+  const card15 = () => `<div class="dk" id="gx-a" role="tabpanel" aria-labelledby="gx-q0">${Q.map((q, i) => `<div class="dk-c st-${col(i)}" data-r="${i}" aria-hidden="${!!i}"><div class="dk-bg" aria-hidden="true">${WM}</div>${i === 2 ? DRI('gx-dr') : ''}${qa(i)}</div>`).join('')}</div>`;
+  const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const wireGx = () => {
+    const l = box.querySelector('.gx-l'), hl = l.querySelector('.gx-hl'), lis = [...l.querySelectorAll('li')], bs = lis.map(li => li.querySelector('button'));
+    const pan = box.querySelector('#gx-a'), panes = [...pan.querySelectorAll('.gx-in')], lay = [...pan.querySelectorAll('.gx-bgs i')], cards = [...pan.querySelectorAll('.dk-c')];
+    let cur = 0;
+    const place = () => { const li = lis[cur]; hl.style.height = li.offsetHeight + 'px'; hl.style.transform = `translateY(${li.offsetTop}px)`; };
+    const show = (i, focus) => {
+      cur = i;
+      bs.forEach((b, j) => { b.setAttribute('aria-selected', String(j === i)); b.tabIndex = j === i ? 0 : -1; lis[j].classList.toggle('on', j === i); });
+      if (focus) bs[i].focus();
+      pan.setAttribute('aria-labelledby', `gx-q${i}`); pan.classList.toggle('dr-on', i === 2);
+      lay.forEach((g, j) => g.classList.toggle('on', j === i));
+      panes.forEach(p => { const on = +p.dataset.i === i; p.classList.toggle('on', on); p.classList.remove('in'); p.setAttribute('aria-hidden', String(!on)); });
+      if (!rm) panes.forEach(p => { if (+p.dataset.i === i) { void p.offsetWidth; p.classList.add('in'); } });
+      cards.forEach((c, j) => { const r = (j - i + N7) % N7; c.dataset.r = r; c.setAttribute('aria-hidden', String(r !== 0)); });
+      place();
+    };
+    bs.forEach((b, i) => { b.addEventListener('click', () => show(i)); b.addEventListener('keydown', e => {
+      const k = e.key, n = k === 'ArrowDown' ? (i + 1) % N7 : k === 'ArrowUp' ? (i - 1 + N7) % N7 : k === 'Home' ? 0 : k === 'End' ? N7 - 1 : -1;
+      if (n > -1) { e.preventDefault(); show(n, true); } }); });
+    show(0); requestAnimationFrame(() => requestAnimationFrame(() => l.classList.add('ready')));
+    if ('ResizeObserver' in window) { const ro = new ResizeObserver(place); ro.observe(l); fstop = () => ro.disconnect(); }
+  };
+  const gq = b => `<div class="gq${b ? ' gq-b' : ''}">${Q.map((q, i) => `<div class="gq-i st-${col(i)}${i ? '' : ' open'}"><h3><button type="button" aria-expanded="${!i}" aria-controls="gq-a${i}" id="gq-q${i}"><i class="gx-dot" aria-hidden="true"></i><span>${q[0]}</span><i class="gq-pm" aria-hidden="true"></i></button></h3><div class="gq-a" id="gq-a${i}" role="region" aria-labelledby="gq-q${i}"><div><div class="${b ? 'gq-txt' : 'gq-card'}">${i === 2 ? DRI('gq-dr') : ''}<p>${q[1]}</p>${i === N7 - 1 ? CTA : ''}</div></div></div></div>`).join('')}</div>`;
+  const wireGq = () => box.querySelectorAll('.gq-i button').forEach(b => b.addEventListener('click', () => {
+    const it = b.closest('.gq-i'), on = !it.classList.contains('open'); it.classList.toggle('open', on); b.setAttribute('aria-expanded', String(on));
+  }));
+  const gx = (card, b) => { if (narrow.matches) { box.innerHTML = gq(b); wireGq(); } else { box.innerHTML = `<div class="gx gx${card === card14 ? 14 : card === card15 ? 15 : 13}">${glist()}${card()}</div>`; wireGx(); } };
   const R = {
     0() { box.innerHTML = acc(); wireAcc(); },
     11() { box.innerHTML = cacc(); wireCacc(); },
-    12() { if (narrow.matches) { box.innerHTML = cacc(); wireCacc(); } else { box.innerHTML = md(); wireMd(); } }
+    12() { if (narrow.matches) { box.innerHTML = cacc(); wireCacc(); } else { box.innerHTML = md(); wireMd(); } },
+    13() { gx(card13, 0); },
+    14() { gx(card14, 1); },
+    15() { gx(card15, 0); }
   };
-
-
-
-
   const set = l => { fstop(); fstop = () => {}; sec.dataset.lay = l; R[l](); };
   const ql = /[?&]faq=(\d+)/.exec(location.search);
   set(ql ? +ql[1] : +(sec.dataset.lay || 0));
+  if (narrow.addEventListener) narrow.addEventListener('change', () => set(+sec.dataset.lay));
   if (/[?&]r8\b/.test(location.search)) {
     const bar = document.createElement('div'); bar.className = 'drsw';
-    bar.innerHTML = [[0, 'F0 Frosted list'], [11, 'F11 Colour list'], [12, 'F12 List + card']].map(([i, n]) => `<button type="button" data-l="${i}">${n}</button>`).join('');
+    bar.innerHTML = [[0, 'F0 Frosted'], [12, 'F12 Card'], [13, 'F13 Glass + colour'], [14, 'F14 Colour top'], [15, 'F15 Stack']].map(([i, n]) => `<button type="button" data-l="${i}">${n}</button>`).join('');
     document.body.appendChild(bar);
     const mark = () => bar.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.l === sec.dataset.lay));
     bar.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; set(+b.dataset.l); mark(); sec.scrollIntoView({ block: 'start' }); });
