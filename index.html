@@ -819,32 +819,38 @@ html{scroll-behavior:smooth}
 .gq-sp{float:right;width:24cqw;height:10cqw}
 .gq-hd{position:absolute;z-index:-1;right:3cqw;top:-15cqw;width:26cqw;height:auto;transform:translateY(12cqw);transition:transform .65s cubic-bezier(.3,1.5,.5,1) .12s}
 .gq-i.open .gq-hd{transform:none}
-/* phones, P1 Wallet: the questions are stacked colour cards; the one you tap opens in place.
-   Only transform and opacity animate (the JS slides the cards with FLIP), so nothing re-lays-out frame by frame. */
-.wst{display:flex;flex-direction:column;width:100%;padding-top:9cqw;text-align:left}
-.wst-c{position:relative;margin-top:-4.5cqw;padding-bottom:4.5cqw;color:var(--sc,#fff);transition:transform .42s cubic-bezier(.2,.8,.2,1);will-change:transform}
+/* phones, P1 Wallet: a calm stack of white cards, like Apple Wallet passes or an iOS notification stack. Each shows its question
+   with a small colour dot; only the card you open turns its colour, and Drippy is the one thing that pops out.
+   Only transform, opacity and colour animate (the JS slides the cards with FLIP); no blur on the cards, so it stays smooth. */
+.wst{display:flex;flex-direction:column;width:100%;padding-top:2cqw;text-align:left}
+.wst-c{position:relative;margin-top:-4cqw;padding-bottom:4cqw;color:var(--ink);transition:transform .42s cubic-bezier(.2,.8,.2,1),color .3s ease}
 .wst-c:nth-child(1){z-index:1}.wst-c:nth-child(2){z-index:2}.wst-c:nth-child(3){z-index:3}.wst-c:nth-child(4){z-index:4}.wst-c:nth-child(5){z-index:5}.wst-c:nth-child(6){z-index:6}.wst-c:nth-child(7){z-index:7}
-.wst-c.open{margin-top:7cqw}
-.wst-c.open+.wst-c{margin-top:3.5cqw}
+.wst-c.open{margin-top:3.5cqw;color:var(--sc,#fff)}
+.wst-c.dr.open{margin-top:12cqw}
+.wst-c.open+.wst-c{margin-top:3cqw}
 .wst-c:first-child{margin-top:0}
-.wst-bg{position:absolute;inset:0;z-index:-2;border-radius:5cqw;background:var(--sb);box-shadow:0 -1cqw 3.2cqw -1.6cqw rgba(23,43,71,.45)}
-.wst-bg::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,0) 38%);box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+.wst-bg{position:absolute;inset:0;z-index:-2;border-radius:5cqw;background:linear-gradient(180deg,#FFFFFF,#F2F8FD);box-shadow:0 -.5cqw 2.8cqw -1cqw rgba(23,43,71,.2),inset 0 0 0 1px rgba(23,43,71,.05)}
+.wst-bg::before{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--sb);opacity:0;transition:opacity .32s ease}
+.wst-c.open .wst-bg::before{opacity:1}
+.wst-c.open .wst-bg{box-shadow:0 1.6cqw 4.4cqw -2cqw rgba(23,43,71,.4)}
 .wst h3{margin:0;font:inherit}
-.wst-c button{display:flex;align-items:center;gap:3cqw;width:100%;min-height:44px;padding:3.5cqw 5cqw;background:none;border:0;color:inherit;font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:4.6cqw;line-height:1.12;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.wst-c button{display:flex;align-items:center;gap:3cqw;width:100%;min-height:44px;padding:3.6cqw 4.6cqw;background:none;border:0;color:inherit;font:inherit;font-weight:700;font-size:4.2cqw;line-height:1.25;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .wst-c button span{flex:1}
+.wst-c .gx-dot{width:2.6cqw;height:2.6cqw;transition:opacity .25s}
+.wst-c.open .gx-dot{display:none}
+.wst-c .gq-pm{width:3.6cqw;height:3.6cqw;opacity:.45;transition:opacity .25s}
+.wst-c.open .gq-pm{opacity:.9}
 .wst-c button:focus{outline:none}.wst-c button:focus-visible{outline:2px solid currentColor;outline-offset:-4px;border-radius:4.5cqw}
 .wst-a{display:none}
 .wst-c.open .wst-a{display:block}
-.wst-in{padding:0 5cqw .4cqw}
+.wst-in{padding:0 4.6cqw .6cqw}
 .wst-c.open .wst-in{animation:wstin .38s cubic-bezier(.2,.8,.2,1) both}
 @keyframes wstin{from{opacity:0;transform:translateY(-1.5cqw)}}
-.wst-in p{margin:0;font-size:3.9cqw;line-height:1.5;opacity:.95}
+.wst-in p{margin:0;font-size:3.9cqw;line-height:1.5;opacity:.92}
 .wst .st-cta{margin-top:3.4cqw}
-.wst .gq-dr{width:17cqw}
-.wst-c.open .pp{opacity:1;transform:none;transition:opacity .2s ease .08s,transform .6s cubic-bezier(.3,1.5,.5,1) .08s}
-.wst .pp{right:2.5cqw}
-.wst .pp-pool{width:21cqw;top:-17.5cqw}.wst .pp-toggle{width:24cqw;top:-11cqw}.wst .pp-dr{width:19cqw;top:-15.5cqw;right:2cqw}.wst .pp-lock{width:17cqw;top:-16cqw;right:4cqw}
-.wst .pp-drops{width:22cqw;top:-15.5cqw}.wst .pp-card{width:24cqw;top:-16.5cqw;right:1.5cqw}.wst .pp-ticket{width:24cqw;top:-13cqw;right:2cqw}
+.wst .pp-dr{right:3cqw;top:-16cqw;width:20cqw}
+.wst-c.open .pp{opacity:1;transform:none;rotate:-6deg;transition:opacity .2s ease .1s,transform .6s cubic-bezier(.3,1.5,.5,1) .1s}
+.wst-hst .wst-c.open{margin-top:12cqw}.wst-hst .wst-c.open:first-child{margin-top:0}.wst-hst{padding-top:12cqw}
 .wst-hd{position:absolute;z-index:-3;right:5cqw;top:-12.5cqw;width:20cqw;height:auto;opacity:0;transform:translateY(10cqw);transition:opacity .2s,transform .25s}
 .wst-c.open .wst-hd{opacity:1;transform:none;transition:opacity .2s ease .08s,transform .55s cubic-bezier(.3,1.5,.5,1) .08s}
 /* phones, P2 Sheet: lives on <body> so it can cover the screen */
@@ -2335,7 +2341,7 @@ var LFX = (function () {
      pm=w Wallet: the questions are stacked colour cards (like Apple Wallet) and the one you tap opens in place, its 3D prop popping out.
      pm=s Sheet: the frosted list stays, and tapping a question slides its colour card up from the bottom (like Cash App's sheets). */
   let pm = (/[?&]pm=([ws])/.exec(location.search) || [0, 'w'])[1];
-  const wst = m => `<div class="wst${m === 'dr' ? ' wst-hst' : ''}">${Q.map((q, i) => `<div class="wst-c st-${col(i)}${i ? '' : ' open'}"><div class="wst-bg" aria-hidden="true"></div>${m === 'dr' ? `<img class="wst-hd" src="assets/drippy-${MOOD[i]}.webp" alt="" width="640" height="636" loading="lazy" decoding="async">` : m === 'pp' ? ppImg(i) : ''}<h3><button type="button" aria-expanded="${!i}" aria-controls="wst-a${i}" id="wst-q${i}"><span>${q[0]}</span><i class="gq-pm" aria-hidden="true"></i></button></h3><div class="wst-a" id="wst-a${i}" role="region" aria-labelledby="wst-q${i}"><div><div class="wst-in">${m === 'a' && i === 2 ? DRI('gq-dr') : ''}<p>${q[1]}</p>${i === N7 - 1 ? CTA : ''}</div></div></div></div>`).join('')}</div>`;
+  const wst = m => `<div class="wst${m === 'dr' ? ' wst-hst' : ''}">${Q.map((q, i) => `<div class="wst-c st-${col(i)}${i === 2 && m !== 'dr' ? ' dr' : ''}${i ? '' : ' open'}"><div class="wst-bg" aria-hidden="true"></div>${m === 'dr' ? `<img class="wst-hd" src="assets/drippy-${MOOD[i]}.webp" alt="" width="640" height="636" loading="lazy" decoding="async">` : i === 2 ? ppImg(2) : ''}<h3><button type="button" aria-expanded="${!i}" aria-controls="wst-a${i}" id="wst-q${i}"><i class="gx-dot" aria-hidden="true"></i><span>${q[0]}</span><i class="gq-pm" aria-hidden="true"></i></button></h3><div class="wst-a" id="wst-a${i}" role="region" aria-labelledby="wst-q${i}"><div><div class="wst-in"><p>${q[1]}</p>${i === N7 - 1 ? CTA : ''}</div></div></div></div>`).join('')}</div>`;
   const wireWst = () => {
     const cs = [...box.querySelectorAll('.wst-c')];
     /* no scrolling: the page stays where you left it. The answer opens at once and the cards around it glide
@@ -2369,7 +2375,7 @@ var LFX = (function () {
   if (narrow.addEventListener) narrow.addEventListener('change', () => set(+sec.dataset.lay));
   if (/[?&]r8\b/.test(location.search)) {
     const bar = document.createElement('div'); bar.className = 'drsw';
-    const E = narrow.matches ? [['16w', 'P1 Wallet + 3D'], ['16s', 'P2 Sheet + 3D'], ['17w', 'Wallet + Drippy'], ['17s', 'Sheet + Drippy']] : [[13, 'F13'], [15, 'F15 Stack'], [16, 'F16 Pop-outs'], [17, 'F17 Drippy hosts'], [18, 'F18 3D tilt']];
+    const E = narrow.matches ? [['15w', 'P1 Wallet'], ['15s', 'P2 Sheet'], ['17w', 'Wallet + Drippy faces'], ['17s', 'Sheet + Drippy faces']] : [[13, 'F13'], [15, 'F15 Stack'], [16, 'F16 Pop-outs'], [17, 'F17 Drippy hosts'], [18, 'F18 3D tilt']];
     bar.innerHTML = E.map(([i, n]) => `<button type="button" data-l="${i}">${n}</button>`).join('');
     document.body.appendChild(bar);
     const mark = () => bar.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.l === sec.dataset.lay || b.dataset.l === sec.dataset.lay + pm));
