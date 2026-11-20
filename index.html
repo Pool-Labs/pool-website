@@ -783,6 +783,8 @@ html{scroll-behavior:smooth}
 .dk-c[data-r="2"]{z-index:5;transform:translateY(calc(-3.6*var(--t))) scale(.88)}
 .dk-c:is([data-r="3"],[data-r="4"],[data-r="5"],[data-r="6"]){z-index:1;transform:translateY(calc(-3.6*var(--t))) scale(.88);opacity:0}
 .dk-c .st-cta{align-self:flex-start}
+.dk-c>:is(h3,p,.st-cta){transition:opacity .25s ease}
+.dk-c:not([data-r="0"])>:is(h3,p,.st-cta){opacity:0}
 .dk-c.dk-pop{transition:none;animation:dkpop .5s cubic-bezier(.2,.8,.2,1)}
 @keyframes dkpop{from{opacity:0;transform:translateY(calc(3*var(--t))) scale(.97)}25%{opacity:1}}
 /* phones: the frosted list opens into a colour card (F13, F15) or a colour band (F14); several can be open */
