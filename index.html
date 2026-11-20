@@ -27,7 +27,7 @@
 @property --wob{syntax:"<angle>";inherits:false;initial-value:0deg}
 body{margin:0;background:#E4E4E1;color:#1B1F27;font-family:Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 *{box-sizing:border-box}
-.sc{position:relative;container-type:inline-size;overflow:hidden;background:var(--g);color:var(--ink);font-family:"Figtree",system-ui,sans-serif;isolation:isolate;border-radius:16px;box-shadow:0 0 0 1px rgba(20,24,32,.1);--u:1cqw;--r:calc(1.2*var(--u))}
+.sc{position:relative;container-type:inline-size;display:flow-root;overflow:hidden;overflow:clip;background:var(--g);color:var(--ink);font-family:"Figtree",system-ui,sans-serif;isolation:isolate;border-radius:16px;box-shadow:0 0 0 1px rgba(20,24,32,.1);--u:1cqw;--r:calc(1.2*var(--u))}
 @media (min-width:760px){
   .sc{aspect-ratio:16/10}
 }
@@ -905,6 +905,8 @@ html.sh-lock{overflow:hidden}
  .fq{--t:3.4cqw}
  .fq-l{padding:0 4cqw}
  .ca-i button{font-size:4.6cqw;padding:3.6cqw 4.4cqw}.ca-a>div{padding:0 4.4cqw}.ca-a p{font-size:4cqw}.ca-dr{width:20cqw}
+ /* iPhone Safari draws a pale box around a drop-shadow filter on these props, so phones go without it */
+ .pp{filter:none}
  /* F15 to F18 on phones: the same list and card stack as on laptops, stacked */
  .gx{grid-template-columns:minmax(0,1fr);gap:17cqw;width:100%}
  .gx-l{padding:2cqw;border-radius:6cqw}
