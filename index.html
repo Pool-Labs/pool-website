@@ -819,31 +819,34 @@ html{scroll-behavior:smooth}
 .gq-sp{float:right;width:24cqw;height:10cqw}
 .gq-hd{position:absolute;z-index:-1;right:3cqw;top:-15cqw;width:26cqw;height:auto;transform:translateY(12cqw);transition:transform .65s cubic-bezier(.3,1.5,.5,1) .12s}
 .gq-i.open .gq-hd{transform:none}
-/* phones, P1 Wallet: the questions are stacked colour cards; the one you tap slides out of the stack and opens in place */
-.wst{display:flex;flex-direction:column;width:100%;padding-top:14cqw;text-align:left}
-.wst-c{position:relative;margin-top:-5.5cqw;padding-bottom:5.5cqw;color:var(--sc,#fff);transition:margin-top .45s cubic-bezier(.2,.8,.2,1)}
+/* phones, P1 Wallet: the questions are stacked colour cards; the one you tap opens in place.
+   Only transform and opacity animate (the JS slides the cards with FLIP), so nothing re-lays-out frame by frame. */
+.wst{display:flex;flex-direction:column;width:100%;padding-top:9cqw;text-align:left}
+.wst-c{position:relative;margin-top:-4.5cqw;padding-bottom:4.5cqw;color:var(--sc,#fff);transition:transform .42s cubic-bezier(.2,.8,.2,1);will-change:transform}
 .wst-c:nth-child(1){z-index:1}.wst-c:nth-child(2){z-index:2}.wst-c:nth-child(3){z-index:3}.wst-c:nth-child(4){z-index:4}.wst-c:nth-child(5){z-index:5}.wst-c:nth-child(6){z-index:6}.wst-c:nth-child(7){z-index:7}
-.wst-c.open{margin-top:10cqw}
-.wst-c.open+.wst-c{margin-top:5cqw}
+.wst-c.open{margin-top:7cqw}
+.wst-c.open+.wst-c{margin-top:3.5cqw}
 .wst-c:first-child{margin-top:0}
-.wst-bg{position:absolute;inset:0;z-index:-2;border-radius:5.6cqw;background:var(--sb);box-shadow:0 -1cqw 3.6cqw -1.6cqw rgba(23,43,71,.45)}
+.wst-bg{position:absolute;inset:0;z-index:-2;border-radius:5cqw;background:var(--sb);box-shadow:0 -1cqw 3.2cqw -1.6cqw rgba(23,43,71,.45)}
 .wst-bg::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,0) 38%);box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
 .wst h3{margin:0;font:inherit}
-.wst-c button{display:flex;align-items:center;gap:3cqw;width:100%;min-height:44px;padding:4.6cqw 5.4cqw;background:none;border:0;color:inherit;font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:5cqw;line-height:1.12;text-align:left;cursor:pointer}
+.wst-c button{display:flex;align-items:center;gap:3cqw;width:100%;min-height:44px;padding:3.5cqw 5cqw;background:none;border:0;color:inherit;font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:4.6cqw;line-height:1.12;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .wst-c button span{flex:1}
-.wst-c button:focus{outline:none}.wst-c button:focus-visible{outline:2px solid currentColor;outline-offset:-4px;border-radius:5cqw}
-.wst-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.8,.2,1)}
-.wst-c.open .wst-a{grid-template-rows:1fr}
-.wst-a>div{overflow:hidden}
-.wst-in{padding:0 5.4cqw .6cqw}
-.wst-in p{margin:0;font-size:4cqw;line-height:1.5;opacity:.95}
-.wst .st-cta{margin-top:4cqw}
-.wst-c.open .pp{opacity:1;transform:none;transition:opacity .25s ease .15s,transform .75s cubic-bezier(.3,1.55,.5,1) .15s}
-.wst .pp{right:3cqw}
-.wst .pp-pool{width:26cqw;top:-23cqw}.wst .pp-toggle{width:29cqw;top:-13cqw}.wst .pp-dr{width:23cqw;top:-19cqw}.wst .pp-lock{width:21cqw;top:-19.5cqw;right:5cqw}
-.wst .pp-drops{width:27cqw;top:-18.5cqw}.wst .pp-card{width:29cqw;top:-20cqw;right:1.5cqw}.wst .pp-ticket{width:29cqw;top:-15.5cqw;right:2cqw}
-.wst-hd{position:absolute;z-index:-3;right:6cqw;top:-15cqw;width:24cqw;height:auto;opacity:0;transform:translateY(12cqw);transition:opacity .2s,transform .3s}
-.wst-c.open .wst-hd{opacity:1;transform:none;transition:opacity .25s ease .12s,transform .7s cubic-bezier(.3,1.5,.5,1) .12s}
+.wst-c button:focus{outline:none}.wst-c button:focus-visible{outline:2px solid currentColor;outline-offset:-4px;border-radius:4.5cqw}
+.wst-a{display:none}
+.wst-c.open .wst-a{display:block}
+.wst-in{padding:0 5cqw .4cqw}
+.wst-c.open .wst-in{animation:wstin .38s cubic-bezier(.2,.8,.2,1) both}
+@keyframes wstin{from{opacity:0;transform:translateY(-1.5cqw)}}
+.wst-in p{margin:0;font-size:3.9cqw;line-height:1.5;opacity:.95}
+.wst .st-cta{margin-top:3.4cqw}
+.wst .gq-dr{width:17cqw}
+.wst-c.open .pp{opacity:1;transform:none;transition:opacity .2s ease .08s,transform .6s cubic-bezier(.3,1.5,.5,1) .08s}
+.wst .pp{right:2.5cqw}
+.wst .pp-pool{width:21cqw;top:-17.5cqw}.wst .pp-toggle{width:24cqw;top:-11cqw}.wst .pp-dr{width:19cqw;top:-15.5cqw;right:2cqw}.wst .pp-lock{width:17cqw;top:-16cqw;right:4cqw}
+.wst .pp-drops{width:22cqw;top:-15.5cqw}.wst .pp-card{width:24cqw;top:-16.5cqw;right:1.5cqw}.wst .pp-ticket{width:24cqw;top:-13cqw;right:2cqw}
+.wst-hd{position:absolute;z-index:-3;right:5cqw;top:-12.5cqw;width:20cqw;height:auto;opacity:0;transform:translateY(10cqw);transition:opacity .2s,transform .25s}
+.wst-c.open .wst-hd{opacity:1;transform:none;transition:opacity .2s ease .08s,transform .55s cubic-bezier(.3,1.5,.5,1) .08s}
 /* phones, P2 Sheet: lives on <body> so it can cover the screen */
 .sh{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;--t:3.4vw;font-family:"Figtree",system-ui,sans-serif;color:var(--ink)}
 .sh[hidden]{display:none}
@@ -935,7 +938,7 @@ html.sh-lock{overflow:hidden}
  .ft-nv{gap:2cqw 5cqw}.ft-nv a{font-size:3.7cqw}
  .ft-lgl{font-size:3cqw;max-width:none}
 }
-@media (prefers-reduced-motion:reduce){.fq-a,.ca-a,.ca-i,.md-c,.gq-a,.gx-bgs i,.gx-hl,.dk-c,.gx-dr{transition:none!important}.md-in.in,.gx-in.in,.dk-c.dk-pop,.dk-host.hop{animation:none}.pp,.gq-hd,.gx18 .dk,.wst-c,.wst-a,.wst-hd,.sh-p,.sh-bd{transition:none!important}}
+@media (prefers-reduced-motion:reduce){.fq-a,.ca-a,.ca-i,.md-c,.gq-a,.gx-bgs i,.gx-hl,.dk-c,.gx-dr{transition:none!important}.md-in.in,.gx-in.in,.dk-c.dk-pop,.dk-host.hop{animation:none}.pp,.gq-hd,.gx18 .dk,.wst-c,.wst-hd,.sh-p,.sh-bd{transition:none!important}.wst-c.open .wst-in{animation:none}}
 </style>
 </head>
 <body>
@@ -2335,15 +2338,15 @@ var LFX = (function () {
   const wst = m => `<div class="wst${m === 'dr' ? ' wst-hst' : ''}">${Q.map((q, i) => `<div class="wst-c st-${col(i)}${i ? '' : ' open'}"><div class="wst-bg" aria-hidden="true"></div>${m === 'dr' ? `<img class="wst-hd" src="assets/drippy-${MOOD[i]}.webp" alt="" width="640" height="636" loading="lazy" decoding="async">` : m === 'pp' ? ppImg(i) : ''}<h3><button type="button" aria-expanded="${!i}" aria-controls="wst-a${i}" id="wst-q${i}"><span>${q[0]}</span><i class="gq-pm" aria-hidden="true"></i></button></h3><div class="wst-a" id="wst-a${i}" role="region" aria-labelledby="wst-q${i}"><div><div class="wst-in">${m === 'a' && i === 2 ? DRI('gq-dr') : ''}<p>${q[1]}</p>${i === N7 - 1 ? CTA : ''}</div></div></div></div>`).join('')}</div>`;
   const wireWst = () => {
     const cs = [...box.querySelectorAll('.wst-c')];
+    /* no scrolling: the page stays where you left it. The answer opens at once and the cards around it glide
+       into their new places with transforms only (FLIP), which keeps it smooth on phones */
     cs.forEach((c, i) => { const b = c.querySelector('button'); b.addEventListener('click', () => {
-      const y0 = b.getBoundingClientRect().top, on = !c.classList.contains('open');
+      const on = !c.classList.contains('open'), y0 = rm ? null : cs.map(d => d.getBoundingClientRect().top);
       cs.forEach((d, j) => { const o = j === i && on; d.classList.toggle('open', o); d.querySelector('button').setAttribute('aria-expanded', String(o)); });
-      /* the card you tapped stays under your finger while the others fold away, then the whole answer is brought into view */
-      const t0 = performance.now();
-      const step = () => { const d = b.getBoundingClientRect().top - y0; if (Math.abs(d) > .5) scrollBy(0, d);
-        if (!rm && performance.now() - t0 < 520) requestAnimationFrame(step);
-        else if (on) { const r = c.getBoundingClientRect(), over = r.bottom + 20 - innerHeight; if (over > 0) scrollBy({ top: Math.min(over, r.top - 90), behavior: rm ? 'auto' : 'smooth' }); } };
-      requestAnimationFrame(step); }); });
+      if (!y0) return;
+      cs.forEach((d, j) => { const dy = y0[j] - d.getBoundingClientRect().top; d.style.transition = 'none'; d.style.transform = dy ? `translateY(${dy}px)` : ''; });
+      requestAnimationFrame(() => requestAnimationFrame(() => cs.forEach(d => { d.style.transition = ''; d.style.transform = ''; })));
+    }); });
   };
   const sheet = card => { const d = document.createElement('div'); d.className = 'sh pal-skyred'; d.hidden = true;
     d.innerHTML = `<div class="sh-bd"></div><div class="sh-p" role="dialog" aria-modal="true" aria-label="Answer"><span class="sh-gr" aria-hidden="true"></span><button class="sh-x" type="button" aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>${card()}</div>`;
