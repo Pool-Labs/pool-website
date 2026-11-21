@@ -617,73 +617,158 @@ html{scroll-behavior:smooth}
 }
 @media (prefers-reduced-motion:reduce){.gr-t{animation:none}}
 
-/* Droplets: a droplets card in the hero card's language (photo, Titan One count that steps up) with the feature
-   section's white reward stickers popping on one by one as the count climbs; the friend who joins with your link lands last
-   and gives the final boost. Transform and opacity only, 12s loop like the hero card; paused off screen by perf.js. */
-.rw-st{position:relative;width:calc(34*var(--u));aspect-ratio:1.586;margin:calc(6*var(--u)) auto calc(4.5*var(--u))}
-.rw-card{position:absolute;inset:0;overflow:hidden;text-align:left;border-radius:calc(1.8*var(--u));color:#fff;
-  box-shadow:0 calc(2.4*var(--u)) calc(5*var(--u)) calc(-2*var(--u)) rgba(23,43,71,.6),inset 0 1px 0 rgba(255,255,255,.35);
-  transform:rotate(-3deg);animation:rwf 6s ease-in-out infinite alternate}
-@keyframes rwf{from{transform:rotate(-3deg) translateY(0)}to{transform:rotate(-1.6deg) translateY(calc(-.7*var(--u)))}}
+/* Droplets: three variations while the founder picks (preview links show a switcher; poolapp.co never does).
+   1 milestone track (Opal / Crypto.com milestones): unlocked, next up, locked; the track fills once when it scrolls in.
+   2 balance + redeem (Klarna, Taco Bell rewards): the droplets card and a frosted list whose highlight slides row to row.
+   3 one rolling line (wildcard): "Spend droplets on" + a glossy pill that rolls through the rewards, Drippy peeking.
+   0 hides the section and puts the full list back in the feature list. Transform and opacity only. */
+.rwv{display:none}
+.rw-hd{display:flex;flex-direction:column;align-items:center}
+html[data-dp="3"] .rwv3{display:flex;flex-direction:column;align-items:center}
+.rwv1,html[data-dp="2"] .rwv2,html[data-dp="3"] .rwv3{display:block}
+html[data-dp="2"] .rwv1,html[data-dp="3"] .rwv1{display:none}
+html[data-dp="3"] .rw-hd{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+html[data-dp="0"] #droplets,html[data-dp="0"] a[href="#droplets"]{display:none}
+.mv-full{display:none}
+html[data-dp="0"] .mv-short{display:none}
+html[data-dp="0"] .mv-full{display:inline}
+
+/* ---------- 1: milestone track ---------- */
+.rwv1{width:min(100%,calc(84*var(--u)));margin-top:calc(6*var(--u));text-align:left}
+.rw-trk{position:relative}
+.rw-ms{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:calc(1.4*var(--u));margin:0;padding:0;list-style:none}
+.rw-m{position:relative;padding-top:calc(3.4*var(--u))}
+.rw-dot{position:absolute;z-index:2;top:0;left:50%;width:calc(1.8*var(--u));height:calc(1.8*var(--u));margin-left:calc(-.9*var(--u));border-radius:50%;background:#fff;box-shadow:inset 0 0 0 calc(.28*var(--u)) rgba(23,43,71,.16);transition:transform .45s cubic-bezier(.3,1.5,.5,1) calc(.25s + var(--k)*.32s),background .3s calc(.25s + var(--k)*.32s)}
+.rw-done .rw-dot{transform:scale(.6)}
+.rwv1.in .rw-done .rw-dot{transform:none;background:var(--btnbg);box-shadow:var(--gloss),0 0 0 calc(.35*var(--u)) rgba(163,16,31,.16)}
+.rw-next .rw-dot{box-shadow:inset 0 0 0 calc(.36*var(--u)) #A3101F}
+.rw-line{position:absolute;z-index:1;height:calc(.46*var(--u));border-radius:999px;background:rgba(23,43,71,.12);overflow:hidden}
+.rw-line i{position:absolute;inset:0;border-radius:inherit;background:var(--btnbg);transform-origin:0 50%;transform:scaleX(0);transition:transform 1.5s cubic-bezier(.45,.05,.25,1) .2s}
+.rwv1.in .rw-line i{transform:scaleX(var(--f,.4))}
+.rw-trk.vert .rw-line{width:calc(.46*var(--u))}
+.rw-trk.vert .rw-line i{transform-origin:50% 0;transform:scaleY(0)}
+.rwv1.in .rw-trk.vert .rw-line i{transform:scaleY(var(--f,.4))}
+.rw-here{position:absolute;z-index:3;top:calc(-3.2*var(--u));display:inline-flex;align-items:center;gap:.45em;padding:.5em .9em .5em .7em;border-radius:999px;background:#fff;color:var(--ink);font-weight:700;font-size:calc(.95*var(--u));white-space:nowrap;box-shadow:0 calc(.6*var(--u)) calc(1.6*var(--u)) rgba(23,43,71,.22);transform:translate(-50%,6px);opacity:0;transition:opacity .4s 1.5s,transform .5s cubic-bezier(.2,.8,.2,1) 1.5s}
+.rw-here svg{width:.8em;height:1.05em;color:#3BA9E0}
+.rwv1.in .rw-here{opacity:1;transform:translate(-50%,0)}
+.rw-cd{height:100%;padding:calc(.7*var(--u));border-radius:calc(1.7*var(--u));background:linear-gradient(180deg,#FFFFFF,#F2F8FD);box-shadow:0 calc(1.2*var(--u)) calc(3*var(--u)) calc(-1.6*var(--u)) rgba(23,43,71,.28),inset 0 0 0 1px rgba(23,43,71,.05)}
+.rw-tile{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:calc(1.15*var(--u));background:linear-gradient(160deg,#DDF4FF,#A9E4FF)}
+.rw-tile img{display:block;width:100%;height:100%;object-fit:cover}
+.rw-lock .rw-tile img,.rw-lock .rw-mini{filter:grayscale(1);opacity:.6}
+.rw-mini{position:absolute;inset:20% 14%;display:flex;flex-direction:column;justify-content:space-between;padding:8%;border-radius:calc(.7*var(--u));background:var(--btnbg);box-shadow:var(--gloss),0 calc(.6*var(--u)) calc(1.4*var(--u)) rgba(115,8,22,.4);transform:rotate(-7deg)}
+.rw-mini b{font-family:"Titan One",system-ui,sans-serif;font-weight:400;color:#fff;font-size:calc(1.2*var(--u));line-height:1}
+.rw-mini i{align-self:flex-end;width:28%;height:18%;border-radius:999px;background:rgba(255,255,255,.35)}
+.rw-tx{padding:calc(1*var(--u)) calc(.5*var(--u)) calc(.4*var(--u))}
+.rw-tag{display:inline-flex;align-items:center;gap:.35em;font-weight:700;font-size:calc(.85*var(--u));color:color-mix(in srgb,var(--ink) 60%,transparent)}
+.rw-tag svg{width:1.15em;height:1.15em}
+.rw-done .rw-tag{color:#A3101F}
+.rw-next .rw-tag{color:var(--ink)}
+.rw-m h3{margin:calc(.4*var(--u)) 0 0;font-family:"Titan One",system-ui,sans-serif;font-weight:400;font-size:calc(1.4*var(--u));line-height:1.05;color:var(--ink)}
+.rw-m p{margin:calc(.35*var(--u)) 0 0;font-size:calc(.98*var(--u));line-height:1.4;color:color-mix(in srgb,var(--ink) 74%,transparent);text-wrap:pretty}
+.rw-bar{display:block;height:calc(.4*var(--u));margin:calc(.9*var(--u)) calc(.5*var(--u)) calc(.3*var(--u));border-radius:999px;background:rgba(23,43,71,.1);overflow:hidden}
+.rw-bar i{display:block;width:62%;height:100%;border-radius:inherit;background:var(--btnbg);transform-origin:0 50%;transform:scaleX(0);transition:transform 1s cubic-bezier(.45,.05,.25,1) 1.6s}
+.rwv1.in .rw-bar i{transform:none}
+
+/* ---------- 2: balance + redeem ---------- */
+.rw-two{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:calc(4*var(--u));align-items:center;width:min(100%,calc(80*var(--u)));margin-top:calc(4.5*var(--u));text-align:left}
+.rw-card{position:relative;aspect-ratio:1.586;overflow:hidden;border-radius:calc(1.8*var(--u));color:#fff;text-align:left;box-shadow:0 calc(2.4*var(--u)) calc(5*var(--u)) calc(-2*var(--u)) rgba(23,43,71,.6),inset 0 1px 0 rgba(255,255,255,.35);transform:rotate(-2deg)}
 .rw-ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
 .rw-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,43,71,.38) 0%,rgba(23,43,71,0) 30%,rgba(23,43,71,.5) 58%,rgba(14,26,48,.95) 100%)}
-.rw-ov::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.26) 0%,rgba(255,255,255,0) 38%)}
+.rw-ov::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.24) 0%,rgba(255,255,255,0) 38%)}
 .rw-top{position:absolute;left:calc(1.9*var(--u));right:calc(1.9*var(--u));top:calc(1.6*var(--u));display:flex;justify-content:space-between;align-items:center}
-.rw-top .cwm{font-size:calc(2.5*var(--u));text-shadow:0 1px 6px rgba(0,0,0,.25)}
-.rw-drop{width:calc(1.5*var(--u));height:calc(2*var(--u));filter:drop-shadow(0 1px 3px rgba(0,0,0,.3))}
+.rw-top .cwm{font-size:calc(2.4*var(--u));text-shadow:0 1px 6px rgba(0,0,0,.25)}
+.rw-drop svg{display:block;width:calc(1.4*var(--u));height:calc(1.9*var(--u));color:#fff}
 .rw-bot{position:absolute;left:calc(1.9*var(--u));bottom:calc(1.6*var(--u));display:flex;flex-direction:column;gap:calc(.25*var(--u))}
-.rw-cn{font-weight:700;font-size:calc(1.25*var(--u));opacity:.92}
-.rw-amt{font-size:calc(4.2*var(--u))}
-.rw-amt>span:nth-child(1){animation-name:rwa0}
-.rw-amt>span:nth-child(2){animation-name:rwa1}
-.rw-amt>span:nth-child(3){animation-name:rwa2}
-.rw-amt>span:nth-child(4){animation-name:rwa3}
-.rw-amt>span:nth-child(5){animation-name:rwa4}
-.rw-amt>span:nth-child(6){animation-name:rwa5}
+.rw-cn{font-weight:700;font-size:calc(1.2*var(--u));opacity:.92}
+.rw-big{font-family:"Titan One",system-ui,sans-serif;font-size:calc(4.2*var(--u));line-height:1}
+.rw-inv{display:flex;align-items:center;gap:calc(.9*var(--u));margin:calc(2.6*var(--u)) 0 0;font-weight:600;font-size:calc(1.05*var(--u));color:color-mix(in srgb,var(--ink) 80%,transparent)}
+.rw-fc{display:flex;flex:none;padding-right:calc(.6*var(--u))}
+.rw-fc img{width:calc(2.4*var(--u));height:calc(2.4*var(--u));margin-right:calc(-.6*var(--u));border-radius:50%;object-fit:cover;box-shadow:0 0 0 calc(.18*var(--u)) #fff}
+.rw-panel{padding:calc(1.2*var(--u));border-radius:calc(2.2*var(--u));background:rgba(255,255,255,.55);box-shadow:inset 0 0 0 1px rgba(255,255,255,.7),0 calc(1.6*var(--u)) calc(4*var(--u)) calc(-2*var(--u)) rgba(23,43,71,.3)}
+.rw-ph2{margin:calc(.3*var(--u)) calc(.8*var(--u)) calc(.7*var(--u));font-weight:700;font-size:calc(.95*var(--u));color:color-mix(in srgb,var(--ink) 60%,transparent)}
+.rw-rows{position:relative;margin:0;padding:0;list-style:none}
+.rw-hl{position:absolute;z-index:0;left:0;right:0;top:0;height:var(--h,0);border-radius:calc(1.3*var(--u));background:#fff;box-shadow:0 calc(.8*var(--u)) calc(2*var(--u)) calc(-1*var(--u)) rgba(23,43,71,.3);transform:translateY(var(--y,0));transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.rw-row{position:relative;z-index:1;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:calc(1*var(--u));padding:calc(.75*var(--u)) calc(.8*var(--u))}
+.rw-th{position:relative;width:calc(3.6*var(--u));height:calc(3.6*var(--u));overflow:hidden;border-radius:calc(1*var(--u));background:linear-gradient(160deg,#DDF4FF,#A9E4FF)}
+.rw-th img{width:100%;height:100%;object-fit:cover}
+.rw-th .rw-mini{inset:22% 12%;padding:10%;border-radius:calc(.35*var(--u))}
+.rw-th .rw-mini b{font-size:calc(.65*var(--u))}
+.rw-rt b{display:block;font-weight:700;font-size:calc(1.2*var(--u));color:var(--ink)}
+.rw-rt span{display:block;margin-top:calc(.15*var(--u));font-size:calc(.95*var(--u));line-height:1.35;color:color-mix(in srgb,var(--ink) 66%,transparent)}
+.rw-pill{padding:.45em .95em;border-radius:999px;background:rgba(23,43,71,.07);color:var(--ink);font-weight:700;font-size:calc(.85*var(--u));white-space:nowrap}
+.rw-ok .rw-pill{background:var(--btnbg);box-shadow:var(--gloss);color:#fff}
 
-.rw-s{position:absolute;z-index:2;--r:0deg;opacity:0;animation:12s ease-out infinite;height:calc(3.1*var(--u));font-size:calc(1.1*var(--u))}
-.rw-s .mvdp{width:calc(1.3*var(--u));height:calc(1.7*var(--u))}
-.rw-s1{left:calc(-12*var(--u));top:-10%;--r:-4deg;animation-name:rwp1}
-.rw-s2{right:calc(-9*var(--u));top:-15%;--r:3deg;animation-name:rwp2}
-.rw-s3{left:calc(-13*var(--u));top:44%;--r:2deg;animation-name:rwp3}
-.rw-s4{right:calc(-10*var(--u));top:30%;--r:-3deg;animation-name:rwp4}
-.rw-s5{right:calc(-13*var(--u));top:64%;--r:2deg;animation-name:rwp5}
-.rw-s6{left:calc(-5*var(--u));bottom:-11%;--r:-2deg;animation-name:rwp6}
-.rw-s6 b{color:#A3101F}
+/* ---------- 3: one rolling line ---------- */
+.rwv3{margin-top:calc(1*var(--u))}
+.rw-say{margin:0;display:flex;flex-direction:column;align-items:center}
+.rw-l1{font-family:Fraunces,Georgia,serif;font-weight:900;font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;font-size:calc(5*var(--u));line-height:1;color:var(--ink)}
+.rw-pillw{position:relative;display:inline-block;margin-top:calc(3.6*var(--u))}
+.rw-dr{position:absolute;z-index:0;right:calc(-.8*var(--u));top:calc(-4.6*var(--u));width:calc(6.6*var(--u));height:auto;transform:rotate(10deg)}
+.rw-rp{position:relative;z-index:1;display:block;padding:.3em .9em;border-radius:999px;background:var(--btnbg);box-shadow:var(--gloss),0 calc(1.2*var(--u)) calc(3*var(--u)) calc(-1.2*var(--u)) rgba(115,8,22,.55);color:#fff;font-family:"Titan One",system-ui,sans-serif;font-size:calc(3.4*var(--u));line-height:1.25;text-align:center}
+.rw-win{display:block;height:1.25em;overflow:hidden}
+.rw-roll{display:flex;flex-direction:column;animation:rwroll 15s cubic-bezier(.7,0,.25,1) infinite}
+.rw-roll span{display:block;height:1.25em;white-space:nowrap}
+.rw-s3{margin:calc(3*var(--u)) 0 0;max-width:30em;font-size:calc(1.3*var(--u));line-height:1.45;font-weight:500;color:color-mix(in srgb,var(--ink) 80%,transparent)}
+.rw-cta{display:inline-flex;margin-top:calc(2*var(--u));padding:calc(.85*var(--u)) calc(1.6*var(--u));border-radius:999px;background:var(--btnbg);box-shadow:var(--gloss);color:#fff;font-weight:700;font-size:calc(1.1*var(--u));text-decoration:none}
+
+/* ---------- the preview-only switcher ---------- */
+.dpk{position:fixed;z-index:60;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px;background:rgba(14,26,48,.88);box-shadow:0 10px 30px -10px rgba(0,0,0,.5);font:700 13px/1 Figtree,system-ui,sans-serif;color:#fff}
+.dpk span{padding:0 8px 0 10px;opacity:.75}
+.dpk button{min-width:40px;height:34px;border:0;border-radius:999px;background:transparent;color:#fff;font:inherit;cursor:pointer}
+.dpk button[aria-pressed="true"]{background:#fff;color:#172B47}
+
 @media (max-width:759.98px){
-  .rw-st{width:68cqw;margin:24cqw auto 18cqw}
-  .rw-card{border-radius:4.6cqw}
-  .rw-top{left:4.6cqw;right:4.6cqw;top:4cqw}
-  .rw-top .cwm{font-size:6.4cqw}
-  .rw-drop{width:3.8cqw;height:5cqw}
-  .rw-bot{left:4.6cqw;bottom:4cqw;gap:.6cqw}
-  .rw-cn{font-size:3.4cqw}
-  .rw-amt{font-size:11cqw}
-  .sc .rw-s{height:8cqw;font-size:3.3cqw}
-  .rw-s .mvdp{width:3.2cqw;height:4.2cqw}
-  .rw-s1,.rw-s5{display:none}
-  .rw-s3{left:-5cqw;right:auto;top:-19cqw;bottom:auto}
-  .rw-s2{right:-6cqw;left:auto;top:-8cqw;bottom:auto}
-  .rw-s4{right:-8cqw;left:auto;top:40%;bottom:auto}
-  .rw-s6{left:-3cqw;right:auto;top:auto;bottom:-13cqw}
+  .rwv1{margin-top:12cqw}
+  .rw-ms{grid-template-columns:1fr;gap:3.4cqw}
+  .rw-m{padding:0 0 0 9cqw}
+  .rw-dot{top:8cqw;left:0;width:5cqw;height:5cqw;margin-left:0}
+  .rw-line{width:1.3cqw}
+  .rwv1 .rw-here,.rwv1.in .rw-here{position:static;display:inline-flex;margin:0 0 4cqw 0;font-size:3.4cqw;opacity:1;transform:none;transition:none}
+  .rw-cd{display:grid;grid-template-columns:27cqw minmax(0,1fr);align-items:center;gap:3.4cqw;padding:2.4cqw;border-radius:5cqw}
+  .rw-tile{aspect-ratio:1;border-radius:3.6cqw}
+  .rw-mini{border-radius:1.8cqw}.rw-mini b{font-size:3.2cqw}
+  .rw-tx{padding:0}
+  .rw-tag{font-size:3cqw}
+  .rw-m h3{font-size:5cqw;margin-top:1cqw}
+  .rw-m p{font-size:3.4cqw;margin-top:.8cqw}
+  .rw-bar{grid-column:1/-1;height:1.2cqw;margin:0 .6cqw .6cqw}
+  .rw-two{grid-template-columns:1fr;gap:7cqw;margin-top:9cqw}
+  .rw-card{border-radius:4.6cqw;transform:rotate(-1.5deg)}
+  .rw-top{left:4.6cqw;right:4.6cqw;top:4cqw}.rw-top .cwm{font-size:6.2cqw}
+  .rw-drop svg{width:3.6cqw;height:4.8cqw}
+  .rw-bot{left:4.6cqw;bottom:4cqw}.rw-cn{font-size:3.4cqw}.rw-big{font-size:11cqw}
+  .rw-inv{font-size:3.6cqw;gap:3cqw;margin-top:5cqw}
+  .rw-fc img{width:7cqw;height:7cqw;margin-right:-1.8cqw}
+  .rw-fc{padding-right:1.8cqw}
+  .rw-panel{padding:2.6cqw;border-radius:5.6cqw}
+  .rw-ph2{font-size:3.3cqw;margin:1cqw 2cqw 2cqw}
+  .rw-row{gap:3cqw;padding:2.4cqw}
+  .rw-hl{border-radius:3.6cqw}
+  .rw-th{width:11cqw;height:11cqw;border-radius:3cqw}
+  .rw-th .rw-mini b{font-size:2cqw}
+  .rw-rt b{font-size:3.9cqw}.rw-rt span{font-size:3.2cqw}
+  .rw-pill{font-size:3cqw}
+  .rwv3{margin-top:2cqw}
+  .rw-l1{font-size:10.4cqw}
+  .rw-pillw{margin-top:12cqw}
+  .rw-rp{font-size:5.6cqw}
+  .rw-dr{width:13cqw;top:-9.6cqw;right:-2cqw}
+  .rw-s3{font-size:4.1cqw;margin-top:8cqw}
+  .rw-cta{font-size:4cqw;padding:3.2cqw 5.6cqw;margin-top:5cqw}
 }
 @media (prefers-reduced-motion:reduce){
-  .rw-card{animation:none}
-  .rw-s{animation:none;opacity:1;transform:rotate(var(--r))}
-  .rw-amt>span{animation:none;opacity:0}.rw-amt>span:last-child{opacity:1}
+  .rw-line i,.rw-bar i,.rw-dot,.rw-here,.rw-hl{transition:none}
+  .rw-roll{animation:none}
 }
-@keyframes rwa0{0%{opacity:1}13.99%{opacity:1}14%{opacity:0}96.99%{opacity:0}97%{opacity:1}100%{opacity:1}}
-@keyframes rwa1{0%{opacity:0}13.99%{opacity:0}14%{opacity:1}25.99%{opacity:1}26%{opacity:0}100%{opacity:0}}
-@keyframes rwa2{0%{opacity:0}25.99%{opacity:0}26%{opacity:1}37.99%{opacity:1}38%{opacity:0}100%{opacity:0}}
-@keyframes rwa3{0%{opacity:0}37.99%{opacity:0}38%{opacity:1}49.99%{opacity:1}50%{opacity:0}100%{opacity:0}}
-@keyframes rwa4{0%{opacity:0}49.99%{opacity:0}50%{opacity:1}63.99%{opacity:1}64%{opacity:0}100%{opacity:0}}
-@keyframes rwa5{0%{opacity:0}63.99%{opacity:0}64%{opacity:1}96.99%{opacity:1}97%{opacity:0}100%{opacity:0}}
-@keyframes rwp1{0%,15%{opacity:0;transform:scale(.4) rotate(var(--r))}18%{opacity:1;transform:scale(1.06) rotate(var(--r))}20%,94%{opacity:1;transform:rotate(var(--r))}98%,100%{opacity:0;transform:scale(.9) rotate(var(--r))}}
-@keyframes rwp2{0%,27%{opacity:0;transform:scale(.4) rotate(var(--r))}30%{opacity:1;transform:scale(1.06) rotate(var(--r))}32%,94%{opacity:1;transform:rotate(var(--r))}98%,100%{opacity:0;transform:scale(.9) rotate(var(--r))}}
-@keyframes rwp3{0%,39%{opacity:0;transform:scale(.4) rotate(var(--r))}42%{opacity:1;transform:scale(1.06) rotate(var(--r))}44%,94%{opacity:1;transform:rotate(var(--r))}98%,100%{opacity:0;transform:scale(.9) rotate(var(--r))}}
-@keyframes rwp4{0%,51%{opacity:0;transform:scale(.4) rotate(var(--r))}54%{opacity:1;transform:scale(1.06) rotate(var(--r))}56%,94%{opacity:1;transform:rotate(var(--r))}98%,100%{opacity:0;transform:scale(.9) rotate(var(--r))}}
-@keyframes rwp5{0%,57%{opacity:0;transform:scale(.4) rotate(var(--r))}60%{opacity:1;transform:scale(1.06) rotate(var(--r))}62%,94%{opacity:1;transform:rotate(var(--r))}98%,100%{opacity:0;transform:scale(.9) rotate(var(--r))}}
-@keyframes rwp6{0%,62%{opacity:0;transform:scale(.4) rotate(var(--r))}65%{opacity:1;transform:scale(1.06) rotate(var(--r))}67%,94%{opacity:1;transform:rotate(var(--r))}98%,100%{opacity:0;transform:scale(.9) rotate(var(--r))}}
+@keyframes rwroll{
+0.000%,11.429%{transform:translateY(calc(-0*1.25em))}
+14.286%,25.714%{transform:translateY(calc(-1*1.25em))}
+28.571%,40.000%{transform:translateY(calc(-2*1.25em))}
+42.857%,54.286%{transform:translateY(calc(-3*1.25em))}
+57.143%,68.571%{transform:translateY(calc(-4*1.25em))}
+71.429%,82.857%{transform:translateY(calc(-5*1.25em))}
+85.714%,97.143%{transform:translateY(calc(-6*1.25em))}
+100%{transform:translateY(calc(-7*1.25em))}}
 
 /* Questions, answered (locked 20 Nov): laptops F17, the frosted list beside a card stack Drippy hosts;
    phones, the Wallet stack with Drippy peeking over the open card. Then the footer. */
@@ -810,7 +895,7 @@ html{scroll-behavior:smooth}
 </head>
 <body>
 <div class="sc m-x4 pal-skyred cen frh xband scr ty0 ed-aurora ed-pool ed-poolfed" id="top">
-<header class="nav"><a class="brand" href="#top" aria-label="Pool, back to the top"><img src="assets/pool-logo.webp" alt="" width="216" height="240"><span class="wm">Pool</span></a><nav class="lk" aria-label="Main"><a href="#how">How it works</a></nav><a class="cta" href="#join">Get early access</a><button class="mb" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button><div class="menu" id="menu" hidden><a href="#how">How it works</a><a href="#join">Get early access</a></div></header>
+<header class="nav"><a class="brand" href="#top" aria-label="Pool, back to the top"><img src="assets/pool-logo.webp" alt="" width="216" height="240"><span class="wm">Pool</span></a><nav class="lk" aria-label="Main"><a href="#how">How it works</a><a href="#droplets">Droplets</a><a href="#faq">FAQ</a><a href="mailto:hello@poolapp.co">Contact</a></nav><a class="cta" href="#join">Get early access</a><button class="mb" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button><div class="menu" id="menu" hidden><a href="#how">How it works</a><a href="#droplets">Droplets</a><a href="#faq">FAQ</a><a href="mailto:hello@poolapp.co">Contact</a><a href="#join">Get early access</a></div></header>
 
 <div class="cyl" aria-hidden="true"><div class="wcard wc0"><img src="assets/4923154a94.webp" alt=""><span class="wl">Sunday hoops</span></div><div class="wcard wc1"><img src="assets/a68d124509.webp" alt=""><span class="wl">Late night snacks</span></div><div class="wcard wc2"><img src="assets/f2487185d5.webp" alt=""><span class="wl">Birthday fund</span></div><div class="wcard wc3"><img src="assets/181622d1d0.webp" alt=""><span class="wl">Lunch spot</span></div><div class="wcard wc4"><img src="assets/8e9b21594f.webp" alt=""><span class="wl">Sunday reset</span></div><div class="wcard wc5"><img src="assets/5f842a934b.webp" alt=""><span class="wl">Porch hang</span></div><div class="wcard wc6"><img src="assets/4921850a69.webp" alt=""><span class="wl">Ice cream run</span></div><div class="wcard wc7"><img src="assets/5e1c1c2d93.webp" alt=""><span class="wl">Roommates</span></div><div class="wcard wc8"><img src="assets/dbc0a6d9eb.webp" alt=""><span class="wl">Camping trip</span></div><div class="wcard wc9"><img src="assets/254e8d3cbf.webp" alt=""><span class="wl">Block party</span></div><div class="wcard wc10"><img src="assets/6792fa5238.webp" alt=""><span class="wl">Movie night</span></div><div class="wcard wc11"><img src="assets/decbbca914.webp" alt=""><span class="wl">Pizza Friday</span></div><div class="wcard wc12"><img src="assets/352ef18139.webp" alt=""><span class="wl">Park day</span></div><div class="wcard wc13"><img src="assets/ac6ff7c394.webp" alt=""><span class="wl">After the show</span></div><div class="wcard wc14"><img src="assets/a12831f20d.webp" alt=""><span class="wl">Kitchen dance party</span></div><div class="wcard wc15"><img src="assets/2b526127d7.webp" alt=""><span class="wl">Jam session</span></div><div class="wcard wc16"><img src="assets/0f865941c8.webp" alt=""><span class="wl">Friendsgiving</span></div><div class="wcard wc17"><img src="assets/11ed864047.webp" alt=""><span class="wl">Power outage</span></div><div class="wcard wc18"><img src="assets/2a5789c029.webp" alt=""><span class="wl">Study abroad</span></div><div class="wcard wc19"><img src="assets/b1302566e9.webp" alt=""><span class="wl">Cards and snacks</span></div><div class="wcard wc20"><img src="assets/4923154a94.webp" alt=""><span class="wl">Sunday hoops</span></div><div class="wcard wc21"><img src="assets/a68d124509.webp" alt=""><span class="wl">Late night snacks</span></div><div class="wcard wc22"><img src="assets/f2487185d5.webp" alt=""><span class="wl">Birthday fund</span></div><div class="wcard wc23"><img src="assets/181622d1d0.webp" alt=""><span class="wl">Lunch spot</span></div></div>
 
@@ -825,7 +910,7 @@ html{scroll-behavior:smooth}
 
 
 
-<div class="epg"><canvas class="lfx lfx-rib" data-fx="pour" aria-hidden="true"></canvas><section class="eps eps1" id="social" aria-labelledby="h-social"><div class="epc"><h2 class="bh" id="h-social">Money is social now</h2><p class="bs">The best parts of life happen with other people.</p><div class="echips"><span class="echip"><img src="assets/6738eff053.webp" alt="">Friday dinners</span><span class="echip"><img src="assets/4d55660b2c.webp" alt="">Road trip</span><span class="echip"><img src="assets/7f87d6fa43.webp" alt="">Dorm 3C</span><span class="echip"><img src="assets/5060878c07.webp" alt="">Game night</span></div></div></section><section class="eps eps2" id="how" aria-labelledby="h-how"><div class="epc"><canvas class="lfx lfx-pool" data-fx="pool" aria-hidden="true"></canvas><h2 class="bh" id="h-how">How social spending works</h2><ol class="esteps"><li><b>Start a pool with your people</b><span>Friends, roommates, teammates, family. Anyone you do life with.</span></li><li><b>Fund it together</b><span>Everyone adds to the pool, so the group’s plans are covered before they start.</span></li><li><b>Spend it together</b><span>Everyone pays with their own card from the same pool, and the whole group sees every&nbsp;spend.</span></li></ol></div></section><section class="eps eps3 mv" id="features" aria-labelledby="h-feat"><div class="epc"><h2 class="bh" id="h-feat">Money that moves like your group</h2><div class="mvw" data-mv><div class="mvs" aria-hidden="true"><div class="mvc" data-k="0"><img src="assets/f3f823a08e.webp" alt="" loading="lazy" style="object-position:50% 50%"><div class="mvo"><span class="mvmc mvmc2"><i>Pool</i><em>Ski trip</em><small>•• 7302</small></span><span class="mvmc"><i>Pool</i><em>Friday dinners</em><small>•• 4821</small></span></div></div><div class="mvc" data-k="1"><img src="assets/5eeadeca8b.webp" alt="" loading="lazy" style="object-position:62% 50%"><div class="mvo"><span class="mvch"><img src="assets/6738eff053.webp" alt="">Maya can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch"><img src="assets/7f87d6fa43.webp" alt="">Rin can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch mvdim"><img src="assets/5060878c07.webp" alt="">Liv, view only</span></div></div><div class="mvc" data-k="2"><img src="assets/1b0b6bba10.webp" alt="" loading="lazy" style="object-position:50% 40%"><div class="mvo"><span class="mvch"><img src="assets/4d55660b2c.webp" alt="">Leo chipped in<b>+$22</b></span><span class="mvch"><img src="assets/75dfbc8993.webp" alt="">Pizza, Maya<b>−$42.80</b></span></div></div><div class="mvc" data-k="3"><img src="assets/e5e2cc8502.webp" alt="" loading="lazy" style="object-position:45% 50%"><div class="mvo"><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>6-week streak<b>+25</b></span><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>Pool droplets<b>2,960</b></span><span class="mvch">Custom card unlocked<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span></div></div></div><ul class="mvl"><li class="on"><button type="button" data-i="0" aria-pressed="true"><b>Your own card in every pool</b><span class="mvpm" aria-hidden="true"></span></button><p>Each person gets their own virtual card in each pool they’re in.</p></li><li><button type="button" data-i="1" aria-pressed="false"><b>You decide who can spend</b><span class="mvpm" aria-hidden="true"></span></button><p>The pool creator decides if everyone can spend or only the people they pick, and can change it anytime.</p></li><li><button type="button" data-i="2" aria-pressed="false"><b>Everyone sees every spend</b><span class="mvpm" aria-hidden="true"></span></button><p>Every dollar in and every purchase shows up for the whole group.</p></li><li><button type="button" data-i="3" aria-pressed="false"><b>Stack droplets, unlock rewards</b><span class="mvpm" aria-hidden="true"></span></button><p>The more your pool does together, the more droplets you stack, and the more you unlock, from perks and members-only events to a custom card that’s lowkey iconic. <a class="mvlink" href="#droplets">See what droplets unlock</a></p></li></ul></div></div></section><section class="eps eps1 dr" id="drippy" aria-labelledby="h-dr"><div class="epc"><div class="drt"><h2 class="bh" id="h-dr">Meet Drippy</h2><p class="drl">Drippy is part of your pool, and lowkey the most useful one in the group. Ask for whatever: it does the research, drops the best picks and pays when you say bet.</p><p class="dr-free">Included free for a limited time</p></div><div class="drx"><div class="drm" aria-hidden="true"><div class="drb"><img data-m="smug" class="on" src="assets/drippy-smug.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="blink" src="assets/drippy-blink.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="look" src="assets/drippy-look.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="alert" src="assets/drippy-alert.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="happy" src="assets/drippy-happy.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="paid" src="assets/drippy-paid.webp" alt="" width="640" height="636" loading="lazy" decoding="async"></div></div><div class="dchat"><div class="drlog" role="log" aria-live="polite" aria-label="Chat with Drippy" tabindex="0"></div><form class="drin" novalidate><input type="text" placeholder="Ask Drippy anything" aria-label="Ask Drippy anything" autocomplete="off" enterkeyhint="send" maxlength="140"><button type="submit" aria-label="Send"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5"/></svg></button></form></div></div><p class="drfine">A preview of Drippy. Places, prices and amounts are examples.</p></div></section><section class="eps eps2 grp" id="groups" aria-labelledby="h-grp"><div class="epc"><div class="grt"><h2 class="bh" id="h-grp">A pool for everyone you do life with</h2><p class="grl">It takes more than 200 hours together before you can call someone a close friend. Give your roommates, your team, your family, your partner and the coworkers you eat with a pool each, for as long as you’re together.</p></div><div class="grx" data-groups></div></div></section><section class="eps eps1 rw" id="droplets" aria-labelledby="h-rw"><div class="epc"><h2 class="bh" id="h-rw">Stack droplets, unlock the good stuff</h2><p class="bs">Your pool earns droplets for spending together. Spend them on perks, drops, members-only events, custom looks and a say in what Pool builds next. Invite friends to stack them&nbsp;faster.</p><div class="rw-st" aria-hidden="true"><div class="rw-card"><img class="rw-ph" src="assets/5f842a934b.webp" alt="" loading="lazy"><span class="rw-ov"></span><div class="rw-top"><span class="cwm">Pool</span><svg class="rw-drop" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#fff"/></svg></div><div class="rw-bot"><span class="rw-cn">Apt 4B droplets</span><span class="stp rw-amt"><span>0</span><span>480</span><span>1,120</span><span>1,760</span><span>2,400</span><span>2,960</span></span></div></div><span class="mvch rw-s rw-s1"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#BDF23C"/></svg>Waived fees<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></i></span><span class="mvch rw-s rw-s2"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#E8318F"/></svg>Merch drop<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></i></span><span class="mvch rw-s rw-s3"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#5B3BE8"/></svg>Members-only event<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></i></span><span class="mvch rw-s rw-s4"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#FF7A2F"/></svg>Custom card<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></i></span><span class="mvch rw-s rw-s5"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#2B54F0"/></svg>Vote on new features<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></i></span><span class="mvch rw-s rw-s6"><img src="assets/6738eff053.webp" alt="">Maya joined with your link<b>Boost</b></span></div></div></section><section class="eps eps3" id="join" aria-labelledby="h-join"><div class="epc"><h2 class="bh" id="h-join">Pool is launching very soon.</h2><p class="bs">Join the waitlist for early access. Every friend who joins with your invite link moves you up the list and boosts your droplet&nbsp;multiplier.</p><p class="jref" id="wl-ref" hidden>A friend invited you to Pool.</p><form class="join" id="waitlist" novalidate data-endpoint="https://app.loops.so/api/newsletter-form/cmwl3l3fe00og0jyopp1idia0"><label class="vh" for="wl-email">Your email</label><input id="wl-email" class="jin" type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@email.com" required><input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="go" type="submit">Get early access</button></form><div class="jshare" id="wl-share" hidden><p class="jsh-t" id="wl-share-t" tabindex="-1">You’re on the early access list.</p><p class="jsh-s">Send your link to your friends. You climb the list as each one joins.</p><div class="join jsh-pill"><label class="vh" for="wl-link">Your invite link</label><input id="wl-link" class="jin" type="text" readonly><button class="go" type="button" id="wl-copy">Copy link</button></div><button class="jsh-go" type="button" id="wl-sharebtn" hidden>Share invite link</button></div><p class="jmsg" id="wl-msg" role="status" aria-live="polite"></p><p class="jfine">We only email you about Pool. <a href="/privacy">Privacy policy</a></p></div></section><section class="eps eps1 fq" id="faq" aria-labelledby="h-faq" data-lay="0"><div class="epc"><div class="fqw"><div class="fqt"><h2 class="bh" id="h-faq">Questions, answered</h2></div><div class="fqx" data-faq></div></div></div></section><footer class="ft"><div class="ft-in"><a class="ft-lg" href="#top" aria-label="Pool, back to top"><img src="assets/pool-logo.webp" alt="" width="58" height="64"><b>Pool</b></a><p class="ft-tg">Life’s better pooled.</p><p class="ft-ln">The social layer of money. Social money for you and your friends, with your own card in every pool.</p><nav class="ft-nv" aria-label="Footer"><a href="#how">How it works</a><a href="#drippy">Drippy</a><a href="#groups">Groups</a><a href="#droplets">Droplets</a><a href="#faq">FAQ</a><a href="#join">Get early access</a></nav><p class="ft-lgl">Pool is launching very soon. Names, groups, places and amounts on this page are examples. Each person gets their own virtual card in each pool they’re in. Droplets have no cash value. Pool doesn’t lend money and never charges interest. © 2026 Pool Labs Inc. <a href="/privacy">Privacy policy</a></p></div></footer></div>
+<div class="epg"><canvas class="lfx lfx-rib" data-fx="pour" aria-hidden="true"></canvas><section class="eps eps1" id="social" aria-labelledby="h-social"><div class="epc"><h2 class="bh" id="h-social">Money is social now</h2><p class="bs">The best parts of life happen with other people.</p><div class="echips"><span class="echip"><img src="assets/6738eff053.webp" alt="">Friday dinners</span><span class="echip"><img src="assets/4d55660b2c.webp" alt="">Road trip</span><span class="echip"><img src="assets/7f87d6fa43.webp" alt="">Dorm 3C</span><span class="echip"><img src="assets/5060878c07.webp" alt="">Game night</span></div></div></section><section class="eps eps2" id="how" aria-labelledby="h-how"><div class="epc"><canvas class="lfx lfx-pool" data-fx="pool" aria-hidden="true"></canvas><h2 class="bh" id="h-how">How social spending works</h2><ol class="esteps"><li><b>Start a pool with your people</b><span>Friends, roommates, teammates, family. Anyone you do life with.</span></li><li><b>Fund it together</b><span>Everyone adds to the pool, so the group’s plans are covered before they start.</span></li><li><b>Spend it together</b><span>Everyone pays with their own card from the same pool, and the whole group sees every&nbsp;spend.</span></li></ol></div></section><section class="eps eps3 mv" id="features" aria-labelledby="h-feat"><div class="epc"><h2 class="bh" id="h-feat">Money that moves like your group</h2><div class="mvw" data-mv><div class="mvs" aria-hidden="true"><div class="mvc" data-k="0"><img src="assets/f3f823a08e.webp" alt="" loading="lazy" style="object-position:50% 50%"><div class="mvo"><span class="mvmc mvmc2"><i>Pool</i><em>Ski trip</em><small>•• 7302</small></span><span class="mvmc"><i>Pool</i><em>Friday dinners</em><small>•• 4821</small></span></div></div><div class="mvc" data-k="1"><img src="assets/5eeadeca8b.webp" alt="" loading="lazy" style="object-position:62% 50%"><div class="mvo"><span class="mvch"><img src="assets/6738eff053.webp" alt="">Maya can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch"><img src="assets/7f87d6fa43.webp" alt="">Rin can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch mvdim"><img src="assets/5060878c07.webp" alt="">Liv, view only</span></div></div><div class="mvc" data-k="2"><img src="assets/1b0b6bba10.webp" alt="" loading="lazy" style="object-position:50% 40%"><div class="mvo"><span class="mvch"><img src="assets/4d55660b2c.webp" alt="">Leo chipped in<b>+$22</b></span><span class="mvch"><img src="assets/75dfbc8993.webp" alt="">Pizza, Maya<b>−$42.80</b></span></div></div><div class="mvc" data-k="3"><img src="assets/e5e2cc8502.webp" alt="" loading="lazy" style="object-position:45% 50%"><div class="mvo"><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>6-week streak<b>+25</b></span><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>Pool droplets<b>2,960</b></span><span class="mvch">Custom card unlocked<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span></div></div></div><ul class="mvl"><li class="on"><button type="button" data-i="0" aria-pressed="true"><b>Your own card in every pool</b><span class="mvpm" aria-hidden="true"></span></button><p>Each person gets their own virtual card in each pool they’re in.</p></li><li><button type="button" data-i="1" aria-pressed="false"><b>You decide who can spend</b><span class="mvpm" aria-hidden="true"></span></button><p>The pool creator decides if everyone can spend or only the people they pick, and can change it anytime.</p></li><li><button type="button" data-i="2" aria-pressed="false"><b>Everyone sees every spend</b><span class="mvpm" aria-hidden="true"></span></button><p>Every dollar in and every purchase shows up for the whole group.</p></li><li><button type="button" data-i="3" aria-pressed="false"><b>Stack droplets, unlock rewards</b><span class="mvpm" aria-hidden="true"></span></button><p><span class="mv-short">The more your pool does together, the more droplets you stack, and the more you unlock, from perks and members-only events to a custom card that’s lowkey iconic. <a class="mvlink" href="#droplets">See what droplets unlock</a></span><span class="mv-full">The more your pool does together, the more droplets you stack, and the bigger the rewards: discounts, waived fees, exclusive merch, members-only events, early features, Drippy access, a custom card that’s lowkey iconic and a say in what Pool builds&nbsp;next.</span></p></li></ul></div></div></section><section class="eps eps1 dr" id="drippy" aria-labelledby="h-dr"><div class="epc"><div class="drt"><h2 class="bh" id="h-dr">Meet Drippy</h2><p class="drl">Drippy is part of your pool, and lowkey the most useful one in the group. Ask for whatever: it does the research, drops the best picks and pays when you say bet.</p><p class="dr-free">Included free for a limited time</p></div><div class="drx"><div class="drm" aria-hidden="true"><div class="drb"><img data-m="smug" class="on" src="assets/drippy-smug.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="blink" src="assets/drippy-blink.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="look" src="assets/drippy-look.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="alert" src="assets/drippy-alert.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="happy" src="assets/drippy-happy.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="paid" src="assets/drippy-paid.webp" alt="" width="640" height="636" loading="lazy" decoding="async"></div></div><div class="dchat"><div class="drlog" role="log" aria-live="polite" aria-label="Chat with Drippy" tabindex="0"></div><form class="drin" novalidate><input type="text" placeholder="Ask Drippy anything" aria-label="Ask Drippy anything" autocomplete="off" enterkeyhint="send" maxlength="140"><button type="submit" aria-label="Send"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5"/></svg></button></form></div></div><p class="drfine">A preview of Drippy. Places, prices and amounts are examples.</p></div></section><section class="eps eps2 grp" id="groups" aria-labelledby="h-grp"><div class="epc"><div class="grt"><h2 class="bh" id="h-grp">A pool for everyone you do life with</h2><p class="grl">It takes more than 200 hours together before you can call someone a close friend. Give your roommates, your team, your family, your partner and the coworkers you eat with a pool each, for as long as you’re together.</p></div><div class="grx" data-groups></div></div></section><section class="eps eps1 rw" id="droplets" aria-labelledby="h-rw"><div class="epc"><div class="rw-hd"><h2 class="bh" id="h-rw">Stack droplets, unlock the good stuff</h2><p class="bs">Your pool earns droplets for spending together. The more you stack, the more you unlock, and friends who join with your invite link help you stack&nbsp;faster.</p></div><div class="rwv rwv1" data-v="1"><div class="rw-trk"><span class="rw-line" aria-hidden="true"><i></i></span><span class="rw-here" aria-hidden="true"><svg viewBox="0 0 12 16" aria-hidden="true"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="currentColor"/></svg>Apt 4B&nbsp;·&nbsp;2,960</span><ol class="rw-ms"><li class="rw-m rw-done" style="--k:0"><span class="rw-dot" aria-hidden="true"></span><div class="rw-cd"><div class="rw-tile"><img src="assets/f3f823a08e.webp" alt="" loading="lazy"></div><div class="rw-tx"><span class="rw-tag rw-done"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlocked</span><h3>Perks</h3><p>Discounts and waived fees</p></div></div></li><li class="rw-m rw-done" style="--k:1"><span class="rw-dot" aria-hidden="true"></span><div class="rw-cd"><div class="rw-tile"><img src="assets/4921850a69.webp" alt="" loading="lazy"></div><div class="rw-tx"><span class="rw-tag rw-done"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlocked</span><h3>Drops</h3><p>Exclusive merch and brand collabs</p></div></div></li><li class="rw-m rw-next" style="--k:2"><span class="rw-dot" aria-hidden="true"></span><div class="rw-cd"><div class="rw-tile"><img src="assets/dbc0a6d9eb.webp" alt="" loading="lazy"></div><div class="rw-tx"><span class="rw-tag rw-next">Next up</span><h3>Access</h3><p>Members-only events, early features and Drippy</p></div><span class=rw-bar><i></i></span></div></li><li class="rw-m rw-lock" style="--k:3"><span class="rw-dot" aria-hidden="true"></span><div class="rw-cd"><div class="rw-tile"><span class="rw-mini" aria-hidden="true"><b>Pool</b><i></i></span></div><div class="rw-tx"><span class="rw-tag rw-lock"><svg viewBox="0 0 12 12" aria-hidden="true"><rect x="2.5" y="5.5" width="7" height="5" rx="1.4" fill="currentColor"/><path d="M4 5.5V4a2 2 0 0 1 4 0v1.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>Locked</span><h3>Make it yours</h3><p>A custom card, pool colours, app icons and Drippy styles</p></div></div></li><li class="rw-m rw-lock" style="--k:4"><span class="rw-dot" aria-hidden="true"></span><div class="rw-cd"><div class="rw-tile"><img src="assets/5f842a934b.webp" alt="" loading="lazy"></div><div class="rw-tx"><span class="rw-tag rw-lock"><svg viewBox="0 0 12 12" aria-hidden="true"><rect x="2.5" y="5.5" width="7" height="5" rx="1.4" fill="currentColor"/><path d="M4 5.5V4a2 2 0 0 1 4 0v1.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>Locked</span><h3>A say in Pool</h3><p>Vote on what Pool builds next, or request a feature</p></div></div></li></ol></div></div><div class="rwv rwv2" data-v="2"><div class="rw-two"><div class="rw-left"><div class="rw-card"><img class="rw-ph" src="assets/5f842a934b.webp" alt="" loading="lazy"><span class="rw-ov"></span><div class="rw-top"><span class="cwm">Pool</span><span class="rw-drop"><svg viewBox="0 0 12 16" aria-hidden="true"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="currentColor"/></svg></span></div><div class="rw-bot"><span class="rw-cn">Apt 4B droplets</span><span class="rw-big">2,960</span></div></div><p class="rw-inv"><span class="rw-fc"><img src="assets/6738eff053.webp" alt=""><img src="assets/4d55660b2c.webp" alt=""><img src="assets/7f87d6fa43.webp" alt=""></span>Friends who join with your link boost your multiplier.</p></div><div class="rw-panel"><p class="rw-ph2">Spend droplets on</p><ul class="rw-rows"><li class="rw-hl" aria-hidden="true"></li><li class="rw-row rw-ok"><div class="rw-th"><img src="assets/f3f823a08e.webp" alt="" loading="lazy"></div><div class="rw-rt"><b>Perks</b><span>Discounts and waived fees</span></div><span class="rw-pill">Unlocked</span></li><li class="rw-row rw-ok"><div class="rw-th"><img src="assets/4921850a69.webp" alt="" loading="lazy"></div><div class="rw-rt"><b>Drops</b><span>Exclusive merch and brand collabs</span></div><span class="rw-pill">Unlocked</span></li><li class="rw-row"><div class="rw-th"><img src="assets/dbc0a6d9eb.webp" alt="" loading="lazy"></div><div class="rw-rt"><b>Access</b><span>Members-only events, early features and Drippy</span></div><span class="rw-pill">Unlock</span></li><li class="rw-row"><div class="rw-th"><span class="rw-mini" aria-hidden="true"><b>Pool</b><i></i></span></div><div class="rw-rt"><b>Make it yours</b><span>A custom card, pool colours, app icons and Drippy styles</span></div><span class="rw-pill">Unlock</span></li><li class="rw-row"><div class="rw-th"><img src="assets/5f842a934b.webp" alt="" loading="lazy"></div><div class="rw-rt"><b>A say in Pool</b><span>Vote on what Pool builds next, or request a feature</span></div><span class="rw-pill">Unlock</span></li></ul></div></div></div><div class="rwv rwv3" data-v="3"><p class="rw-say" aria-hidden="true"><span class="rw-l1">Spend droplets on</span><span class="rw-pillw"><img class="rw-dr" src="assets/drippy-happy-240.webp" alt="" width="240" height="240" loading="lazy"><span class="rw-rp"><span class="rw-win"><span class="rw-roll"><span>merch drops</span><span>members-only events</span><span>your custom card</span><span>Drippy styles</span><span>early features</span><span>a say in Pool</span><span>waived fees</span><span>merch drops</span></span></span></span></span></p><p class="rw-s3">Your pool earns droplets for spending together. Invite friends and you stack them&nbsp;faster.</p><a class="rw-cta" href="#join">Get early access</a></div></div></section><section class="eps eps3" id="join" aria-labelledby="h-join"><div class="epc"><h2 class="bh" id="h-join">Pool is launching very soon.</h2><p class="bs">Join the waitlist for early access. Every friend who joins with your invite link moves you up the list and boosts your droplet&nbsp;multiplier.</p><p class="jref" id="wl-ref" hidden>A friend invited you to Pool.</p><form class="join" id="waitlist" novalidate data-endpoint="https://app.loops.so/api/newsletter-form/cmwl3l3fe00og0jyopp1idia0"><label class="vh" for="wl-email">Your email</label><input id="wl-email" class="jin" type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@email.com" required><input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="go" type="submit">Get early access</button></form><div class="jshare" id="wl-share" hidden><p class="jsh-t" id="wl-share-t" tabindex="-1">You’re on the early access list.</p><p class="jsh-s">Send your link to your friends. You climb the list as each one joins.</p><div class="join jsh-pill"><label class="vh" for="wl-link">Your invite link</label><input id="wl-link" class="jin" type="text" readonly><button class="go" type="button" id="wl-copy">Copy link</button></div><button class="jsh-go" type="button" id="wl-sharebtn" hidden>Share invite link</button></div><p class="jmsg" id="wl-msg" role="status" aria-live="polite"></p><p class="jfine">We only email you about Pool. <a href="/privacy">Privacy policy</a></p></div></section><section class="eps eps1 fq" id="faq" aria-labelledby="h-faq" data-lay="0"><div class="epc"><div class="fqw"><div class="fqt"><h2 class="bh" id="h-faq">Questions, answered</h2></div><div class="fqx" data-faq></div></div></div></section><footer class="ft"><div class="ft-in"><a class="ft-lg" href="#top" aria-label="Pool, back to top"><img src="assets/pool-logo.webp" alt="" width="58" height="64"><b>Pool</b></a><p class="ft-tg">Life’s better pooled.</p><p class="ft-ln">The social layer of money. Social money for you and your friends, with your own card in every pool.</p><nav class="ft-nv" aria-label="Footer"><a href="#how">How it works</a><a href="#drippy">Drippy</a><a href="#groups">Groups</a><a href="#droplets">Droplets</a><a href="#faq">FAQ</a><a href="mailto:hello@poolapp.co">Contact</a><a href="#join">Get early access</a></nav><p class="ft-lgl">Pool is launching very soon. Names, groups, places and amounts on this page are examples. Each person gets their own virtual card in each pool they’re in. Droplets have no cash value. Pool doesn’t lend money and never charges interest. © 2026 Pool Labs Inc. <a href="/privacy">Privacy policy</a></p></div></footer></div>
 
 </div>
 <script>
@@ -2183,6 +2268,98 @@ var LFX = (function () {
   const render = () => { stop(); stop = () => {}; if (narrow.matches) wallet(); else laptop(); };
   render();
   if (narrow.addEventListener) narrow.addEventListener('change', render);
+})();
+
+/* Droplets section: switching between the three variations on preview links, the milestone track that fills once
+   when it scrolls into view (1), and the highlight that slides from row to row in the redeem list (2). */
+(function () {
+  var sec = document.getElementById('droplets');
+  if (!sec) return;
+  var root = document.documentElement;
+  var RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var live = /^(www\.)?poolapp\.co$|^pool-website-lovat\.vercel\.app$/.test(location.hostname);
+  var q = null;
+  try { q = new URLSearchParams(location.search).get('dp'); } catch (e) { /* old browser */ }
+  var v = /^[0-3]$/.test(q || '') ? q : '1';
+  var seen = false;
+
+  // 1: line from the first dot to the last, filled to just past the second milestone
+  var trk = sec.querySelector('.rw-trk'), line = sec.querySelector('.rw-line'), here = sec.querySelector('.rw-here');
+  var v1 = sec.querySelector('.rwv1');
+  function geom1() {
+    if (!trk || v !== '1') return;
+    var dots = [].slice.call(trk.querySelectorAll('.rw-dot')), b = trk.getBoundingClientRect();
+    if (dots.length < 3) return;
+    var c = dots.map(function (d) { var r = d.getBoundingClientRect(); return { x: r.left + r.width / 2 - b.left, y: r.top + r.height / 2 - b.top }; });
+    var vert = Math.abs(c[0].x - c[1].x) < 4, a = c[0], z = c[c.length - 1];
+    trk.classList.toggle('vert', vert);
+    if (vert) {
+      line.style.cssText = 'left:' + (a.x - line.offsetWidth / 2) + 'px;top:' + a.y + 'px;height:' + (z.y - a.y) + 'px';
+      line.style.setProperty('--f', (((c[1].y + (c[2].y - c[1].y) * 0.55) - a.y) / (z.y - a.y)).toFixed(3));
+    } else {
+      line.style.cssText = 'left:' + a.x + 'px;width:' + (z.x - a.x) + 'px;top:' + (a.y - line.offsetHeight / 2) + 'px';
+      var f = ((c[1].x + (c[2].x - c[1].x) * 0.55) - a.x) / (z.x - a.x);
+      line.style.setProperty('--f', f.toFixed(3));
+      here.style.left = (a.x + f * (z.x - a.x)) + 'px';
+    }
+  }
+  function replay() {
+    if (!v1) return;
+    v1.classList.remove('in');
+    void v1.offsetWidth;
+    if (seen || RM) v1.classList.add('in');
+  }
+
+  // 2: highlight moves to the next row every few seconds while the section is on screen
+  var rows = [].slice.call(sec.querySelectorAll('.rw-row')), hl = sec.querySelector('.rw-hl'), cur = 0, onScreen = false;
+  function place() {
+    var r = rows[cur];
+    if (!r || !hl) return;
+    hl.style.setProperty('--y', r.offsetTop + 'px');
+    hl.style.setProperty('--h', r.offsetHeight + 'px');
+  }
+  setInterval(function () {
+    if (v !== '2' || !onScreen || RM || document.hidden) return;
+    cur = (cur + 1) % rows.length;
+    place();
+  }, 2600);
+
+  function set(n) {
+    v = n;
+    root.setAttribute('data-dp', n);
+    requestAnimationFrame(function () { geom1(); place(); replay(); });
+  }
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        onScreen = e.isIntersecting;
+        if (e.isIntersecting && e.intersectionRatio > 0.25 && !seen) { seen = true; if (v1) v1.classList.add('in'); }
+      });
+    }, { threshold: [0, 0.25, 0.5] }).observe(sec);
+  } else { seen = true; onScreen = true; }
+  var t;
+  window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(function () { geom1(); place(); }, 120); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { geom1(); place(); });
+
+  // preview links only: a small switcher to compare the options on a phone
+  if (!live) {
+    var bar = document.createElement('div');
+    bar.className = 'dpk';
+    bar.innerHTML = '<span>Droplets</span>' + ['0', '1', '2', '3'].map(function (n) { return '<button type="button" data-n="' + n + '">' + n + '</button>'; }).join('');
+    document.body.appendChild(bar);
+    var mark = function () { [].forEach.call(bar.querySelectorAll('button'), function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-n') === v)); }); };
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('button');
+      if (!b) return;
+      set(b.getAttribute('data-n'));
+      mark();
+      try { var u = new URL(location.href); u.searchParams.set('dp', v); history.replaceState(null, '', u); } catch (er) { /* fine */ }
+      if (v !== '0') sec.scrollIntoView({ block: 'start' });
+    });
+    mark();
+  }
+  set(v);
 })();
 
 /* Pause CSS animations in parts of the page that are off screen. Nothing changes while they are on screen, but a
