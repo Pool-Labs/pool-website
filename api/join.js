@@ -1,8 +1,8 @@
 /* Pool early access sign-up with invite tracking (Vercel serverless function, POST /api/join).
 
-   Body (JSON): { email, name?, age?, school?, interests?, groups?, wish?, ref?, company? }
+   Body (JSON): { email, name?, age?, school?, often?, monthly?, groups?, wish?, ref?, company? }
    company is a hidden honeypot; bots fill it, people never see it. name goes to Loops firstName/lastName; the optional
-   answers from the early access page go to the custom properties ageRange, school, interests, groupCount and wishlist.
+   answers from the early access page go to the custom properties ageRange, school, spendFrequency, monthlySpend, groupCount and wishlist.
    Reply:       { ok, already, tracking, code? }
 
    With LOOPS_API_KEY set (Vercel > Project > Settings > Environment Variables), every person gets an 8-letter invite
@@ -22,7 +22,7 @@ const SOURCE = 'Website waitlist';
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const CODE = /^[a-z2-9]{8}$/;
 const ABC = 'abcdefghjkmnpqrstuvwxyz23456789';
-const PROPS = [['referralCode', 'string'], ['referredBy', 'string'], ['invites', 'number'], ['ageRange', 'string'], ['school', 'string'], ['interests', 'string'], ['groupCount', 'string'], ['wishlist', 'string']];
+const PROPS = [['referralCode', 'string'], ['referredBy', 'string'], ['invites', 'number'], ['ageRange', 'string'], ['school', 'string'], ['spendFrequency', 'string'], ['monthlySpend', 'string'], ['groupCount', 'string'], ['wishlist', 'string']];
 
 function clip(v, n) { return String(v == null ? '' : v).replace(/[\u0000-\u001f]+/g, ' ').trim().slice(0, n); }
 
@@ -30,8 +30,7 @@ function profile(b) {
   const out = {};
   const name = clip(b.name, 80);
   if (name) { const parts = name.split(/\s+/); out.firstName = parts[0]; if (parts.length > 1) out.lastName = parts.slice(1).join(' '); }
-  const interests = Array.isArray(b.interests) ? b.interests.map(x => clip(x, 40)).filter(Boolean).slice(0, 10).join(', ') : clip(b.interests, 400);
-  const map = { ageRange: clip(b.age, 20), school: clip(b.school, 120), interests, groupCount: clip(b.groups, 20), wishlist: clip(b.wish, 600) };
+  const map = { ageRange: clip(b.age, 20), school: clip(b.school, 120), spendFrequency: clip(b.often, 40), monthlySpend: clip(b.monthly, 20), groupCount: clip(b.groups, 20), wishlist: clip(b.wish, 600) };
   for (const k in map) if (map[k]) out[k] = map[k];
   return out;
 }
