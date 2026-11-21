@@ -422,6 +422,27 @@ html{scroll-behavior:smooth}
 .jmsg{min-height:1.45em;margin:12px 0 0;font-size:16px;line-height:1.45;font-weight:600;color:var(--ink)}
 .join .go:disabled{opacity:.7;cursor:progress}
 
+/* sign-up extras: honeypot, invited note, invite-link card after joining, privacy line */
+.join .hp{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);opacity:0;pointer-events:none}
+.join{position:relative}
+.jref{margin:calc(1.4*var(--u)) 0 0;padding:.45em 1em;border-radius:999px;background:rgba(255,255,255,.6);font-weight:700;font-size:calc(1.05*var(--u));color:var(--ink)}
+.jshare{display:flex;flex-direction:column;align-items:center;margin-top:calc(2*var(--u))}
+.jshare[hidden],.join[hidden]{display:none}
+.jsh-t{margin:0;font-family:Fraunces,Georgia,serif;font-weight:900;font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;font-size:calc(2.2*var(--u));line-height:1.05;color:var(--ink);outline:none}
+.jsh-s{margin:calc(.8*var(--u)) 0 0;max-width:32em;font-size:calc(1.15*var(--u));line-height:1.45;color:color-mix(in srgb,var(--ink) 80%,transparent);text-wrap:pretty}
+.jsh-pill .jin{text-overflow:ellipsis;font-weight:600}
+.jsh-go{margin-top:calc(1.2*var(--u));padding:.7em 1.4em;border:0;border-radius:999px;background:rgba(255,255,255,.7);box-shadow:inset 0 0 0 1px rgba(23,43,71,.12);color:var(--ink);font:inherit;font-weight:700;font-size:calc(1.05*var(--u));cursor:pointer}
+.jfine{margin:calc(1*var(--u)) 0 0;font-size:calc(.9*var(--u));color:color-mix(in srgb,var(--ink) 62%,transparent)}
+.jfine a{color:inherit;text-decoration:underline;text-underline-offset:.18em}
+@media (max-width:759.98px){
+  .jref{font-size:3.5cqw;margin-top:4cqw}
+  .jshare{margin-top:5cqw}
+  .jsh-t{font-size:6.6cqw}
+  .jsh-s{font-size:3.8cqw;margin-top:2.4cqw}
+  .jsh-go{font-size:3.9cqw;margin-top:4cqw;padding:3cqw 5cqw}
+  .jfine{font-size:3.2cqw;margin-top:3cqw}
+}
+
 /* Money that moves like your group: a photo stack you swipe like a dating app, beside a list that keeps up (Round 4: U0 + U2). */
 .mv .epc{padding-bottom:calc(5*var(--u))}
 .mvfine{margin:calc(2.4*var(--u)) 0 0;font-size:calc(.95*var(--u));color:color-mix(in srgb,var(--ink) 60%,transparent)}
@@ -596,6 +617,45 @@ html{scroll-behavior:smooth}
 }
 @media (prefers-reduced-motion:reduce){.gr-t{animation:none}}
 
+/* Droplets: what droplets unlock. Four reward cards (white, one colour each, on the droplet glyph only) and one navy
+   card for invites; laptops 3 columns with the invite card tall on the right, phones 2 columns with it full width. */
+.dp-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:calc(1.4*var(--u));width:min(100%,calc(76*var(--u)));margin-top:calc(3*var(--u));text-align:left}
+.dp-c{position:relative;padding:calc(2.1*var(--u)) calc(2.1*var(--u)) calc(2.3*var(--u));border-radius:calc(2*var(--u));background:linear-gradient(180deg,#FFFFFF,#F2F8FD);box-shadow:0 calc(1.2*var(--u)) calc(3*var(--u)) calc(-1.6*var(--u)) rgba(23,43,71,.28),inset 0 0 0 1px rgba(23,43,71,.05);color:var(--ink)}
+.dp-c h3,.dp-x h3{margin:calc(1.3*var(--u)) 0 0;font-family:Figtree,system-ui,sans-serif;font-weight:700;font-size:calc(1.55*var(--u));line-height:1.15}
+.dp-c p,.dp-x p{margin:calc(.6*var(--u)) 0 0;font-size:calc(1.1*var(--u));line-height:1.45;color:color-mix(in srgb,var(--ink) 78%,transparent);text-wrap:pretty}
+.dp-ic{display:block;width:calc(2.6*var(--u));height:calc(2.6*var(--u));background:var(--sb);position:relative;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.5C12 1.5 3.5 10.6 3.5 15.4A8.5 8.5 0 0 0 20.5 15.4C20.5 10.6 12 1.5 12 1.5Z'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.5C12 1.5 3.5 10.6 3.5 15.4A8.5 8.5 0 0 0 20.5 15.4C20.5 10.6 12 1.5 12 1.5Z'/%3E%3C/svg%3E") center/contain no-repeat}
+.dp-ic::after{content:"";position:absolute;left:30%;top:46%;width:22%;height:26%;border-radius:50%;background:rgba(255,255,255,.55);transform:rotate(18deg)}
+.dp-x{grid-column:3;grid-row:1/span 2;display:flex;flex-direction:column;align-items:flex-start;padding:calc(2.4*var(--u));border-radius:calc(2*var(--u));background:linear-gradient(165deg,#2B4470,#172B47 60%);color:#fff;box-shadow:0 calc(1.6*var(--u)) calc(3.6*var(--u)) calc(-1.6*var(--u)) rgba(23,43,71,.5)}
+.dp-x h3{font-family:Fraunces,Georgia,serif;font-weight:900;font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;font-size:calc(2.3*var(--u));line-height:1.02;margin-top:calc(1.6*var(--u))}
+.dp-x p{color:rgba(255,255,255,.8)}
+.dp-x h3{text-wrap:balance}
+.dp-x .dp-badge{white-space:nowrap}
+.dp-st{display:flex;align-items:flex-end;gap:calc(.4*var(--u))}
+.dp-st .dp-ic:nth-child(1){width:calc(1.9*var(--u));height:calc(1.9*var(--u))}
+.dp-st .dp-ic:nth-child(2){width:calc(2.6*var(--u));height:calc(2.6*var(--u))}
+.dp-st .dp-ic:nth-child(3){width:calc(3.4*var(--u));height:calc(3.4*var(--u))}
+.dp-x .dp-badge{display:inline-flex;align-items:center;gap:.5em;margin-top:calc(1.4*var(--u));padding:.45em .9em;border-radius:999px;background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);color:#fff;font-weight:700;font-size:calc(.95*var(--u))}
+.dp-x .dp-badge::before{content:"";width:.55em;height:.55em;border-radius:50%;background:linear-gradient(150deg,#ECFF7A,#BDF23C 55%,#8FD61F)}
+.dp-cta{margin-top:auto;padding:calc(.85*var(--u)) calc(1.5*var(--u));border-radius:999px;background:var(--btnbg);box-shadow:var(--gloss);color:#fff;font-weight:700;font-size:calc(1.1*var(--u));text-decoration:none;transform:translateY(calc(.6*var(--u)))}
+.mvl p .mvlink{color:var(--ink);font-weight:700;text-decoration:underline;text-underline-offset:.18em;white-space:nowrap}
+@media (hover:hover){.dp-c,.dp-x{transition:transform .25s cubic-bezier(.2,.8,.2,1)}.dp-c:hover,.dp-x:hover{transform:translateY(calc(-.35*var(--u)))}}
+@media (max-width:759.98px){
+  .dp-g{grid-template-columns:repeat(2,minmax(0,1fr));gap:3cqw;width:100%;margin-top:7cqw}
+  .dp-c{padding:4.6cqw 4.2cqw 5cqw;border-radius:5cqw}
+  .dp-c h3{font-size:4.3cqw;margin-top:3cqw}
+  .dp-c p{font-size:3.45cqw;margin-top:1.4cqw}
+  .dp-ic{width:7cqw;height:7cqw}
+  .dp-x{grid-column:1/-1;grid-row:auto;padding:6cqw;border-radius:5cqw}
+  .dp-x h3{font-size:7.2cqw;margin-top:3.6cqw}
+  .dp-x p{font-size:3.9cqw;margin-top:2cqw}
+  .dp-st{gap:1cqw}
+  .dp-st .dp-ic:nth-child(1){width:5cqw;height:5cqw}.dp-st .dp-ic:nth-child(2){width:7cqw;height:7cqw}.dp-st .dp-ic:nth-child(3){width:9cqw;height:9cqw}
+  .dp-x .dp-badge{font-size:3.4cqw;margin-top:4cqw}
+  .dp-cta{margin-top:5cqw;padding:3.2cqw 5.4cqw;font-size:4cqw;transform:none}
+}
+
 /* Questions, answered (locked 20 Nov): laptops F17, the frosted list beside a card stack Drippy hosts;
    phones, the Wallet stack with Drippy peeking over the open card. Then the footer. */
 .fq{--t:var(--u)}
@@ -716,6 +776,7 @@ html{scroll-behavior:smooth}
  .ft-lgl{font-size:3cqw;max-width:none}
 }
 @media (prefers-reduced-motion:reduce){.gx-hl,.dk-c,.wst-c,.wst-hd{transition:none!important}.dk-c.dk-pop,.dk-host.hop,.wst-c.open .wst-in{animation:none}}
+.ft-lgl a{color:inherit;text-decoration:underline;text-underline-offset:.18em;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -735,7 +796,7 @@ html{scroll-behavior:smooth}
 
 
 
-<span class="cue" aria-hidden="true">Scroll<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></span><div class="epg"><canvas class="lfx lfx-rib" data-fx="pour" aria-hidden="true"></canvas><section class="eps eps1" id="social" aria-labelledby="h-social"><div class="epc"><h2 class="bh" id="h-social">Money is social now</h2><p class="bs">The best parts of life happen with other people.</p><div class="echips"><span class="echip"><img src="assets/6738eff053.webp" alt="">Friday dinners</span><span class="echip"><img src="assets/4d55660b2c.webp" alt="">Road trip</span><span class="echip"><img src="assets/7f87d6fa43.webp" alt="">Dorm 3C</span><span class="echip"><img src="assets/5060878c07.webp" alt="">Game night</span></div></div></section><section class="eps eps2" id="how" aria-labelledby="h-how"><div class="epc"><canvas class="lfx lfx-pool" data-fx="pool" aria-hidden="true"></canvas><h2 class="bh" id="h-how">How social spending works</h2><ol class="esteps"><li><b>Start a pool with your people</b><span>Friends, roommates, teammates, family. Anyone you do life with.</span></li><li><b>Fund it together</b><span>Everyone adds to the pool, so the group’s plans are covered before they start.</span></li><li><b>Spend it together</b><span>Everyone pays with their own card from the same pool, and the whole group sees every&nbsp;spend.</span></li></ol></div></section><section class="eps eps3 mv" id="features" aria-labelledby="h-feat"><div class="epc"><h2 class="bh" id="h-feat">Money that moves like your group</h2><div class="mvw" data-mv><div class="mvs" aria-hidden="true"><div class="mvc" data-k="0"><img src="assets/f3f823a08e.webp" alt="" loading="lazy" style="object-position:50% 50%"><div class="mvo"><span class="mvmc mvmc2"><i>Pool</i><em>Ski trip</em><small>•• 7302</small></span><span class="mvmc"><i>Pool</i><em>Friday dinners</em><small>•• 4821</small></span></div></div><div class="mvc" data-k="1"><img src="assets/5eeadeca8b.webp" alt="" loading="lazy" style="object-position:62% 50%"><div class="mvo"><span class="mvch"><img src="assets/6738eff053.webp" alt="">Maya can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch"><img src="assets/7f87d6fa43.webp" alt="">Rin can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch mvdim"><img src="assets/5060878c07.webp" alt="">Liv, view only</span></div></div><div class="mvc" data-k="2"><img src="assets/1b0b6bba10.webp" alt="" loading="lazy" style="object-position:50% 40%"><div class="mvo"><span class="mvch"><img src="assets/4d55660b2c.webp" alt="">Leo chipped in<b>+$22</b></span><span class="mvch"><img src="assets/75dfbc8993.webp" alt="">Pizza, Maya<b>−$42.80</b></span></div></div><div class="mvc" data-k="3"><img src="assets/e5e2cc8502.webp" alt="" loading="lazy" style="object-position:45% 50%"><div class="mvo"><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>6-week streak<b>+25</b></span><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>Pool droplets<b>2,960</b></span><span class="mvch">Custom card unlocked<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span></div></div></div><ul class="mvl"><li class="on"><button type="button" data-i="0" aria-pressed="true"><b>Your own card in every pool</b><span class="mvpm" aria-hidden="true"></span></button><p>Each person gets their own virtual card in each pool they’re in.</p></li><li><button type="button" data-i="1" aria-pressed="false"><b>You decide who can spend</b><span class="mvpm" aria-hidden="true"></span></button><p>The pool creator decides if everyone can spend or only the people they pick, and can change it anytime.</p></li><li><button type="button" data-i="2" aria-pressed="false"><b>Everyone sees every spend</b><span class="mvpm" aria-hidden="true"></span></button><p>Every dollar in and every purchase shows up for the whole group.</p></li><li><button type="button" data-i="3" aria-pressed="false"><b>Stack droplets, unlock rewards</b><span class="mvpm" aria-hidden="true"></span></button><p>The more your pool does together, the more droplets you stack, and the bigger the rewards: discounts, waived fees, exclusive merch, members-only events, Drippy access, a custom card that’s lowkey iconic and a say in what Pool builds&nbsp;next.</p></li></ul></div></div></section><section class="eps eps1 dr" id="drippy" aria-labelledby="h-dr"><div class="epc"><div class="drt"><h2 class="bh" id="h-dr">Meet Drippy</h2><p class="drl">Drippy is part of your pool, and lowkey the most useful one in the group. Ask for whatever: it does the research, drops the best picks and pays when you say bet.</p><p class="dr-free">Included free for a limited time</p></div><div class="drx"><div class="drm" aria-hidden="true"><div class="drb"><img data-m="smug" class="on" src="assets/drippy-smug.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="blink" src="assets/drippy-blink.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="look" src="assets/drippy-look.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="alert" src="assets/drippy-alert.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="happy" src="assets/drippy-happy.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="paid" src="assets/drippy-paid.webp" alt="" width="640" height="636" loading="lazy" decoding="async"></div></div><div class="dchat"><div class="drlog" role="log" aria-live="polite" aria-label="Chat with Drippy" tabindex="0"></div><form class="drin" novalidate><input type="text" placeholder="Ask Drippy anything" aria-label="Ask Drippy anything" autocomplete="off" enterkeyhint="send" maxlength="140"><button type="submit" aria-label="Send"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5"/></svg></button></form></div></div><p class="drfine">A preview of Drippy. Places, prices and amounts are examples.</p></div></section><section class="eps eps2 grp" id="groups" aria-labelledby="h-grp"><div class="epc"><div class="grt"><h2 class="bh" id="h-grp">A pool for everyone you do life with</h2><p class="grl">It takes more than 200 hours together before you can call someone a close friend. Give your roommates, your team, your family, your partner and the coworkers you eat with a pool each, for as long as you’re together.</p></div><div class="grx" data-groups></div></div></section><section class="eps eps3" id="join" aria-labelledby="h-join"><div class="epc"><h2 class="bh" id="h-join">Pool is launching very soon.</h2><p class="bs">Join the waitlist for early access, and bring your friends so you all get in&nbsp;together.</p><form class="join" id="waitlist" novalidate data-endpoint="https://app.loops.so/api/newsletter-form/cmwl3l3fe00og0jyopp1idia0"><label class="vh" for="wl-email">Your email</label><input id="wl-email" class="jin" type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@email.com" required><button class="go" type="submit">Get early access</button></form><p class="jmsg" id="wl-msg" role="status" aria-live="polite"></p></div></section><section class="eps eps1 fq" id="faq" aria-labelledby="h-faq" data-lay="0"><div class="epc"><div class="fqw"><div class="fqt"><h2 class="bh" id="h-faq">Questions, answered</h2></div><div class="fqx" data-faq></div></div></div></section><footer class="ft"><div class="ft-in"><a class="ft-lg" href="#top" aria-label="Pool, back to top"><img src="assets/pool-logo.webp" alt="" width="58" height="64"><b>Pool</b></a><p class="ft-tg">Life’s better pooled.</p><p class="ft-ln">The social layer of money. Social money for you and your friends, with your own card in every pool.</p><nav class="ft-nv" aria-label="Footer"><a href="#how">How it works</a><a href="#drippy">Drippy</a><a href="#groups">Groups</a><a href="#faq">FAQ</a><a href="#join">Get early access</a></nav><p class="ft-lgl">Pool is launching very soon. Names, groups, places and amounts on this page are examples. Each person gets their own virtual card in each pool they’re in. Droplets have no cash value. Pool doesn’t lend money and never charges interest. © 2026 Pool.</p></div></footer></div>
+<span class="cue" aria-hidden="true">Scroll<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></span><div class="epg"><canvas class="lfx lfx-rib" data-fx="pour" aria-hidden="true"></canvas><section class="eps eps1" id="social" aria-labelledby="h-social"><div class="epc"><h2 class="bh" id="h-social">Money is social now</h2><p class="bs">The best parts of life happen with other people.</p><div class="echips"><span class="echip"><img src="assets/6738eff053.webp" alt="">Friday dinners</span><span class="echip"><img src="assets/4d55660b2c.webp" alt="">Road trip</span><span class="echip"><img src="assets/7f87d6fa43.webp" alt="">Dorm 3C</span><span class="echip"><img src="assets/5060878c07.webp" alt="">Game night</span></div></div></section><section class="eps eps2" id="how" aria-labelledby="h-how"><div class="epc"><canvas class="lfx lfx-pool" data-fx="pool" aria-hidden="true"></canvas><h2 class="bh" id="h-how">How social spending works</h2><ol class="esteps"><li><b>Start a pool with your people</b><span>Friends, roommates, teammates, family. Anyone you do life with.</span></li><li><b>Fund it together</b><span>Everyone adds to the pool, so the group’s plans are covered before they start.</span></li><li><b>Spend it together</b><span>Everyone pays with their own card from the same pool, and the whole group sees every&nbsp;spend.</span></li></ol></div></section><section class="eps eps3 mv" id="features" aria-labelledby="h-feat"><div class="epc"><h2 class="bh" id="h-feat">Money that moves like your group</h2><div class="mvw" data-mv><div class="mvs" aria-hidden="true"><div class="mvc" data-k="0"><img src="assets/f3f823a08e.webp" alt="" loading="lazy" style="object-position:50% 50%"><div class="mvo"><span class="mvmc mvmc2"><i>Pool</i><em>Ski trip</em><small>•• 7302</small></span><span class="mvmc"><i>Pool</i><em>Friday dinners</em><small>•• 4821</small></span></div></div><div class="mvc" data-k="1"><img src="assets/5eeadeca8b.webp" alt="" loading="lazy" style="object-position:62% 50%"><div class="mvo"><span class="mvch"><img src="assets/6738eff053.webp" alt="">Maya can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch"><img src="assets/7f87d6fa43.webp" alt="">Rin can tap<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span><span class="mvch mvdim"><img src="assets/5060878c07.webp" alt="">Liv, view only</span></div></div><div class="mvc" data-k="2"><img src="assets/1b0b6bba10.webp" alt="" loading="lazy" style="object-position:50% 40%"><div class="mvo"><span class="mvch"><img src="assets/4d55660b2c.webp" alt="">Leo chipped in<b>+$22</b></span><span class="mvch"><img src="assets/75dfbc8993.webp" alt="">Pizza, Maya<b>−$42.80</b></span></div></div><div class="mvc" data-k="3"><img src="assets/e5e2cc8502.webp" alt="" loading="lazy" style="object-position:45% 50%"><div class="mvo"><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>6-week streak<b>+25</b></span><span class="mvch"><svg class="mvdp" viewBox="0 0 12 16"><path d="M6 1C6 1 1.5 7 1.5 10a4.5 4.5 0 0 0 9 0C10.5 7 6 1 6 1z" fill="#3BA9E0"></path></svg>Pool droplets<b>2,960</b></span><span class="mvch">Custom card unlocked<i class="mvok"><svg viewBox="0 0 12 12"><path d="M3 6.2l2 2 4-4.4" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></i></span></div></div></div><ul class="mvl"><li class="on"><button type="button" data-i="0" aria-pressed="true"><b>Your own card in every pool</b><span class="mvpm" aria-hidden="true"></span></button><p>Each person gets their own virtual card in each pool they’re in.</p></li><li><button type="button" data-i="1" aria-pressed="false"><b>You decide who can spend</b><span class="mvpm" aria-hidden="true"></span></button><p>The pool creator decides if everyone can spend or only the people they pick, and can change it anytime.</p></li><li><button type="button" data-i="2" aria-pressed="false"><b>Everyone sees every spend</b><span class="mvpm" aria-hidden="true"></span></button><p>Every dollar in and every purchase shows up for the whole group.</p></li><li><button type="button" data-i="3" aria-pressed="false"><b>Stack droplets, unlock rewards</b><span class="mvpm" aria-hidden="true"></span></button><p>The more your pool does together, the more droplets you stack, and the more you unlock, from perks and members-only events to a custom card that’s lowkey iconic. <a class="mvlink" href="#droplets">See what droplets unlock</a></p></li></ul></div></div></section><section class="eps eps1 dr" id="drippy" aria-labelledby="h-dr"><div class="epc"><div class="drt"><h2 class="bh" id="h-dr">Meet Drippy</h2><p class="drl">Drippy is part of your pool, and lowkey the most useful one in the group. Ask for whatever: it does the research, drops the best picks and pays when you say bet.</p><p class="dr-free">Included free for a limited time</p></div><div class="drx"><div class="drm" aria-hidden="true"><div class="drb"><img data-m="smug" class="on" src="assets/drippy-smug.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="blink" src="assets/drippy-blink.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="look" src="assets/drippy-look.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="alert" src="assets/drippy-alert.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="happy" src="assets/drippy-happy.webp" alt="" width="640" height="636" loading="lazy" decoding="async"><img data-m="paid" src="assets/drippy-paid.webp" alt="" width="640" height="636" loading="lazy" decoding="async"></div></div><div class="dchat"><div class="drlog" role="log" aria-live="polite" aria-label="Chat with Drippy" tabindex="0"></div><form class="drin" novalidate><input type="text" placeholder="Ask Drippy anything" aria-label="Ask Drippy anything" autocomplete="off" enterkeyhint="send" maxlength="140"><button type="submit" aria-label="Send"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5"/></svg></button></form></div></div><p class="drfine">A preview of Drippy. Places, prices and amounts are examples.</p></div></section><section class="eps eps2 grp" id="groups" aria-labelledby="h-grp"><div class="epc"><div class="grt"><h2 class="bh" id="h-grp">A pool for everyone you do life with</h2><p class="grl">It takes more than 200 hours together before you can call someone a close friend. Give your roommates, your team, your family, your partner and the coworkers you eat with a pool each, for as long as you’re together.</p></div><div class="grx" data-groups></div></div></section><section class="eps eps1 dp" id="droplets" aria-labelledby="h-dp"><div class="epc"><h2 class="bh" id="h-dp">What droplets unlock</h2><p class="bs">Your pool earns droplets for spending together and showing up for each other. The more you stack, the more you&nbsp;unlock.</p><div class="dp-g"><article class="dp-c st-lime"><i class="dp-ic" aria-hidden="true"></i><h3>Perks</h3><p>Discounts, waived fees, exclusive merch and limited brand&nbsp;collabs.</p></article><article class="dp-c st-purple"><i class="dp-ic" aria-hidden="true"></i><h3>Access</h3><p>Members-only events, early access to new features and&nbsp;Drippy.</p></article><article class="dp-c st-pink"><i class="dp-ic" aria-hidden="true"></i><h3>Make it yours</h3><p>A custom physical card, pool colours, app icons and Drippy&nbsp;styles.</p></article><article class="dp-c st-royal"><i class="dp-ic" aria-hidden="true"></i><h3>A say in Pool</h3><p>Vote on what Pool builds next, or request your own&nbsp;feature.</p></article><article class="dp-x"><div class="dp-st" aria-hidden="true"><i class="dp-ic st-lime"></i><i class="dp-ic st-pink"></i><i class="dp-ic st-purple"></i></div><h3>Invite friends, stack faster</h3><p>Every friend who joins with your invite link boosts your droplet multiplier and moves you up the early access&nbsp;list.</p><p class="dp-badge">Founding badge for early joiners</p><a class="dp-cta" href="#join">Get early access</a></article></div></div></section><section class="eps eps3" id="join" aria-labelledby="h-join"><div class="epc"><h2 class="bh" id="h-join">Pool is launching very soon.</h2><p class="bs">Join the waitlist for early access. Every friend who joins with your invite link moves you up the list and boosts your droplet&nbsp;multiplier.</p><p class="jref" id="wl-ref" hidden>A friend invited you to Pool.</p><form class="join" id="waitlist" novalidate data-endpoint="https://app.loops.so/api/newsletter-form/cmwl3l3fe00og0jyopp1idia0"><label class="vh" for="wl-email">Your email</label><input id="wl-email" class="jin" type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@email.com" required><input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="go" type="submit">Get early access</button></form><div class="jshare" id="wl-share" hidden><p class="jsh-t" id="wl-share-t" tabindex="-1">You’re on the early access list.</p><p class="jsh-s">Send your link to your friends. You climb the list as each one joins.</p><div class="join jsh-pill"><label class="vh" for="wl-link">Your invite link</label><input id="wl-link" class="jin" type="text" readonly><button class="go" type="button" id="wl-copy">Copy link</button></div><button class="jsh-go" type="button" id="wl-sharebtn" hidden>Share invite link</button></div><p class="jmsg" id="wl-msg" role="status" aria-live="polite"></p><p class="jfine">We only use your email for Pool updates and your invite link. <a href="/privacy">Privacy policy</a></p></div></section><section class="eps eps1 fq" id="faq" aria-labelledby="h-faq" data-lay="0"><div class="epc"><div class="fqw"><div class="fqt"><h2 class="bh" id="h-faq">Questions, answered</h2></div><div class="fqx" data-faq></div></div></div></section><footer class="ft"><div class="ft-in"><a class="ft-lg" href="#top" aria-label="Pool, back to top"><img src="assets/pool-logo.webp" alt="" width="58" height="64"><b>Pool</b></a><p class="ft-tg">Life’s better pooled.</p><p class="ft-ln">The social layer of money. Social money for you and your friends, with your own card in every pool.</p><nav class="ft-nv" aria-label="Footer"><a href="#how">How it works</a><a href="#drippy">Drippy</a><a href="#groups">Groups</a><a href="#droplets">Droplets</a><a href="#faq">FAQ</a><a href="#join">Get early access</a></nav><p class="ft-lgl">Pool is launching very soon. Names, groups, places and amounts on this page are examples. Each person gets their own virtual card in each pool they’re in. Droplets have no cash value. Pool doesn’t lend money and never charges interest. © 2026 Pool Labs Inc. <a href="/privacy">Privacy policy</a></p></div></footer></div>
 
 </div>
 <script>
@@ -1685,20 +1746,48 @@ var LFX = (function () {
     document.addEventListener('pointerdown', function (e) { if (!menu.hidden && !e.target.closest('.nav')) closeMenu(false); });
   }
 
-  // the waitlist: checks the address, then sends it to the Loops form endpoint named in the form's data-endpoint
-  // (Loops > Forms > Settings). With no endpoint set, nothing is saved, and the message says so honestly.
+  // the waitlist: checks the address, then sends it to /api/join (a Vercel function, see site/api/join.js), which adds the
+  // person to Loops and hands back their invite link. If that function isn't there (a local preview) or fails, the address
+  // goes straight to the Loops form endpoint in the form's data-endpoint instead, so a sign-up is never lost.
+  // An invite code arrives as ?ref=<code>; it is kept in localStorage until the person joins.
   var form = document.getElementById('waitlist'), msg = document.getElementById('wl-msg');
+  var share = document.getElementById('wl-share'), refNote = document.getElementById('wl-ref');
+  var REF = /^[a-z2-9]{8}$/, ref = '';
+  try {
+    var q = new URLSearchParams(location.search).get('ref');
+    if (q && REF.test(q)) { ref = q; localStorage.setItem('pool_ref', q); }
+    else { var kept = localStorage.getItem('pool_ref'); if (kept && REF.test(kept)) ref = kept; }
+  } catch (e) { /* storage off: the code still works for this visit */ }
+  if (ref && refNote) refNote.hidden = false;
+
+  function showShare(code, already) {
+    var link = location.origin + '/?ref=' + code, field = document.getElementById('wl-link');
+    var copy = document.getElementById('wl-copy'), go = document.getElementById('wl-sharebtn'), t = document.getElementById('wl-share-t');
+    t.textContent = already ? 'You’re already on the early access list.' : 'You’re on the early access list.';
+    field.value = link;
+    copy.onclick = function () {
+      var ok = function () { copy.textContent = 'Copied'; setTimeout(function () { copy.textContent = 'Copy link'; }, 1800); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(ok, function () { field.select(); });
+      else { field.select(); try { document.execCommand('copy'); ok(); } catch (e) { /* the link stays selected to copy by hand */ } }
+    };
+    if (navigator.share) {
+      go.hidden = false;
+      go.onclick = function () {
+        navigator.share({ title: 'Pool', text: 'Join me on Pool, the social layer of money. Get early access with my link:', url: link }).catch(function () {});
+      };
+    }
+    form.hidden = true; share.hidden = false; msg.textContent = '';
+    if (refNote) refNote.hidden = true;
+    try { localStorage.removeItem('pool_ref'); } catch (e) { /* nothing kept */ }
+    t.focus({ preventScroll: true });
+  }
+
   if (form && msg) form.addEventListener('submit', function (e) {
     e.preventDefault();
     var v = (form.email.value || '').trim(), url = form.getAttribute('data-endpoint') || '', btn = form.querySelector('button');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) {
       msg.textContent = 'Enter an email address, like you@email.com.';
       form.email.focus();
-      return;
-    }
-    if (!url) {
-      msg.textContent = 'Thanks! This preview doesn’t save sign-ups yet; the real list opens before Pool launches.';
-      form.reset();
       return;
     }
     if (form.getAttribute('aria-busy') === 'true') return;
@@ -1708,19 +1797,40 @@ var LFX = (function () {
       msg.textContent = text; form.removeAttribute('aria-busy'); if (btn) btn.disabled = false;
       if (ok) form.reset();
     };
-    fetch(url, {
+    var viaForm = function () {
+      if (!url) { done('Thanks! This preview doesn’t save sign-ups yet; the real list opens before Pool launches.', true); return; }
+      fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'email=' + encodeURIComponent(v) + '&source=' + encodeURIComponent('Website waitlist')
+      }).then(function (r) {
+        if (r.status === 429) { done('Too many sign-ups from here just now. Try again in a minute.', false); return null; }
+        return r.json().catch(function () { return { success: r.ok }; });
+      }).then(function (j) {
+        if (!j) return;
+        if (j.success) done('You’re on the early access list. We’ll email your invite when Pool launches.', true);
+        else if (/already/i.test(j.message || '')) done('You’re already on the early access list. We’ll email your invite when Pool launches.', true);
+        else done('That didn’t go through. Check the address and try again.', false);
+      }, function () { done('That didn’t go through. Check your connection and try again.', false); });
+    };
+    fetch('/api/join', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: 'email=' + encodeURIComponent(v) + '&source=' + encodeURIComponent('Website waitlist')
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: v, ref: ref, company: form.company ? form.company.value : '' })
     }).then(function (r) {
       if (r.status === 429) { done('Too many sign-ups from here just now. Try again in a minute.', false); return null; }
-      return r.json().catch(function () { return { success: r.ok }; });
+      if (r.status === 400) { done('Enter an email address, like you@email.com.', false); return null; }
+      if (!r.ok) throw new Error('join ' + r.status);
+      return r.json();
     }).then(function (j) {
       if (!j) return;
-      if (j.success) done('You’re on the early access list. We’ll email your invite when Pool launches.', true);
-      else if (/already/i.test(j.message || '')) done('You’re already on the early access list. We’ll email your invite when Pool launches.', true);
-      else done('That didn’t go through. Check the address and try again.', false);
-    }, function () { done('That didn’t go through. Check your connection and try again.', false); });
+      if (j.ok && j.tracking && j.code) { done('', true); showShare(j.code, j.already); }
+      else if (j.ok) {
+        done(j.already ? 'You’re already on the early access list. We’ll email your invite when Pool launches.' : 'You’re on the early access list. We’ll email your invite when Pool launches.', true);
+        try { localStorage.removeItem('pool_ref'); } catch (e) { /* nothing kept */ }
+      }
+      else throw new Error('join failed');
+    }).catch(function () { viaForm(); });
   });
 })();
 
@@ -1972,9 +2082,9 @@ var LFX = (function () {
     ['Who controls the money?', 'The pool creator decides if everyone can spend or only the people they pick, and can change it anytime. Every spend shows up for the whole pool, and nobody can move the pool’s money into their own account, the creator included.'],
     ['What does Drippy do?', 'Drippy works inside your pool. It researches options, makes suggestions and pays for things, but only after your group says yes. Drippy is included free for a limited time when Pool launches.'],
     ['Where will our money be kept?', 'With a partner bank, never in one person’s account. Pool is a fintech, not a bank.'],
-    ['What are droplets?', 'Rewards your pool earns for spending together and showing up for each other. The more you stack, the bigger the rewards: discounts, waived fees, exclusive merch, members-only events, Drippy access, a custom physical Pool card and a say in the features Pool builds next, including requesting your own. Droplets have no cash value.'],
+    ['What are droplets?', 'Rewards your pool earns for spending together and showing up for each other. Use them on perks and merch drops, members-only events and early access, a custom card and custom looks for your pool and Drippy, and a say in what Pool builds next. Every friend who joins with your invite link boosts your droplet multiplier.'],
     ['Can we get a physical card?', 'Yes. Everyone gets their own virtual card in each pool they’re in, and once your pool stacks enough droplets you can redeem them for your own custom physical Pool card.'],
-    ['When can we start?', 'Pool is launching very soon. Join the waitlist for early access, and sign up with your friends so you all get in together.']
+    ['When can we start?', 'Pool is launching very soon. Join the waitlist for early access, then share your invite link: every friend who joins moves you up the list and boosts your droplet multiplier.']
   ];
   const N = Q.length;
   const COL = ['ink', 'red', 'lime', 'purple', 'pink', 'orange', 'royal'];
