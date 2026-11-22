@@ -37,7 +37,7 @@ module.exports = async function handler(req, res) {
         transactionalId: id,
         email: process.env.CONTACT_TO || 'hello@poolapp.co',
         addToAudience: false,
-        dataVariables: { name, email, topic: clip(b.topic, 60).trim() || 'Not given', message }
+        dataVariables: { name, email, replyTo: email, topic: clip(b.topic, 60).trim() || 'Not given', message }
       })
     });
     if (!r.ok) {
