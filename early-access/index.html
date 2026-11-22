@@ -289,6 +289,7 @@ body{margin:0;background:#E4E4E1;color:#1B1F27;font-family:Figtree,system-ui,san
 .epg .lfx-rib{z-index:0}
 .epc .lfx-pool{top:calc(-5*var(--u));height:calc(100% + 5*var(--u));z-index:-1}
 :is(.ed-poolfill,.ed-poolfed) .eps2 .epc>:is(.bh,.esteps){-webkit-mask-image:linear-gradient(180deg,transparent 0,transparent calc(var(--lfx-cut,-9999px) - 2px),#000 calc(var(--lfx-cut,-9999px) + 8px));mask-image:linear-gradient(180deg,transparent 0,transparent calc(var(--lfx-cut,-9999px) - 2px),#000 calc(var(--lfx-cut,-9999px) + 8px))}
+:is(.ed-poolfill,.ed-poolfed) .eps2 .epc>.bh{padding-bottom:.24em;margin-bottom:-.24em}
 @supports (animation-timeline: view()){
   .sc .eps{view-timeline:--esec block}
   .sc .epg{view-timeline:--epg block}
@@ -484,9 +485,8 @@ html{scroll-behavior:smooth}
 .dk{display:grid;padding-top:calc(3.6*var(--t))}
 .dk-c{grid-area:1/1;position:relative;isolation:isolate;display:flex;flex-direction:column;padding:calc(2.6*var(--t)) calc(2.6*var(--t)) calc(2.4*var(--t));border-radius:calc(2.4*var(--t));color:var(--sc,#fff);box-shadow:0 calc(1.2*var(--t)) calc(3*var(--t)) calc(-1.6*var(--t)) rgba(23,43,71,.4);transform-origin:50% 0;transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .4s ease}
 .dk-bg{background:linear-gradient(180deg,#FFFFFF,#F2F8FD)}
-/* the cards behind are calm white, like the phone stack; only the answer in front shows its colour */
-.dk-bg::before{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--sb);opacity:0;transition:opacity .3s ease}
-.dk-c[data-r="0"] .dk-bg::before{opacity:1}
+/* every card in the stack shows its own colour, so the next questions peek out above the open one in theirs */
+.dk-bg::before{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--sb);opacity:1;transition:opacity .3s ease}
 .dk-c[data-r="0"]{z-index:20}
 .dk-c[data-r="1"]{z-index:12;transform:translateY(calc(-1.8*var(--t))) scale(.94)}
 .dk-c[data-r="2"]{z-index:10;transform:translateY(calc(-3.6*var(--t))) scale(.88)}
@@ -664,7 +664,7 @@ html{scroll-behavior:smooth}
 </head>
 <body>
 <div class="sc pal-skyred ty0 ea" id="top">
-<header class="nav"><a class="brand" href="/" aria-label="Pool home"><img src="/assets/pool-logo.webp" alt="" width="216" height="240"><span class="wm">Pool</span></a><nav class="lk" aria-label="Main"><a href="/#how">How it works</a><a href="/#droplets">Droplets</a><a href="/#faq">FAQ</a><a href="mailto:hello@poolapp.co">Contact</a></nav><a class="cta" href="#ea-form" aria-current="page">Get early access</a><button class="mb" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button><div class="menu" id="menu" hidden><a href="/#how">How it works</a><a href="/#droplets">Droplets</a><a href="/#faq">FAQ</a><a href="mailto:hello@poolapp.co">Contact</a><a href="/early-access">Get early access</a></div></header>
+<header class="nav"><a class="brand" href="/" aria-label="Pool home"><img src="/assets/pool-logo.webp" alt="" width="216" height="240"><span class="wm">Pool</span></a><nav class="lk" aria-label="Main"><a href="/#how">How it works</a><a href="/#droplets">Droplets</a><a href="/#faq">FAQ</a><a href="/contact">Contact</a></nav><a class="cta" href="#ea-form" aria-current="page">Get early access</a><button class="mb" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button><div class="menu" id="menu" hidden><a href="/#how">How it works</a><a href="/#droplets">Droplets</a><a href="/#faq">FAQ</a><a href="/contact">Contact</a><a href="/early-access">Get early access</a></div></header>
 <main class="ea-main">
 <div class="ea-grid">
 <div class="ea-intro">
@@ -705,13 +705,10 @@ html{scroll-behavior:smooth}
 </div>
 </div>
 </main>
-<footer class="ft"><div class="ft-in"><a class="ft-lg" href="/" aria-label="Pool home"><img src="/assets/pool-logo.webp" alt="" width="58" height="64"><b>Pool</b></a><p class="ft-tg">Life’s better pooled.</p><p class="ft-ln">The social layer of money. Social money for you and your friends, with your own card in every pool.</p><nav class="ft-nv" aria-label="Footer"><a href="/#how">How it works</a><a href="/#drippy">Drippy</a><a href="/#groups">Groups</a><a href="/#droplets">Droplets</a><a href="/#faq">FAQ</a><a href="mailto:hello@poolapp.co">Contact</a><a href="/early-access">Get early access</a></nav><p class="ft-lgl">Pool is launching very soon. Each person gets their own virtual card in each pool they’re in. Droplets have no cash value. Pool doesn’t lend money and never charges interest. © 2026 Pool Labs Inc. <a href="/privacy">Privacy policy</a></p></div></footer>
+<footer class="ft"><div class="ft-in"><a class="ft-lg" href="/" aria-label="Pool home"><img src="/assets/pool-logo.webp" alt="" width="58" height="64"><b>Pool</b></a><p class="ft-tg">Life’s better pooled.</p><p class="ft-ln">The social layer of money. Social money for you and your friends, with your own card in every pool.</p><nav class="ft-nv" aria-label="Footer"><a href="/#how">How it works</a><a href="/#drippy">Drippy</a><a href="/#groups">Groups</a><a href="/#droplets">Droplets</a><a href="/#faq">FAQ</a><a href="/contact">Contact</a><a href="/early-access">Get early access</a></nav><p class="ft-lgl">Pool is launching very soon. Each person gets their own virtual card in each pool they’re in. Droplets have no cash value. Pool doesn’t lend money and never charges interest. © 2026 Pool Labs Inc. <a href="/privacy">Privacy policy</a></p></div></footer>
 </div>
 <script>
-/* Early access page. The phone menu works like the home page's. The form: name and email are required, the rest optional.
-   It sends to /api/join (a Vercel function that saves the person in Loops and returns their invite code); without that
-   function (a local preview) it falls back to the Loops form endpoint with the email and name only. An invite code from
-   ?ref= or the home page (localStorage) is passed along. The pass beside the form shows the name as it is typed. */
+/* Phone menu on the subpages (early access, contact): same behaviour as the home page's. */
 (function () {
   var nav = document.querySelector('.nav'), mb = nav && nav.querySelector('.mb'), menu = document.getElementById('menu');
   if (mb && menu) {
@@ -722,6 +719,13 @@ html{scroll-behavior:smooth}
     document.addEventListener('pointerdown', function (e) { if (!menu.hidden && !nav.contains(e.target)) setMenu(false); });
   }
 
+})();
+
+/* Early access page. The phone menu works like the home page's. The form: name and email are required, the rest optional.
+   It sends to /api/join (a Vercel function that saves the person in Loops and returns their invite code); without that
+   function (a local preview) it falls back to the Loops form endpoint with the email and name only. An invite code from
+   ?ref= or the home page (localStorage) is passed along. The pass beside the form shows the name as it is typed. */
+(function () {
   var form = document.getElementById('ea-form'), msg = document.getElementById('ea-msg');
   if (!form) return;
   var REF = /^[a-z2-9]{8}$/, ref = '', qs;
