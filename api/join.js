@@ -47,20 +47,33 @@ function newCode() {
   return s;
 }
 
+const wait = ms => new Promise(r => setTimeout(r, ms));
+
+// Loops allows about 10 requests a second per account; on a 429 wait for the window to reset and try again (twice)
 async function loops(path, key, init) {
-  const r = await fetch(LOOPS + path, Object.assign({}, init, {
-    headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' }
-  }));
-  let body = null;
-  try { body = await r.json(); } catch (e) { /* empty reply */ }
+  let r, body = null;
+  for (let i = 0; i < 3; i++) {
+    r = await fetch(LOOPS + path, Object.assign({}, init, {
+      headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' }
+    }));
+    body = null;
+    try { body = await r.json(); } catch (e) { /* empty reply */ }
+    if (r.status !== 429) break;
+    const after = Number(r.headers && r.headers.get && r.headers.get('retry-after'));
+    await wait(after > 0 && after < 5 ? after * 1000 : 1100);
+  }
+  if (!r.ok) console.log('loops', (init && init.method) || 'GET', path.split('?')[0], r.status, body && (body.message || body.error) || '');
   return { ok: r.ok, status: r.status, body };
 }
 
+// creates the custom properties the first time; only creates ones Loops doesn't list, spaced out so it can't trip the rate limit
 async function ensureProps(key) {
   const r = await loops('/contacts/properties?list=custom', key);
-  const have = new Set((Array.isArray(r.body) ? r.body : []).map(p => p.key || p.name));
+  const list = Array.isArray(r.body) ? r.body : (r.body && Array.isArray(r.body.properties) ? r.body.properties : null);
+  if (!list) return;
+  const have = new Set(list.map(p => p.key || p.name));
   for (const [name, type] of PROPS) {
-    if (!have.has(name)) await loops('/contacts/properties', key, { method: 'POST', body: JSON.stringify({ name, type }) });
+    if (!have.has(name)) { await loops('/contacts/properties', key, { method: 'POST', body: JSON.stringify({ name, type }) }); await wait(150); }
   }
 }
 
