@@ -12,7 +12,11 @@
    The three custom properties are created in Loops on first use if they don't exist yet.
 
    Without the key, the function posts to the same Loops form the site used before, so sign-ups are saved either way;
-   it just can't hand out invite links. LOOPS_LIST_ID (optional) adds new contacts to that Loops mailing list. */
+   it just can't hand out invite links. LOOPS_LIST_ID (optional) adds new contacts to that Loops mailing list.
+
+   LOOPS_WAITLIST_ID (optional) is the Loops transactional email "Waitlist": a welcome note from Hussam with the
+   person's invite link. It goes once, to new sign-ups only, with the data variables firstName ("there" when no
+   name was given) and inviteLink. If it fails, the sign-up still counts. */
 
 const crypto = require('crypto');
 
@@ -63,6 +67,18 @@ async function ensureProps(key) {
 async function find(key, query) {
   const r = await loops('/contacts/find?' + query, key);
   return Array.isArray(r.body) && r.body.length ? r.body[0] : null;
+}
+
+// the welcome email; a failure here never blocks the sign-up
+async function welcome(key, email, first, code) {
+  const id = process.env.LOOPS_WAITLIST_ID;
+  if (!id) return;
+  try {
+    await loops('/transactional', key, { method: 'POST', body: JSON.stringify({
+      transactionalId: id, email, addToAudience: false,
+      dataVariables: { firstName: first || 'there', inviteLink: 'https://poolapp.co/?ref=' + code }
+    }) });
+  } catch (e) { /* sign-up already saved */ }
 }
 
 function update(key, fields) {
@@ -128,6 +144,7 @@ module.exports = async function handler(req, res) {
     if (!made.ok) { res.status(502).json({ ok: false, error: 'upstream' }); return; }
 
     if (by) await update(key, { email: inviter.email, invites: (Number(inviter.invites) || 0) + 1 });
+    await welcome(key, email, prof.firstName, code);
     res.status(200).json({ ok: true, already: false, tracking: true, code });
   } catch (e) {
     res.status(502).json({ ok: false, error: 'upstream' });
